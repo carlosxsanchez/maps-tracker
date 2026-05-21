@@ -248,6 +248,17 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
     <div class="scroll" id="progress-content"></div>
   </div>
 
+  <!-- ══ SETTINGS ══ -->
+  <div class="screen" id="screen-settings">
+    <div class="header">
+      <div class="header-left">
+        <h1>SETTINGS</h1>
+        <p>Data, import and export</p>
+      </div>
+    </div>
+    <div class="scroll" id="settings-content"></div>
+  </div>
+
   <!-- ══ NAV ══ -->
   <nav class="nav">
     <button class="nav-btn active" onclick="switchScreen('home')" id="nav-home">
@@ -261,6 +272,10 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
     <button class="nav-btn" onclick="switchScreen('progress')" id="nav-progress">
       <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
       Progress
+    </button>
+    <button class="nav-btn" onclick="switchScreen('settings')" id="nav-settings">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      Settings
     </button>
   </nav>
 </div>
@@ -300,7 +315,7 @@ const PROGRAMS = {
     totalWeeks: 12,
     phases: [
       {
-        num: 1, name: 'Raw Strength', weeks: 3, startWeek: 1,
+        num: 1, name: 'Raw Strength', weeks: 3, workoutsRequired: 9, startWeek: 1,
         objective: 'Build maximal strength',
         intensity: '85-90%', tempo: '5:1:1', rest: '3-5 min',
         sets: '2-5 sets', reps: '1-6 reps',
@@ -332,7 +347,7 @@ const PROGRAMS = {
         ]
       },
       {
-        num: 2, name: 'Reactive Strength', weeks: 3, startWeek: 4,
+        num: 2, name: 'Reactive Strength', weeks: 3, workoutsRequired: 9, startWeek: 4,
         objective: 'Build multi-planar strength',
         intensity: '75-85%', tempo: '2:0:2', rest: '30-90 sec',
         sets: '3-4 sets', reps: '15-20 reps',
@@ -362,7 +377,7 @@ const PROGRAMS = {
         ]
       },
       {
-        num: 3, name: 'Explosive Strength', weeks: 3, startWeek: 7,
+        num: 3, name: 'Explosive Strength', weeks: 3, workoutsRequired: 9, startWeek: 7,
         objective: 'Build quick and powerful strength',
         intensity: '60-65%', tempo: '5:1:1', rest: '3-5 min',
         sets: '4 sets', reps: '15-20 reps',
@@ -384,7 +399,7 @@ const PROGRAMS = {
         ]
       },
       {
-        num: 4, name: 'Strength Durability', weeks: 3, startWeek: 10,
+        num: 4, name: 'Strength Durability', weeks: 3, workoutsRequired: 9, startWeek: 10,
         objective: 'Expand strength endurance and conditioning',
         intensity: '80-90%', tempo: '—', rest: 'Move with composure',
         sets: '4 circuits', reps: 'Max reps / timed',
@@ -413,7 +428,7 @@ const PROGRAMS = {
     totalWeeks: 10,
     phases: [
       {
-        num: 1, name: 'Foundation', weeks: 3, startWeek: 1,
+        num: 1, name: 'Foundation', weeks: 3, workoutsRequired: 9, startWeek: 1,
         objective: 'Build a muscular and aesthetic base',
         intensity: '75-80%', tempo: '3:1:1', rest: '60-90 sec',
         sets: '3-4 sets', reps: '8-12 reps',
@@ -441,7 +456,7 @@ const PROGRAMS = {
         ]
       },
       {
-        num: 2, name: 'Hypertrophy', weeks: 4, startWeek: 4,
+        num: 2, name: 'Hypertrophy', weeks: 4, workoutsRequired: 12, startWeek: 4,
         objective: 'Maximize muscle growth',
         intensity: '65-75%', tempo: '2:0:2', rest: '60-90 sec',
         sets: '3-4 sets', reps: '10-15 reps',
@@ -467,7 +482,7 @@ const PROGRAMS = {
         ]
       },
       {
-        num: 3, name: 'Cut / Conditioning', weeks: 3, startWeek: 8,
+        num: 3, name: 'Cut / Conditioning', weeks: 3, workoutsRequired: 9, startWeek: 8,
         objective: 'Reveal muscle definition and conditioning',
         intensity: '55-65%', tempo: '1:0:1', rest: '30-45 sec',
         sets: '4-5 sets', reps: '15-20 reps',
@@ -509,14 +524,117 @@ let state = {
 
 let modalCtx = null; // { exIdx, setIdx }
 
+// ═══════════════════════════════════════════════════════
+// STORAGE — with multi-version migration
+// ═══════════════════════════════════════════════════════
+const STORAGE_KEY = 'maps_state_v4';
+const LEGACY_KEYS = ['maps_state_v3', 'maps_state_v2', 'maps_state_v1', 'maps_state'];
+
 function loadState() {
   try {
-    const saved = localStorage.getItem('maps_state_v4');
-    if (saved) state = { ...state, ...JSON.parse(saved) };
-  } catch(e) {}
+    // Try current key first
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) { state = { ...state, ...JSON.parse(saved) }; return; }
+    // Auto-migrate from any prior version
+    for (const key of LEGACY_KEYS) {
+      const legacy = localStorage.getItem(key);
+      if (legacy) {
+        const parsed = JSON.parse(legacy);
+        state = { ...state, ...parsed };
+        saveState(); // re-save under new key
+        console.log('Migrated data from', key);
+        return;
+      }
+    }
+  } catch(e) { console.warn('loadState error:', e); }
 }
+
 function saveState() {
-  try { localStorage.setItem('maps_state_v4', JSON.stringify(state)); } catch(e) {}
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+}
+
+// ── Export: download state as JSON file ──
+function exportData() {
+  try {
+    const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'maps_backup_' + new Date().toISOString().slice(0,10) + '.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('Backup downloaded');
+  } catch(e) {
+    showToast('Export failed: ' + e.message);
+  }
+}
+
+// ── Import: read a JSON file or raw JSON paste ──
+function importFromFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => applyImport(e.target.result);
+  reader.readAsText(file);
+}
+
+function importFromPaste() {
+  const text = document.getElementById('import-paste').value.trim();
+  if (!text) { showToast('Paste your JSON first'); return; }
+  applyImport(text);
+}
+
+function applyImport(jsonText) {
+  try {
+    const parsed = JSON.parse(jsonText);
+    // Validate it looks like MAPS data
+    if (typeof parsed !== 'object') throw new Error('Not a valid MAPS backup');
+    // Merge history (deduplicate by startTs)
+    const existingTs = new Set((state.workoutHistory || []).map(w => w.startTs));
+    const incoming = (parsed.workoutHistory || []).filter(w => !existingTs.has(w.startTs));
+    state.workoutHistory = [...(state.workoutHistory || []), ...incoming]
+      .sort((a, b) => (b.endTs || b.startTs) - (a.endTs || a.startTs));
+    // Restore program settings if not already set
+    if (!state.selectedProgram && parsed.selectedProgram) state.selectedProgram = parsed.selectedProgram;
+    if (!state.programStartDate && parsed.programStartDate) state.programStartDate = parsed.programStartDate;
+    saveState();
+    showToast(`Imported ${incoming.length} workout${incoming.length !== 1 ? 's' : ''}`);
+    renderSettings();
+    renderProgress();
+  } catch(e) {
+    showToast('Import failed: ' + e.message);
+  }
+}
+
+// ── Toast ──
+function showToast(msg) {
+  let t = document.getElementById('toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'toast';
+    t.style.cssText = 'position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#222;color:#f0f0f0;padding:10px 18px;border-radius:20px;font-size:14px;font-weight:500;z-index:999;border:1px solid rgba(255,255,255,0.1);pointer-events:none;opacity:0;transition:opacity 0.2s';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.style.opacity = '1';
+  setTimeout(() => { t.style.opacity = '0'; }, 2500);
+}
+
+// ── Scan all localStorage keys for any MAPS data ──
+function scanAllKeys() {
+  const found = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key && key.toLowerCase().includes('maps')) {
+      try {
+        const val = JSON.parse(localStorage.getItem(key));
+        if (val && val.workoutHistory) found.push({ key, count: val.workoutHistory.length });
+      } catch(e) {}
+    }
+  }
+  return found;
 }
 
 // ═══════════════════════════════════════════════════════
@@ -531,57 +649,139 @@ function switchScreen(name) {
   if (name === 'home') renderHome();
   if (name === 'log') renderLog();
   if (name === 'progress') renderProgress();
+  if (name === 'settings') renderSettings();
 }
 
 // ═══════════════════════════════════════════════════════
-// PHASE CALCULATION
+// SETTINGS SCREEN
 // ═══════════════════════════════════════════════════════
-function getCurrentPhaseInfo(programId, startDateStr) {
+function renderSettings() {
+  const count = (state.workoutHistory || []).length;
+  const legacyFound = scanAllKeys();
+  const legacyHtml = legacyFound.length ? `
+    <div class="card" style="margin-bottom:12px;border-color:rgba(74,158,255,0.3)">
+      <div class="card-label" style="color:var(--blue)">Legacy Data Detected</div>
+      <div style="font-size:13px;color:var(--text2);margin:6px 0 12px;line-height:1.5">
+        Found ${legacyFound.map(f => `<strong style="color:var(--text)">${f.count} workouts</strong> in <code style="font-size:11px;color:var(--text3)">${f.key}</code>`).join(', ')} from a prior version.
+      </div>
+      <button class="btn btn-primary" onclick="migrateAllLegacy()">Import Legacy Data Now</button>
+    </div>` : '';
+
+  document.getElementById('settings-content').innerHTML = `
+    <div class="section-label">Current Data</div>
+    <div class="card" style="margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div style="font-size:15px;font-weight:600">${count} workout${count !== 1 ? 's' : ''} logged</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:3px">
+            ${state.selectedProgram ? 'Program: ' + PROGRAMS[state.selectedProgram].name : 'No program selected'}
+            ${state.programStartDate ? ' · Started ' + new Date(state.programStartDate).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : ''}
+          </div>
+        </div>
+        <div class="badge badge-green">${STORAGE_KEY}</div>
+      </div>
+    </div>
+
+    ${legacyHtml}
+
+    <div class="section-label">Backup & Restore</div>
+    <div class="card" style="margin-bottom:12px">
+      <div style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.5">
+        Export saves everything — your program, start date, and full workout history — as a JSON file. Use it to move data to a new device or the Vercel app.
+      </div>
+      <button class="btn btn-primary" onclick="exportData()" style="margin-bottom:10px">Export Backup (JSON)</button>
+    </div>
+
+    <div class="card" style="margin-bottom:12px">
+      <div class="card-label">Import from File</div>
+      <div style="font-size:13px;color:var(--text2);margin:6px 0 12px;line-height:1.5">
+        Select a <code style="font-size:11px;color:var(--text3)">.json</code> backup file. Workouts will be merged — no duplicates created.
+      </div>
+      <label style="display:block;background:var(--bg3);border:1px dashed var(--border);border-radius:10px;padding:14px;text-align:center;cursor:pointer;font-size:14px;color:var(--text2)">
+        Tap to choose file
+        <input type="file" accept=".json,application/json" onchange="importFromFile(this)" style="display:none">
+      </label>
+    </div>
+
+    <div class="card" style="margin-bottom:24px">
+      <div class="card-label">Import from Clipboard / Paste</div>
+      <div style="font-size:13px;color:var(--text2);margin:6px 0 12px;line-height:1.5">
+        Paste raw JSON from a backup if the file picker does not work on your device.
+      </div>
+      <textarea id="import-paste" placeholder="Paste JSON backup here..." style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px;color:var(--text);font-size:13px;min-height:80px;resize:vertical;font-family:monospace"></textarea>
+      <button class="btn btn-primary" onclick="importFromPaste()" style="margin-top:10px">Import from Paste</button>
+    </div>
+
+    <div class="section-label">Danger Zone</div>
+    <div class="card" style="margin-bottom:24px">
+      <div style="font-size:13px;color:var(--text2);margin-bottom:12px">Permanently deletes all workout history and resets settings. Export a backup first.</div>
+      <button class="btn btn-danger" style="width:100%" onclick="resetAllData()">Reset All Data</button>
+    </div>`;
+}
+
+function migrateAllLegacy() {
+  let totalImported = 0;
+  const existingTs = new Set((state.workoutHistory || []).map(w => w.startTs));
+  for (const key of [...LEGACY_KEYS, ...scanAllKeys().map(f => f.key)]) {
+    try {
+      const val = JSON.parse(localStorage.getItem(key) || 'null');
+      if (!val || !val.workoutHistory) continue;
+      const incoming = val.workoutHistory.filter(w => !existingTs.has(w.startTs));
+      incoming.forEach(w => existingTs.add(w.startTs));
+      state.workoutHistory = [...(state.workoutHistory || []), ...incoming];
+      if (!state.selectedProgram && val.selectedProgram) state.selectedProgram = val.selectedProgram;
+      if (!state.programStartDate && val.programStartDate) state.programStartDate = val.programStartDate;
+      totalImported += incoming.length;
+    } catch(e) {}
+  }
+  state.workoutHistory.sort((a, b) => (b.endTs || b.startTs) - (a.endTs || a.startTs));
+  saveState();
+  showToast(`Imported ${totalImported} workout${totalImported !== 1 ? 's' : ''} from legacy data`);
+  renderSettings();
+  renderProgress();
+}
+
+function resetAllData() {
+  if (!confirm('This will permanently delete all your workout history and settings. Export a backup first. Continue?')) return;
+  state = { selectedProgram: null, programStartDate: null, activeWorkout: null, workoutHistory: [], currentScreen: 'home' };
+  saveState();
+  showToast('All data reset');
+  renderSettings();
+  renderHome();
+}
+
+// ═══════════════════════════════════════════════════════
+// PHASE CALCULATION — based on workouts completed, not dates
+// ═══════════════════════════════════════════════════════
+function countCompletedWorkouts(programId) {
+  return (state.workoutHistory || []).filter(w => w.programId === programId).length;
+}
+
+function getCurrentPhaseInfo(programId) {
   const prog = PROGRAMS[programId];
-  if (!prog || !startDateStr) return null;
-  const start = new Date(startDateStr);
-  start.setHours(0, 0, 0, 0);
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const daysSinceStart = Math.floor((today - start) / 86400000);
-  const weeksSinceStart = Math.floor(daysSinceStart / 7);
+  if (!prog) return null;
+  const completed = countCompletedWorkouts(programId);
+  let cumWorkouts = 0;
   let currentPhase = null;
-  let weeksIntoPhase = 0;
-  let totalWeeksSoFar = 0;
+  let workoutsIntoPhase = 0;
   for (const ph of prog.phases) {
-    if (weeksSinceStart < totalWeeksSoFar + ph.weeks) {
+    if (completed < cumWorkouts + ph.workoutsRequired) {
       currentPhase = ph;
-      weeksIntoPhase = weeksSinceStart - totalWeeksSoFar;
+      workoutsIntoPhase = completed - cumWorkouts;
       break;
     }
-    totalWeeksSoFar += ph.weeks;
+    cumWorkouts += ph.workoutsRequired;
   }
+  // Program complete — stay on last phase
   if (!currentPhase) {
     currentPhase = prog.phases[prog.phases.length - 1];
-    weeksIntoPhase = currentPhase.weeks;
+    workoutsIntoPhase = currentPhase.workoutsRequired;
   }
-  const weeksRemaining = currentPhase.weeks - weeksIntoPhase;
-  // Next phase switch date
-  const phaseSwitchWeek = totalWeeksSoFar + currentPhase.weeks;
-  const switchDate = new Date(start);
-  switchDate.setDate(switchDate.getDate() + phaseSwitchWeek * 7);
-  return { currentPhase, weeksIntoPhase, weeksRemaining, switchDate, weeksSinceStart, totalWeeksSoFar, prog };
-}
-
-function getPhaseSwitchDates(programId, startDateStr) {
-  const prog = PROGRAMS[programId];
-  if (!prog || !startDateStr) return [];
-  const start = new Date(startDateStr);
-  start.setHours(0, 0, 0, 0);
-  const switches = [];
-  let cumWeeks = 0;
-  for (const ph of prog.phases) {
-    cumWeeks += ph.weeks;
-    const d = new Date(start);
-    d.setDate(d.getDate() + cumWeeks * 7);
-    switches.push(d);
-  }
-  return switches;
+  const workoutsRemaining = Math.max(0, currentPhase.workoutsRequired - workoutsIntoPhase);
+  const pct = Math.min(100, Math.round((workoutsIntoPhase / currentPhase.workoutsRequired) * 100));
+  const totalRequired = prog.phases.reduce((a, p) => a + p.workoutsRequired, 0);
+  const overallPct = Math.min(100, Math.round((completed / totalRequired) * 100));
+  return { currentPhase, workoutsIntoPhase, workoutsRemaining, pct, overallPct, completed, prog };
 }
 
 // ═══════════════════════════════════════════════════════
@@ -598,26 +798,16 @@ function renderHome() {
     <div class="prog-card ${state.selectedProgram === p.id ? 'selected' : ''}" onclick="selectProgram('${p.id}')">
       <div class="prog-card-name" style="color:${state.selectedProgram === p.id ? p.color : 'var(--text)'}">${p.shortName}</div>
       <div class="prog-card-sub">${p.phases.length} phases · ${p.totalWeeks} weeks</div>
-      ${state.selectedProgram === p.id && state.programStartDate ? renderPhaseMiniBar(p.id) : ''}
+      ${state.selectedProgram === p.id ? renderPhaseMiniBar(p.id) : ''}
     </div>
   `).join('');
 
   const panel = document.getElementById('active-program-panel');
-  if (state.selectedProgram && state.programStartDate) {
+  if (state.selectedProgram) {
     panel.style.display = 'block';
     renderPhaseStatus();
     renderPhaseAlert();
     renderTodayCard();
-  } else if (state.selectedProgram) {
-    panel.style.display = 'block';
-    document.getElementById('phase-status-card').innerHTML = `
-      <div style="text-align:center;padding:10px 0">
-        <div style="font-size:13px;color:var(--text2);margin-bottom:12px">Set your program start date to track phases</div>
-        <input type="date" id="start-date-input" style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px 14px;color:var(--text);font-size:15px;width:100%;text-align:center"
-          onchange="setStartDate(this.value)">
-      </div>`;
-    document.getElementById('phase-alert-wrap').innerHTML = '';
-    document.getElementById('today-workout-card').innerHTML = '<div style="color:var(--text2);font-size:13px">Set a start date to see today\'s workout.</div>';
   } else {
     panel.style.display = 'none';
   }
@@ -626,22 +816,20 @@ function renderHome() {
 }
 
 function renderPhaseMiniBar(programId) {
-  const info = getCurrentPhaseInfo(programId, state.programStartDate);
+  const info = getCurrentPhaseInfo(programId);
   if (!info) return '';
   const prog = PROGRAMS[programId];
-  const pct = Math.min(100, Math.round((info.weeksSinceStart / prog.totalWeeks) * 100));
-  return `<div class="phase-bar-wrap" style="margin-top:8px"><div class="phase-bar" style="width:${pct}%;background:${prog.color}"></div></div>
-  <div style="font-size:10px;color:var(--text2);margin-top:4px">Phase ${info.currentPhase.num} · Wk ${info.weeksIntoPhase+1}/${info.currentPhase.weeks}</div>`;
+  return `<div class="phase-bar-wrap" style="margin-top:8px"><div class="phase-bar" style="width:${info.overallPct}%;background:${prog.color}"></div></div>
+  <div style="font-size:10px;color:var(--text2);margin-top:4px">Phase ${info.currentPhase.num} · ${info.workoutsIntoPhase}/${info.currentPhase.workoutsRequired} workouts</div>`;
 }
 
 function renderPhaseStatus() {
-  const info = getCurrentPhaseInfo(state.selectedProgram, state.programStartDate);
+  const info = getCurrentPhaseInfo(state.selectedProgram);
   if (!info) return;
   const prog = PROGRAMS[state.selectedProgram];
-  const { currentPhase, weeksIntoPhase, weeksRemaining } = info;
-  const pct = Math.round((weeksIntoPhase / currentPhase.weeks) * 100);
+  const { currentPhase, workoutsIntoPhase, workoutsRemaining, pct } = info;
 
-  const segs = prog.phases.map((ph, i) => {
+  const segs = prog.phases.map(ph => {
     const isDone = ph.num < currentPhase.num;
     const isActive = ph.num === currentPhase.num;
     return `<div class="phase-seg ${isDone ? 'done' : isActive ? 'active' : ''}"></div>`;
@@ -654,12 +842,14 @@ function renderPhaseStatus() {
         <div class="card-title">${currentPhase.name}</div>
         <div style="font-size:12px;color:var(--text2);margin-top:3px">${currentPhase.objective}</div>
       </div>
-      <div class="badge ${weeksRemaining <= 1 ? 'badge-amber' : 'badge-green'}">
-        ${weeksRemaining} wk${weeksRemaining !== 1 ? 's' : ''} left
+      <div class="badge ${workoutsRemaining <= 3 ? 'badge-amber' : 'badge-green'}">
+        ${workoutsRemaining} workout${workoutsRemaining !== 1 ? 's' : ''} left
       </div>
     </div>
     <div class="phase-timeline">${segs}</div>
-    <div style="display:flex;gap:16px;font-size:12px;color:var(--text2);flex-wrap:wrap;margin-top:4px">
+    <div style="margin:8px 0 4px;font-size:12px;color:var(--text2)">${workoutsIntoPhase} of ${currentPhase.workoutsRequired} workouts completed</div>
+    <div class="phase-bar-wrap"><div class="phase-bar" style="width:${pct}%"></div></div>
+    <div style="display:flex;gap:16px;font-size:12px;color:var(--text2);flex-wrap:wrap;margin-top:10px">
       <span>Intensity: <strong style="color:var(--text)">${currentPhase.intensity}</strong></span>
       <span>Rest: <strong style="color:var(--text)">${currentPhase.rest}</strong></span>
       <span>Tempo: <strong style="color:var(--text)">${currentPhase.tempo}</strong></span>
@@ -667,21 +857,20 @@ function renderPhaseStatus() {
 }
 
 function renderPhaseAlert() {
-  const info = getCurrentPhaseInfo(state.selectedProgram, state.programStartDate);
+  const info = getCurrentPhaseInfo(state.selectedProgram);
   if (!info) { document.getElementById('phase-alert-wrap').innerHTML = ''; return; }
-  const { weeksRemaining, switchDate, currentPhase, prog } = info;
+  const { workoutsRemaining, currentPhase, prog } = info;
   const nextPhase = prog.phases.find(p => p.num === currentPhase.num + 1);
   let html = '';
-  if (nextPhase && weeksRemaining <= 1) {
-    const dateStr = switchDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  if (nextPhase && workoutsRemaining <= 3) {
     html = `<div class="phase-alert">
       <div class="phase-alert-icon">🔄</div>
       <div class="phase-alert-text">
-        <strong>Phase switch coming ${dateStr}</strong><br>
-        Transitioning to Phase ${nextPhase.num}: ${nextPhase.name}. ${nextPhase.objective}.
+        <strong>${workoutsRemaining} workout${workoutsRemaining !== 1 ? 's' : ''} until Phase ${nextPhase.num}</strong><br>
+        Up next: ${nextPhase.name} — ${nextPhase.objective}.
       </div>
     </div>`;
-  } else if (!nextPhase && weeksRemaining === 0) {
+  } else if (!nextPhase && workoutsRemaining === 0) {
     html = `<div class="phase-alert">
       <div class="phase-alert-icon">🏆</div>
       <div class="phase-alert-text"><strong>Program complete!</strong><br>You have finished all phases. Consider restarting or switching programs.</div>
@@ -691,9 +880,9 @@ function renderPhaseAlert() {
 }
 
 function renderTodayCard() {
-  const info = getCurrentPhaseInfo(state.selectedProgram, state.programStartDate);
+  const info = getCurrentPhaseInfo(state.selectedProgram);
   if (!info) return;
-  const { currentPhase, weeksSinceStart } = info;
+  const { currentPhase, workoutsIntoPhase } = info;
   const prog = PROGRAMS[state.selectedProgram];
   const dayOfWeek = new Date().getDay(); // 0=Sun
   // Map to workout day based on 3x/week pattern (Mon/Wed/Fri = days 1/2/3)
@@ -733,13 +922,6 @@ function renderTodayCard() {
 
 function selectProgram(id) {
   state.selectedProgram = id;
-  if (!state.programStartDate) state.programStartDate = null;
-  saveState();
-  renderHome();
-}
-
-function setStartDate(val) {
-  state.programStartDate = val;
   saveState();
   renderHome();
 }
@@ -996,12 +1178,11 @@ function renderProgress() {
   const el = document.getElementById('progress-content');
   let html = '';
 
-  // ── Phase calendar (if program active) ──
-  if (state.selectedProgram && state.programStartDate) {
+  // ── Phase calendar (if program selected) ──
+  if (state.selectedProgram) {
     const prog = PROGRAMS[state.selectedProgram];
-    const info = getCurrentPhaseInfo(state.selectedProgram, state.programStartDate);
-    const switchDates = getPhaseSwitchDates(state.selectedProgram, state.programStartDate);
-    html += renderPhaseCalendar(prog, info, switchDates);
+    const info = getCurrentPhaseInfo(state.selectedProgram);
+    html += renderPhaseCalendar(prog, info);
     html += renderPhaseTable(prog, info);
   }
 
@@ -1058,7 +1239,7 @@ function renderProgress() {
   el.innerHTML = html;
 }
 
-function renderPhaseCalendar(prog, info, switchDates) {
+function renderPhaseCalendar(prog, info) {
   const now = new Date();
   const year = now.getFullYear();
   const month = now.getMonth();
@@ -1067,20 +1248,16 @@ function renderPhaseCalendar(prog, info, switchDates) {
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const todayNum = now.getDate();
 
-  // Worked days (by calendar date)
-  const workedDays = new Set(state.workoutHistory.map(w => {
-    const d = new Date(w.endTs || w.startTs);
-    if (d.getFullYear() === year && d.getMonth() === month) return d.getDate();
-    return null;
-  }).filter(Boolean));
+  // Worked days (by calendar date) for this program
+  const workedDays = new Set((state.workoutHistory || [])
+    .filter(w => w.programId === prog.id)
+    .map(w => {
+      const d = new Date(w.endTs || w.startTs);
+      if (d.getFullYear() === year && d.getMonth() === month) return d.getDate();
+      return null;
+    }).filter(Boolean));
 
-  // Phase switch days in this month
-  const switchDayNums = new Set(switchDates.map(d => {
-    if (d.getFullYear() === year && d.getMonth() === month) return d.getDate();
-    return null;
-  }).filter(Boolean));
-
-  let html = `<div class="section-label">Phase Calendar</div><div class="card cal-wrap">
+  let html = `<div class="section-label">Workout Calendar</div><div class="card cal-wrap">
     <div class="cal-header">
       <div class="cal-month">${monthName}</div>
       ${info ? `<div class="badge badge-amber">Phase ${info.currentPhase.num}: ${info.currentPhase.name}</div>` : ''}
@@ -1092,17 +1269,14 @@ function renderPhaseCalendar(prog, info, switchDates) {
         const d = i + 1;
         const isWorked = workedDays.has(d);
         const isToday = d === todayNum;
-        const isSwitch = switchDayNums.has(d);
         let cls = 'cal-cell';
-        if (isSwitch) cls += ' phase-switch';
-        else if (isWorked) cls += ' worked';
+        if (isWorked) cls += ' worked';
         if (isToday) cls += ' today';
         return `<div class="${cls}">${d}</div>`;
       }).join('')}
     </div>
     <div class="cal-legend">
-      <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--green-dim);border:1px solid var(--green)"></div>Workout</div>
-      <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--blue-dim);border:1px solid var(--blue)"></div>Phase switch</div>
+      <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--green-dim);border:1px solid var(--green)"></div>Workout done</div>
       <div class="cal-legend-item"><div class="cal-legend-dot" style="border:2px solid var(--amber)"></div>Today</div>
     </div>
   </div>`;
@@ -1110,27 +1284,25 @@ function renderPhaseCalendar(prog, info, switchDates) {
 }
 
 function renderPhaseTable(prog, info) {
-  const startDate = new Date(state.programStartDate);
   let html = `<div class="section-label">Phase Schedule</div><div class="card">
     <table class="phase-table">
-      <thead><tr><th>Phase</th><th>Name</th><th>Dates</th><th>Status</th></tr></thead>
+      <thead><tr><th>Phase</th><th>Name</th><th>Workouts</th><th>Status</th></tr></thead>
       <tbody>`;
-  let cumWeeks = 0;
+  let cumWorkouts = 0;
   prog.phases.forEach(ph => {
-    const phStart = new Date(startDate);
-    phStart.setDate(phStart.getDate() + cumWeeks * 7);
-    const phEnd = new Date(phStart);
-    phEnd.setDate(phEnd.getDate() + ph.weeks * 7 - 1);
-    cumWeeks += ph.weeks;
-    const now = new Date();
     const isCurrent = info && ph.num === info.currentPhase.num;
     const isDone = info && ph.num < info.currentPhase.num;
-    const status = isDone ? '✓ Done' : isCurrent ? '→ Active' : 'Upcoming';
+    const completedInPhase = isDone ? ph.workoutsRequired : (isCurrent ? info.workoutsIntoPhase : 0);
+    const status = isDone ? 'Done' : isCurrent ? 'Active' : 'Upcoming';
     const statusClass = isDone ? 'badge-green' : isCurrent ? 'badge-amber' : '';
+    cumWorkouts += ph.workoutsRequired;
     html += `<tr class="${isCurrent ? 'phase-row current' : ''}">
       <td><strong>${ph.num}</strong></td>
-      <td>${ph.name}<br><span style="font-size:10px;color:var(--text3)">${ph.weeks}w · ${ph.objective}</span></td>
-      <td style="font-size:11px;color:var(--text2)">${phStart.toLocaleDateString('en-US',{month:'short',day:'numeric'})} –<br>${phEnd.toLocaleDateString('en-US',{month:'short',day:'numeric'})}</td>
+      <td>${ph.name}<br><span style="font-size:10px;color:var(--text3)">${ph.objective}</span></td>
+      <td style="font-size:12px">
+        ${completedInPhase}/${ph.workoutsRequired}
+        ${isCurrent ? `<div class="phase-bar-wrap" style="margin-top:4px;height:4px"><div class="phase-bar" style="width:${Math.round(completedInPhase/ph.workoutsRequired*100)}%;height:4px"></div></div>` : ''}
+      </td>
       <td><span class="badge ${statusClass}" style="font-size:10px">${status}</span></td>
     </tr>`;
   });
