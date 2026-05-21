@@ -115,6 +115,17 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 .cal-legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text2); }
 .cal-legend-dot { width: 10px; height: 10px; border-radius: 3px; }
 
+/* ── VIDEO PANEL ── */
+.video-panel { background: var(--bg3); border-radius: 12px; margin: 10px 0; overflow: hidden; border: 1px solid var(--border); }
+.video-panel-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; cursor: pointer; }
+.video-panel-title { font-size: 12px; font-weight: 600; color: var(--text2); letter-spacing: 0.5px; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
+.video-panel-title svg { width: 16px; height: 16px; flex-shrink: 0; }
+.video-panel-body { display: none; padding: 0 14px 14px; }
+.video-panel-body.open { display: block; }
+.video-embed { width: 100%; aspect-ratio: 16/9; border-radius: 8px; border: none; background: #000; }
+.video-search-btn { display: flex; align-items: center; gap: 6px; margin-top: 8px; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 12px; color: var(--text2); text-decoration: none; }
+.video-search-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
 /* ── PHASE SWITCHER ALERT ── */
 .phase-alert { background: var(--blue-dim); border: 1px solid rgba(74,158,255,0.25); border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; display: flex; gap: 12px; align-items: flex-start; }
 .phase-alert-icon { font-size: 20px; flex-shrink: 0; }
@@ -942,13 +953,14 @@ function viewBlueprint(programId, phaseNum, dayIdx) {
       <div style="font-size:12px;color:var(--text2)">Intensity ${phase.intensity} · ${phase.sets} · Rest ${phase.rest} · Tempo ${phase.tempo}</div>
     </div>
     <div class="card">
-      ${day.exercises.map(ex => `
+      ${day.exercises.map((ex, ei) => `
         <div class="blueprint-ex">
           <div class="blueprint-ex-name">
             ${ex.name}
             ${ex.superset ? '<span class="superset-badge">SUPERSET</span>' : ''}
           </div>
           <div class="blueprint-ex-detail">${ex.sets} sets × ${ex.reps}${ex.note ? ' · ' + ex.note : ''}</div>
+          ${buildVideoPanel(ex.name, 'bp-' + ei)}
         </div>
       `).join('')}
     </div>
@@ -1072,6 +1084,7 @@ function renderActiveWorkout() {
         ${allDone ? '<span style="color:var(--green);font-size:18px">✓</span>' : ''}
       </div>
       ${ex.note ? `<div style="font-size:11px;color:var(--amber);margin-bottom:8px">${ex.note}</div>` : ''}
+      ${buildVideoPanel(ex.name, 'aw-' + exIdx)}
       <div class="sets-row">
         ${ex.sets.map((s, si) => `
           <div class="set-chip ${s.done ? 'logged' : ''}" onclick="openSetModal(${exIdx}, ${si})">
@@ -1374,6 +1387,132 @@ function calcStreak() {
     } else break;
   }
   return streak;
+}
+
+// ═══════════════════════════════════════════════════════
+// EXERCISE VIDEO PANEL
+// ═══════════════════════════════════════════════════════
+
+// Pre-mapped Mind Pump TV video IDs for common exercises
+const EXERCISE_VIDEOS = {
+  // Squats
+  'phase 1 squat': 'k0GCnFxhqj4',
+  'dumbbell squats': 'k0GCnFxhqj4',
+  'dumbbell goblet squats': 'MeIiIdhvXT4',
+  'dumbbell front squat': 'k0GCnFxhqj4',
+  'phase iii dumbbell squat': 'k0GCnFxhqj4',
+  'phase iv dumbbell squat': 'k0GCnFxhqj4',
+  'dunphy squat': 'k0GCnFxhqj4',
+  'box jump': 'tHfi6yTZDhY',
+  // Deadlifts
+  'phase 1 dumbbell sumo deadlift': 'mBEChFRsmFo',
+  'dumbbell romanian deadlifts': 'JCXUYuzwNrM',
+  'dumbbell single leg deadlift': 'fMVEt4fRMuI',
+  'deadlifts': 'ytGaGIn3SjE',
+  // Rows
+  'maps strength row': 'roCP8ofLcZ8',
+  'single arm bent over dumbbell row': 'roCP8ofLcZ8',
+  'renegade row to push up': 'v4JiCNlxBAs',
+  'elbows out db rows': 'roCP8ofLcZ8',
+  'supinated bent over db rows': 'roCP8ofLcZ8',
+  'band speed row': 'roCP8ofLcZ8',
+  // Press
+  'dumbbell bench press': 'VmB1G1K7v94',
+  'dumbbell incline press': 'VmB1G1K7v94',
+  'incline dumbbell press': 'VmB1G1K7v94',
+  'dumbbell press': 'VmB1G1K7v94',
+  'overhead press (push press)': 'iaBVBup-RwU',
+  'one arm dumbbell shoulder press': 'iaBVBup-RwU',
+  'seated arnold press': 'iaBVBup-RwU',
+  'dumbbell rotating shoulder press': 'iaBVBup-RwU',
+  'dumbbell push press': 'iaBVBup-RwU',
+  'plyo push-ups': 'IODxDxX7oi4',
+  'push-ups': 'IODxDxX7oi4',
+  'push up with rotation': 'IODxDxX7oi4',
+  'weighted dips': '_f8GGWnBSFI',
+  'dips (weighted)': '_f8GGWnBSFI',
+  // Pull
+  'weighted or body weight pull-ups': 'eGo4IYlbE5g',
+  'weighted pull-ups': 'eGo4IYlbE5g',
+  'supinated pull-ups': 'eGo4IYlbE5g',
+  // Lunges
+  'walking lunges': 'L8fvypPrzzs',
+  'maps matrix lunges': 'L8fvypPrzzs',
+  'maps rotational lunge': 'L8fvypPrzzs',
+  'alternating lunge jumps': 'tHfi6yTZDhY',
+  // Curls / arms
+  'dumbbell curls': 'ykJmrZ5v0Oo',
+  'alternating supinating curls': 'ykJmrZ5v0Oo',
+  'dumbbell preacher curls': 'ykJmrZ5v0Oo',
+  'dumbbell skull crushers': 'ir5zvpBXRzE',
+  'seated db oh tricep extensions': 'ir5zvpBXRzE',
+  // Swings / power
+  'dumbbell swings': 'mBEChFRsmFo',
+  'double dumbbell swings': 'mBEChFRsmFo',
+  'dumbbell high pull': 'mBEChFRsmFo',
+  'single arm dumbbell snatch': 'mBEChFRsmFo',
+  'ice skaters': 'tHfi6yTZDhY',
+  // Carries
+  'maps dumbbell suitcase carry': 'V7NKIFUaWl4',
+  'front loaded kettlebell walk': 'V7NKIFUaWl4',
+  // Core
+  'leg raises': 'JB2oyawG9KQ',
+  'decline sit-ups': 'JB2oyawG9KQ',
+  'ball crunches': 'JB2oyawG9KQ',
+  // Calf
+  'standing calf raises': 'JB2oyawG9KQ',
+  'standing single leg calf raises': 'JB2oyawG9KQ',
+};
+
+const MINDPUMP_CHANNEL = 'UChVak8_IyuqcErdf_jQUOHA';
+
+function getVideoId(exerciseName) {
+  return EXERCISE_VIDEOS[exerciseName.toLowerCase()] || null;
+}
+
+function buildVideoPanel(exerciseName, panelId) {
+  const videoId = getVideoId(exerciseName);
+  const searchQuery = encodeURIComponent('Mind Pump ' + exerciseName);
+  const channelSearchUrl = `https://www.youtube.com/results?search_query=${searchQuery}&sp=EgIQAQ%253D%253D`;
+
+  const embedHtml = videoId
+    ? `<iframe class="video-embed" src="https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>`
+    : `<div style="background:var(--bg2);border-radius:8px;padding:20px;text-align:center;font-size:13px;color:var(--text2)">
+        Tap the button below to search Mind Pump TV for this exercise.
+       </div>`;
+
+  return `
+    <div class="video-panel" id="vp-${panelId}">
+      <div class="video-panel-header" onclick="toggleVideoPanel('${panelId}')">
+        <div class="video-panel-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#ff0000">
+            <path d="M22.54 6.42A2.78 2.78 0 0020.76 4.6C19.13 4 12 4 12 4s-7.13 0-8.76.56A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.24 19.4C4.87 20 12 20 12 20s7.13 0 8.76-.56a2.78 2.78 0 001.78-1.78A29 29 0 0023 12a29 29 0 00-.46-5.58z"/>
+            <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white" stroke="none"/>
+          </svg>
+          How to do this exercise
+        </div>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2" id="vp-chevron-${panelId}">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </div>
+      <div class="video-panel-body" id="vpb-${panelId}">
+        ${embedHtml}
+        <a href="${channelSearchUrl}" target="_blank" class="video-search-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          Search Mind Pump TV on YouTube
+        </a>
+      </div>
+    </div>`;
+}
+
+function toggleVideoPanel(panelId) {
+  const body = document.getElementById('vpb-' + panelId);
+  const chevron = document.getElementById('vp-chevron-' + panelId);
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
 }
 
 // ═══════════════════════════════════════════════════════
