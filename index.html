@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MAPS">
+<meta name="theme-color" content="#0d0d0d">
+<link rel="manifest" href="manifest.json">
+<title>MAPS Tracker</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap');
+
+:root {
+  --bg: #0d0d0d;
+  --bg2: #141414;
+  --bg3: #1a1a1a;
+  --card: #1c1c1c;
+  --card2: #222222;
+  --green: #3ecf8e;
+  --green-dim: rgba(62,207,142,0.15);
+  --amber: #f5a623;
+  --amber-dim: rgba(245,166,35,0.15);
+  --red: #e84040;
+  --red-dim: rgba(232,64,64,0.15);
+  --blue: #4a9eff;
+  --blue-dim: rgba(74,158,255,0.12);
+  --text: #f0f0f0;
+  --text2: #888;
+  --text3: #555;
+  --border: rgba(255,255,255,0.07);
+  --safe-top: env(safe-area-inset-top, 20px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body: 'Barlow', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--font-body); overflow: hidden; }
+#app { display: flex; flex-direction: column; height: 100%; padding-top: var(--safe-top); }
+.screen { display: none; flex-direction: column; flex: 1; overflow: hidden; }
+.screen.active { display: flex; }
+
+/* ── NAV ── */
+.nav { display: flex; background: var(--bg2); border-top: 1px solid var(--border); padding-bottom: var(--safe-bottom); flex-shrink: 0; }
+.nav-btn { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 10px 4px 8px; font-size: 10px; font-family: var(--font-body); font-weight: 500; color: var(--text3); border: none; background: transparent; cursor: pointer; gap: 3px; letter-spacing: 0.5px; text-transform: uppercase; }
+.nav-btn.active { color: var(--green); }
+.nav-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── HEADER ── */
+.header { display: flex; align-items: flex-end; justify-content: space-between; padding: 16px 20px 14px; flex-shrink: 0; border-bottom: 1px solid var(--border); }
+.header-left h1 { font-family: var(--font-display); font-size: 28px; font-weight: 800; letter-spacing: 1px; color: var(--green); }
+.header-left p { font-size: 12px; color: var(--text2); margin-top: 1px; }
+.header-right { font-family: var(--font-display); font-size: 13px; font-weight: 600; color: var(--text2); letter-spacing: 0.5px; }
+.btn { border: none; cursor: pointer; font-family: var(--font-body); font-weight: 600; border-radius: 10px; transition: opacity 0.15s; }
+.btn:active { opacity: 0.75; }
+.btn-primary { background: var(--green); color: #000; padding: 12px 20px; font-size: 15px; width: 100%; }
+.btn-sm { background: var(--bg3); color: var(--text); padding: 8px 14px; font-size: 13px; border: 1px solid var(--border); }
+.btn-danger { background: var(--red-dim); color: var(--red); padding: 8px 14px; font-size: 13px; border: 1px solid rgba(232,64,64,0.2); }
+.btn-icon { background: transparent; color: var(--text2); padding: 6px; border: none; display: flex; align-items: center; }
+.btn-icon svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── SCROLL ── */
+.scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 16px; }
+.scroll-notop { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 0 16px 16px; }
+
+/* ── CARDS ── */
+.card { background: var(--card); border-radius: 14px; padding: 16px; margin-bottom: 12px; border: 1px solid var(--border); }
+.card-label { font-size: 11px; font-weight: 600; color: var(--text2); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+.card-title { font-family: var(--font-display); font-size: 20px; font-weight: 700; letter-spacing: 0.5px; }
+.section-label { font-size: 11px; font-weight: 600; color: var(--text2); letter-spacing: 1px; text-transform: uppercase; margin: 20px 0 10px; }
+
+/* ── PILLS / BADGES ── */
+.badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; }
+.badge-green { background: var(--green-dim); color: var(--green); }
+.badge-amber { background: var(--amber-dim); color: var(--amber); }
+.badge-red { background: var(--red-dim); color: var(--red); }
+.badge-blue { background: var(--blue-dim); color: var(--blue); }
+
+/* ── PROGRAM SELECTOR ── */
+.prog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.prog-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 14px; cursor: pointer; transition: all 0.15s; }
+.prog-card.selected { border-color: var(--green); background: var(--green-dim); }
+.prog-card:active { opacity: 0.8; }
+.prog-card-name { font-family: var(--font-display); font-size: 16px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 4px; }
+.prog-card-sub { font-size: 11px; color: var(--text2); }
+
+/* ── PHASE PROGRESS BAR ── */
+.phase-bar-wrap { background: var(--bg3); border-radius: 6px; height: 8px; overflow: hidden; margin-top: 6px; }
+.phase-bar { height: 100%; border-radius: 6px; background: var(--green); transition: width 0.5s ease; }
+
+/* ── PHASE TIMELINE ── */
+.phase-timeline { display: flex; gap: 0; margin-bottom: 16px; }
+.phase-seg { flex: 1; height: 6px; background: var(--bg3); position: relative; }
+.phase-seg:first-child { border-radius: 3px 0 0 3px; }
+.phase-seg:last-child { border-radius: 0 3px 3px 0; }
+.phase-seg.done { background: var(--green); }
+.phase-seg.active { background: var(--amber); }
+.phase-seg + .phase-seg { border-left: 2px solid var(--bg); }
+
+/* ── CALENDAR GRID ── */
+.cal-wrap { margin-bottom: 16px; }
+.cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.cal-month { font-family: var(--font-display); font-size: 18px; font-weight: 700; letter-spacing: 0.5px; }
+.cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; }
+.cal-dow { text-align: center; font-size: 10px; font-weight: 600; color: var(--text3); padding-bottom: 6px; letter-spacing: 0.5px; }
+.cal-cell { aspect-ratio: 1; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; color: var(--text3); background: var(--bg3); }
+.cal-cell.worked { background: var(--green-dim); color: var(--green); font-weight: 700; }
+.cal-cell.today { border: 2px solid var(--amber); color: var(--text); }
+.cal-cell.today.worked { border-color: var(--green); }
+.cal-cell.phase-switch { background: var(--blue-dim); color: var(--blue); font-weight: 700; }
+.cal-cell.empty { background: transparent; }
+.cal-legend { display: flex; gap: 12px; margin-top: 10px; flex-wrap: wrap; }
+.cal-legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text2); }
+.cal-legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+
+/* ── PHASE SWITCHER ALERT ── */
+.phase-alert { background: var(--blue-dim); border: 1px solid rgba(74,158,255,0.25); border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; display: flex; gap: 12px; align-items: flex-start; }
+.phase-alert-icon { font-size: 20px; flex-shrink: 0; }
+.phase-alert-text { font-size: 13px; color: var(--text); line-height: 1.5; }
+.phase-alert-text strong { color: var(--blue); font-weight: 700; }
+
+/* ── WORKOUT BUILDER ── */
+.exercise-row { background: var(--card2); border-radius: 12px; padding: 14px; margin-bottom: 10px; border: 1px solid var(--border); }
+.exercise-name { font-family: var(--font-display); font-size: 17px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+.sets-row { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+.set-chip { flex-shrink: 0; background: var(--bg3); border-radius: 10px; padding: 8px 10px; min-width: 72px; text-align: center; border: 1px solid var(--border); cursor: pointer; transition: all 0.15s; }
+.set-chip.logged { background: var(--green-dim); border-color: var(--green); }
+.set-chip-label { font-size: 10px; color: var(--text3); font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; }
+.set-chip-val { font-family: var(--font-display); font-size: 16px; font-weight: 700; margin-top: 2px; }
+.add-set-btn { flex-shrink: 0; background: var(--bg3); border: 1px dashed var(--border); border-radius: 10px; padding: 8px 10px; min-width: 48px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text3); font-size: 20px; }
+
+/* ── SET ENTRY MODAL ── */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 100; display: none; align-items: flex-end; }
+.modal-overlay.open { display: flex; }
+.modal { background: var(--bg2); border-radius: 24px 24px 0 0; padding: 20px 20px calc(20px + var(--safe-bottom)); width: 100%; max-height: 75vh; overflow-y: auto; border-top: 1px solid var(--border); }
+.modal-handle { width: 40px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 20px; }
+.modal-title { font-family: var(--font-display); font-size: 22px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 4px; }
+.modal-sub { font-size: 13px; color: var(--text2); margin-bottom: 20px; }
+.input-row { display: flex; gap: 12px; margin-bottom: 16px; }
+.input-group { flex: 1; }
+.input-label { font-size: 11px; font-weight: 600; color: var(--text2); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+.input-field { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; color: var(--text); font-family: var(--font-display); font-size: 24px; font-weight: 700; text-align: center; -webkit-appearance: none; }
+.input-field:focus { outline: none; border-color: var(--green); }
+.quick-btns { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+.quick-btn { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; font-size: 13px; font-weight: 600; color: var(--text2); cursor: pointer; }
+.quick-btn:active { background: var(--green-dim); color: var(--green); }
+
+/* ── HISTORY ── */
+.hist-item { background: var(--card); border-radius: 14px; padding: 14px 16px; margin-bottom: 10px; border: 1px solid var(--border); cursor: pointer; }
+.hist-item:active { opacity: 0.8; }
+.hist-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+.hist-title { font-family: var(--font-display); font-size: 17px; font-weight: 700; letter-spacing: 0.5px; }
+.hist-date { font-size: 12px; color: var(--text2); }
+.hist-stats { display: flex; gap: 16px; }
+.hist-stat { font-size: 12px; color: var(--text2); }
+.hist-stat span { font-weight: 600; color: var(--text); }
+
+/* ── BLUEPRINT ── */
+.blueprint-ex { padding: 12px 0; border-bottom: 1px solid var(--border); }
+.blueprint-ex:last-child { border-bottom: none; }
+.blueprint-ex-name { font-family: var(--font-display); font-size: 16px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 3px; }
+.blueprint-ex-detail { font-size: 12px; color: var(--text2); }
+.superset-badge { background: var(--amber-dim); color: var(--amber); font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 4px; letter-spacing: 0.5px; margin-left: 8px; }
+
+/* ── STATS ── */
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+.stat-card { background: var(--card); border-radius: 14px; padding: 16px; border: 1px solid var(--border); }
+.stat-val { font-family: var(--font-display); font-size: 32px; font-weight: 800; color: var(--green); line-height: 1; }
+.stat-label { font-size: 11px; color: var(--text2); font-weight: 500; margin-top: 4px; letter-spacing: 0.5px; text-transform: uppercase; }
+
+/* ── EMPTY STATE ── */
+.empty { text-align: center; padding: 60px 20px; color: var(--text2); }
+.empty svg { width: 48px; height: 48px; stroke: var(--text3); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 16px; }
+.empty-title { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--text3); margin-bottom: 6px; }
+.empty-sub { font-size: 13px; line-height: 1.6; }
+
+/* ── DIVIDER ── */
+.divider { height: 1px; background: var(--border); margin: 16px 0; }
+
+/* ── PROGRAM OVERVIEW TABLE ── */
+.phase-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.phase-table th { font-size: 10px; font-weight: 600; color: var(--text3); letter-spacing: 0.5px; text-transform: uppercase; padding: 6px 8px; text-align: left; border-bottom: 1px solid var(--border); }
+.phase-table td { padding: 10px 8px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.4; }
+.phase-table tr:last-child td { border-bottom: none; }
+.phase-row.current td { background: rgba(245,166,35,0.05); }
+
+/* ── SCROLL FIX ── */
+::-webkit-scrollbar { display: none; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+.screen.active .card { animation: fadeUp 0.2s ease both; }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ══ HOME ══ -->
+  <div class="screen active" id="screen-home">
+    <div class="header">
+      <div class="header-left">
+        <h1>MAPS</h1>
+        <p id="home-program-label">Select a program to begin</p>
+      </div>
+      <div class="header-right" id="home-date"></div>
+    </div>
+    <div class="scroll">
+      <!-- Program selector -->
+      <div class="section-label">Program</div>
+      <div class="prog-grid" id="prog-grid"></div>
+
+      <!-- Active program status -->
+      <div id="active-program-panel" style="display:none">
+        <div class="section-label">Current Phase</div>
+        <div class="card" id="phase-status-card"></div>
+
+        <!-- Phase switch alert -->
+        <div id="phase-alert-wrap"></div>
+
+        <div class="section-label">Today's Workout</div>
+        <div class="card" id="today-workout-card"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ LOG ══ -->
+  <div class="screen" id="screen-log">
+    <div class="header">
+      <div class="header-left">
+        <h1 id="log-title">LOG</h1>
+        <p id="log-subtitle">Start a workout</p>
+      </div>
+      <button class="btn btn-sm" id="log-action-btn" onclick="handleLogAction()">Select</button>
+    </div>
+    <div class="scroll" id="log-content"></div>
+  </div>
+
+  <!-- ══ PROGRESS ══ -->
+  <div class="screen" id="screen-progress">
+    <div class="header">
+      <div class="header-left">
+        <h1>PROGRESS</h1>
+        <p>Phase calendar and history</p>
+      </div>
+    </div>
+    <div class="scroll" id="progress-content"></div>
+  </div>
+
+  <!-- ══ NAV ══ -->
+  <nav class="nav">
+    <button class="nav-btn active" onclick="switchScreen('home')" id="nav-home">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Home
+    </button>
+    <button class="nav-btn" onclick="switchScreen('log')" id="nav-log">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+      Log
+    </button>
+    <button class="nav-btn" onclick="switchScreen('progress')" id="nav-progress">
+      <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Progress
+    </button>
+  </nav>
+</div>
+
+<!-- ══ SET ENTRY MODAL ══ -->
+<div class="modal-overlay" id="set-modal" onclick="closeSetModal(event)">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="modal-ex-name"></div>
+    <div class="modal-sub" id="modal-set-label"></div>
+    <div class="input-row">
+      <div class="input-group">
+        <div class="input-label">Reps</div>
+        <div class="quick-btns" id="quick-reps"></div>
+        <input class="input-field" type="number" id="input-reps" placeholder="—" min="0">
+      </div>
+      <div class="input-group">
+        <div class="input-label">Weight (lbs)</div>
+        <div class="quick-btns" id="quick-weight"></div>
+        <input class="input-field" type="number" id="input-weight" placeholder="BW" min="0">
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="saveSet()" style="margin-top:4px">Save Set</button>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// DATA: MAPS Performance & Aesthetic Programs
+// ═══════════════════════════════════════════════════════
+const PROGRAMS = {
+  performance: {
+    id: 'performance',
+    name: 'MAPS Performance',
+    shortName: 'Performance',
+    color: '#3ecf8e',
+    totalWeeks: 12,
+    phases: [
+      {
+        num: 1, name: 'Raw Strength', weeks: 3, startWeek: 1,
+        objective: 'Build maximal strength',
+        intensity: '85-90%', tempo: '5:1:1', rest: '3-5 min',
+        sets: '2-5 sets', reps: '1-6 reps',
+        days: [
+          { day: 1, label: 'Day 1 — Power & Pull', exercises: [
+            { name: 'Phase 1 Squat', sets: 5, reps: '3', note: 'Explosive concentric, slow eccentric' },
+            { name: 'Dumbbell Bench Press', sets: 3, reps: '3' },
+            { name: 'Dumbbell High Pull', sets: 3, reps: '3' },
+            { name: 'Weighted Pull-ups', sets: 2, reps: '5', note: 'Full lockout, neutral grip' },
+            { name: 'Overhead Press (Push Press)', sets: 3, reps: '3-6' },
+            { name: 'Rubber Band Side Chop', sets: 1, reps: '15-20/side', note: 'Per side' },
+          ]},
+          { day: 2, label: 'Day 2 — Deadlift & Push', exercises: [
+            { name: 'Phase 1 Dumbbell Sumo Deadlift', sets: 5, reps: '6', note: 'Ideally with bands' },
+            { name: 'Walking Lunges', sets: 3, reps: '20', note: 'Loaded with KB/BB/DB' },
+            { name: 'Weighted Dips', sets: 3, reps: '3-6' },
+            { name: 'MAPS Strength Row', sets: 3, reps: '3-6' },
+            { name: 'One Arm DB Shoulder Press', sets: 3, reps: '3-6/arm' },
+            { name: 'Rubber Band Downward Chop', sets: 3, reps: '15-20/side' },
+          ]},
+          { day: 3, label: 'Day 3 — Front Squat & Row', exercises: [
+            { name: 'Dumbbell Front Squat', sets: 3, reps: '3-6' },
+            { name: 'Dumbbell Incline Press', sets: 3, reps: '3-6' },
+            { name: 'Single Arm Bent Over Row (Split Stance)', sets: 3, reps: '10-12' },
+            { name: 'Rubber Band Pull-A-Parts (Heavy)', sets: 1, reps: '10-12', superset: true },
+            { name: 'MAPS External Rotation (Light Band)', sets: 1, reps: '15-20', superset: true },
+            { name: 'MAPS Dumbbell Suitcase Carry', sets: 1, reps: '30 sec each direction' },
+          ]},
+        ]
+      },
+      {
+        num: 2, name: 'Reactive Strength', weeks: 3, startWeek: 4,
+        objective: 'Build multi-planar strength',
+        intensity: '75-85%', tempo: '2:0:2', rest: '30-90 sec',
+        sets: '3-4 sets', reps: '15-20 reps',
+        days: [
+          { day: 1, label: 'Day 1 — Matrix & Rotation', exercises: [
+            { name: 'MAPS Matrix Lunges', sets: 4, reps: '18', note: 'Each lunge = 1 rep' },
+            { name: 'Renegade Row to Push Up', sets: 4, reps: '10-15' },
+            { name: 'One Arm Dumbbell Squat Press', sets: 4, reps: '15-20' },
+            { name: 'MAPS Rotational Lunge', sets: 4, reps: '10-15/side' },
+            { name: 'Dumbbell Trunk Rotations', sets: 4, reps: '15-20' },
+          ]},
+          { day: 2, label: 'Day 2 — Single Leg & Press', exercises: [
+            { name: 'Dumbbell Squat', sets: 4, reps: '15-20' },
+            { name: 'Dumbbell Single Leg Deadlift', sets: 4, reps: '15-20' },
+            { name: 'Dumbbell High/Low Press', sets: 4, reps: '15-20' },
+            { name: 'Dumbbell Bench Press', sets: 4, reps: '4-6', superset: true },
+            { name: 'Push Up With Rotation', sets: 4, reps: '15-20', superset: true },
+          ]},
+          { day: 3, label: 'Day 3 — Goblet & Stick', exercises: [
+            { name: 'Dumbbell Goblet Squat', sets: 4, reps: '15-20' },
+            { name: 'Dunphy Squat', sets: 4, reps: '15-20' },
+            { name: 'Stick ISO Drivers', sets: 4, reps: '15-20' },
+            { name: 'Stick Single Arm ISO Chest', sets: 4, reps: '15-20/side' },
+            { name: 'Stick Lateral Drivers', sets: 4, reps: '15-20' },
+            { name: 'Supinated Pull-Ups', sets: 3, reps: '2 short of failure', note: 'Assisted if needed' },
+          ]},
+        ]
+      },
+      {
+        num: 3, name: 'Explosive Strength', weeks: 3, startWeek: 7,
+        objective: 'Build quick and powerful strength',
+        intensity: '60-65%', tempo: '5:1:1', rest: '3-5 min',
+        sets: '4 sets', reps: '15-20 reps',
+        days: [
+          { day: 1, label: 'Day 1 — Plyometric Power', exercises: [
+            { name: 'Box Jump', sets: 4, reps: '10-15', note: 'Regain composure each rep' },
+            { name: 'Dumbbell Swings', sets: 4, reps: '15-20' },
+            { name: 'Ice Skaters', sets: 4, reps: '15-20' },
+            { name: 'Plyo Push-Ups', sets: 4, reps: '15-20' },
+            { name: 'Phase III Dumbbell Squat', sets: 4, reps: '15-20' },
+          ]},
+          { day: 2, label: 'Day 2 — Speed & Power', exercises: [
+            { name: 'Single Arm Dumbbell Snatch', sets: 4, reps: '15-20/arm' },
+            { name: 'Alternating Lunge Jumps', sets: 4, reps: '15-20/leg' },
+            { name: 'Band Speed Row', sets: 4, reps: '15-20' },
+            { name: 'Rubber Band Power Punch', sets: 4, reps: '15-20' },
+            { name: 'Rubber Band Speed Pulls', sets: 4, reps: '5', note: 'Preferably with rubber bands' },
+          ]},
+        ]
+      },
+      {
+        num: 4, name: 'Strength Durability', weeks: 3, startWeek: 10,
+        objective: 'Expand strength endurance and conditioning',
+        intensity: '80-90%', tempo: '—', rest: 'Move with composure',
+        sets: '4 circuits', reps: 'Max reps / timed',
+        days: [
+          { day: 1, label: 'Day 1 — Circuit + Intervals', exercises: [
+            { name: 'Phase IV Dumbbell Squat', sets: 4, reps: '45 sec', note: 'Circuit — 3 exercises in succession' },
+            { name: 'Assisted / Bodyweight Pull-Ups', sets: 4, reps: '30 sec' },
+            { name: 'Push-Ups', sets: 4, reps: '45 sec' },
+            { name: 'MAPS Instinctive Intervals (Treadmill)', sets: 1, reps: '15 min total', note: '30 sec sprint / recover to composure' },
+          ]},
+          { day: 2, label: 'Day 2 — Dumbbell Complex', exercises: [
+            { name: 'Double Dumbbell Swings', sets: 4, reps: '20', note: '4 cycles of complex' },
+            { name: 'Dumbbell Front Squats', sets: 4, reps: '15' },
+            { name: 'Dumbbell Rotating Shoulder Press', sets: 4, reps: '10' },
+            { name: 'Push Ups with Depth', sets: 4, reps: '10' },
+          ]},
+        ]
+      }
+    ]
+  },
+  aesthetic: {
+    id: 'aesthetic',
+    name: 'MAPS Aesthetic',
+    shortName: 'Aesthetic',
+    color: '#4a9eff',
+    totalWeeks: 10,
+    phases: [
+      {
+        num: 1, name: 'Foundation', weeks: 3, startWeek: 1,
+        objective: 'Build a muscular and aesthetic base',
+        intensity: '75-80%', tempo: '3:1:1', rest: '60-90 sec',
+        sets: '3-4 sets', reps: '8-12 reps',
+        days: [
+          { day: 1, label: 'Day 1 — Foundational Workout', exercises: [
+            { name: 'Barbell Squat', sets: 3, reps: '8-12' },
+            { name: 'Barbell Bench Press', sets: 3, reps: '8-12' },
+            { name: 'Barbell Deadlift', sets: 3, reps: '8-12' },
+            { name: 'Pull-Ups', sets: 3, reps: '8-12' },
+            { name: 'Overhead Press', sets: 3, reps: '8-12' },
+          ]},
+          { day: 2, label: 'Day 2 — Foundational Workout', exercises: [
+            { name: 'Romanian Deadlift', sets: 3, reps: '8-12' },
+            { name: 'Incline Dumbbell Press', sets: 3, reps: '8-12' },
+            { name: 'Barbell Row', sets: 3, reps: '8-12' },
+            { name: 'Dumbbell Lateral Raise', sets: 3, reps: '12-15' },
+          ]},
+          { day: 3, label: 'Day 3 — Foundational Workout', exercises: [
+            { name: 'Leg Press', sets: 3, reps: '10-15' },
+            { name: 'Cable Fly', sets: 3, reps: '12-15' },
+            { name: 'Seated Cable Row', sets: 3, reps: '10-12' },
+            { name: 'Tricep Pressdown', sets: 3, reps: '12-15' },
+            { name: 'Barbell Curl', sets: 3, reps: '12-15' },
+          ]},
+        ]
+      },
+      {
+        num: 2, name: 'Hypertrophy', weeks: 4, startWeek: 4,
+        objective: 'Maximize muscle growth',
+        intensity: '65-75%', tempo: '2:0:2', rest: '60-90 sec',
+        sets: '3-4 sets', reps: '10-15 reps',
+        days: [
+          { day: 1, label: 'Day 1 — Volume Push', exercises: [
+            { name: 'Squat Variation', sets: 4, reps: '10-15' },
+            { name: 'Chest Press Variation', sets: 4, reps: '10-15' },
+            { name: 'Shoulder Press', sets: 4, reps: '10-15' },
+            { name: 'Tricep Work', sets: 3, reps: '12-15' },
+          ]},
+          { day: 2, label: 'Day 2 — Volume Pull', exercises: [
+            { name: 'Deadlift Variation', sets: 4, reps: '10-15' },
+            { name: 'Row Variation', sets: 4, reps: '10-15' },
+            { name: 'Pull-Up / Pulldown', sets: 4, reps: '10-15' },
+            { name: 'Bicep Work', sets: 3, reps: '12-15' },
+          ]},
+          { day: 3, label: 'Day 3 — Volume Legs', exercises: [
+            { name: 'Leg Press', sets: 4, reps: '12-15' },
+            { name: 'Leg Curl', sets: 4, reps: '12-15' },
+            { name: 'Calf Raises', sets: 4, reps: '15-20' },
+            { name: 'Core Circuit', sets: 3, reps: '15-20' },
+          ]},
+        ]
+      },
+      {
+        num: 3, name: 'Cut / Conditioning', weeks: 3, startWeek: 8,
+        objective: 'Reveal muscle definition and conditioning',
+        intensity: '55-65%', tempo: '1:0:1', rest: '30-45 sec',
+        sets: '4-5 sets', reps: '15-20 reps',
+        days: [
+          { day: 1, label: 'Day 1 — High Rep Circuit', exercises: [
+            { name: 'Squat to Press', sets: 4, reps: '15-20' },
+            { name: 'Renegade Row', sets: 4, reps: '15-20' },
+            { name: 'Jumping Lunges', sets: 4, reps: '15-20' },
+            { name: 'Burpees', sets: 4, reps: '10-15' },
+          ]},
+          { day: 2, label: 'Day 2 — Metabolic', exercises: [
+            { name: 'Kettlebell Swings', sets: 5, reps: '20' },
+            { name: 'Push-Up Complex', sets: 4, reps: '15-20' },
+            { name: 'Box Jump', sets: 4, reps: '10-15' },
+            { name: 'Mountain Climbers', sets: 4, reps: '30 sec' },
+          ]},
+          { day: 3, label: 'Day 3 — Full Body Circuit', exercises: [
+            { name: 'Dumbbell Complex', sets: 4, reps: '15' },
+            { name: 'Sled Push / Farmer Carry', sets: 4, reps: '40 yards' },
+            { name: 'Battle Ropes', sets: 4, reps: '30 sec' },
+            { name: 'Core Finisher', sets: 3, reps: '20' },
+          ]},
+        ]
+      }
+    ]
+  }
+};
+
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+let state = {
+  selectedProgram: null,   // 'performance' | 'aesthetic'
+  programStartDate: null,  // ISO string
+  activeWorkout: null,     // { programId, phaseNum, dayNum, startTs, exercises: [{name, sets:[{reps,weight,done}]}] }
+  workoutHistory: [],      // array of completed workouts
+  currentScreen: 'home'
+};
+
+let modalCtx = null; // { exIdx, setIdx }
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem('maps_state_v4');
+    if (saved) state = { ...state, ...JSON.parse(saved) };
+  } catch(e) {}
+}
+function saveState() {
+  try { localStorage.setItem('maps_state_v4', JSON.stringify(state)); } catch(e) {}
+}
+
+// ═══════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════
+function switchScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+  document.getElementById('nav-' + name).classList.add('active');
+  state.currentScreen = name;
+  if (name === 'home') renderHome();
+  if (name === 'log') renderLog();
+  if (name === 'progress') renderProgress();
+}
+
+// ═══════════════════════════════════════════════════════
+// PHASE CALCULATION
+// ═══════════════════════════════════════════════════════
+function getCurrentPhaseInfo(programId, startDateStr) {
+  const prog = PROGRAMS[programId];
+  if (!prog || !startDateStr) return null;
+  const start = new Date(startDateStr);
+  start.setHours(0, 0, 0, 0);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const daysSinceStart = Math.floor((today - start) / 86400000);
+  const weeksSinceStart = Math.floor(daysSinceStart / 7);
+  let currentPhase = null;
+  let weeksIntoPhase = 0;
+  let totalWeeksSoFar = 0;
+  for (const ph of prog.phases) {
+    if (weeksSinceStart < totalWeeksSoFar + ph.weeks) {
+      currentPhase = ph;
+      weeksIntoPhase = weeksSinceStart - totalWeeksSoFar;
+      break;
+    }
+    totalWeeksSoFar += ph.weeks;
+  }
+  if (!currentPhase) {
+    currentPhase = prog.phases[prog.phases.length - 1];
+    weeksIntoPhase = currentPhase.weeks;
+  }
+  const weeksRemaining = currentPhase.weeks - weeksIntoPhase;
+  // Next phase switch date
+  const phaseSwitchWeek = totalWeeksSoFar + currentPhase.weeks;
+  const switchDate = new Date(start);
+  switchDate.setDate(switchDate.getDate() + phaseSwitchWeek * 7);
+  return { currentPhase, weeksIntoPhase, weeksRemaining, switchDate, weeksSinceStart, totalWeeksSoFar, prog };
+}
+
+function getPhaseSwitchDates(programId, startDateStr) {
+  const prog = PROGRAMS[programId];
+  if (!prog || !startDateStr) return [];
+  const start = new Date(startDateStr);
+  start.setHours(0, 0, 0, 0);
+  const switches = [];
+  let cumWeeks = 0;
+  for (const ph of prog.phases) {
+    cumWeeks += ph.weeks;
+    const d = new Date(start);
+    d.setDate(d.getDate() + cumWeeks * 7);
+    switches.push(d);
+  }
+  return switches;
+}
+
+// ═══════════════════════════════════════════════════════
+// HOME SCREEN
+// ═══════════════════════════════════════════════════════
+function renderHome() {
+  const now = new Date();
+  document.getElementById('home-date').textContent =
+    now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+
+  // Program grid
+  const grid = document.getElementById('prog-grid');
+  grid.innerHTML = Object.values(PROGRAMS).map(p => `
+    <div class="prog-card ${state.selectedProgram === p.id ? 'selected' : ''}" onclick="selectProgram('${p.id}')">
+      <div class="prog-card-name" style="color:${state.selectedProgram === p.id ? p.color : 'var(--text)'}">${p.shortName}</div>
+      <div class="prog-card-sub">${p.phases.length} phases · ${p.totalWeeks} weeks</div>
+      ${state.selectedProgram === p.id && state.programStartDate ? renderPhaseMiniBar(p.id) : ''}
+    </div>
+  `).join('');
+
+  const panel = document.getElementById('active-program-panel');
+  if (state.selectedProgram && state.programStartDate) {
+    panel.style.display = 'block';
+    renderPhaseStatus();
+    renderPhaseAlert();
+    renderTodayCard();
+  } else if (state.selectedProgram) {
+    panel.style.display = 'block';
+    document.getElementById('phase-status-card').innerHTML = `
+      <div style="text-align:center;padding:10px 0">
+        <div style="font-size:13px;color:var(--text2);margin-bottom:12px">Set your program start date to track phases</div>
+        <input type="date" id="start-date-input" style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px 14px;color:var(--text);font-size:15px;width:100%;text-align:center"
+          onchange="setStartDate(this.value)">
+      </div>`;
+    document.getElementById('phase-alert-wrap').innerHTML = '';
+    document.getElementById('today-workout-card').innerHTML = '<div style="color:var(--text2);font-size:13px">Set a start date to see today\'s workout.</div>';
+  } else {
+    panel.style.display = 'none';
+  }
+  document.getElementById('home-program-label').textContent = state.selectedProgram
+    ? PROGRAMS[state.selectedProgram].name : 'Select a program below';
+}
+
+function renderPhaseMiniBar(programId) {
+  const info = getCurrentPhaseInfo(programId, state.programStartDate);
+  if (!info) return '';
+  const prog = PROGRAMS[programId];
+  const pct = Math.min(100, Math.round((info.weeksSinceStart / prog.totalWeeks) * 100));
+  return `<div class="phase-bar-wrap" style="margin-top:8px"><div class="phase-bar" style="width:${pct}%;background:${prog.color}"></div></div>
+  <div style="font-size:10px;color:var(--text2);margin-top:4px">Phase ${info.currentPhase.num} · Wk ${info.weeksIntoPhase+1}/${info.currentPhase.weeks}</div>`;
+}
+
+function renderPhaseStatus() {
+  const info = getCurrentPhaseInfo(state.selectedProgram, state.programStartDate);
+  if (!info) return;
+  const prog = PROGRAMS[state.selectedProgram];
+  const { currentPhase, weeksIntoPhase, weeksRemaining } = info;
+  const pct = Math.round((weeksIntoPhase / currentPhase.weeks) * 100);
+
+  const segs = prog.phases.map((ph, i) => {
+    const isDone = ph.num < currentPhase.num;
+    const isActive = ph.num === currentPhase.num;
+    return `<div class="phase-seg ${isDone ? 'done' : isActive ? 'active' : ''}"></div>`;
+  }).join('');
+
+  document.getElementById('phase-status-card').innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+      <div>
+        <div class="card-label">Phase ${currentPhase.num} of ${prog.phases.length}</div>
+        <div class="card-title">${currentPhase.name}</div>
+        <div style="font-size:12px;color:var(--text2);margin-top:3px">${currentPhase.objective}</div>
+      </div>
+      <div class="badge ${weeksRemaining <= 1 ? 'badge-amber' : 'badge-green'}">
+        ${weeksRemaining} wk${weeksRemaining !== 1 ? 's' : ''} left
+      </div>
+    </div>
+    <div class="phase-timeline">${segs}</div>
+    <div style="display:flex;gap:16px;font-size:12px;color:var(--text2);flex-wrap:wrap;margin-top:4px">
+      <span>Intensity: <strong style="color:var(--text)">${currentPhase.intensity}</strong></span>
+      <span>Rest: <strong style="color:var(--text)">${currentPhase.rest}</strong></span>
+      <span>Tempo: <strong style="color:var(--text)">${currentPhase.tempo}</strong></span>
+    </div>`;
+}
+
+function renderPhaseAlert() {
+  const info = getCurrentPhaseInfo(state.selectedProgram, state.programStartDate);
+  if (!info) { document.getElementById('phase-alert-wrap').innerHTML = ''; return; }
+  const { weeksRemaining, switchDate, currentPhase, prog } = info;
+  const nextPhase = prog.phases.find(p => p.num === currentPhase.num + 1);
+  let html = '';
+  if (nextPhase && weeksRemaining <= 1) {
+    const dateStr = switchDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    html = `<div class="phase-alert">
+      <div class="phase-alert-icon">🔄</div>
+      <div class="phase-alert-text">
+        <strong>Phase switch coming ${dateStr}</strong><br>
+        Transitioning to Phase ${nextPhase.num}: ${nextPhase.name}. ${nextPhase.objective}.
+      </div>
+    </div>`;
+  } else if (!nextPhase && weeksRemaining === 0) {
+    html = `<div class="phase-alert">
+      <div class="phase-alert-icon">🏆</div>
+      <div class="phase-alert-text"><strong>Program complete!</strong><br>You have finished all phases. Consider restarting or switching programs.</div>
+    </div>`;
+  }
+  document.getElementById('phase-alert-wrap').innerHTML = html;
+}
+
+function renderTodayCard() {
+  const info = getCurrentPhaseInfo(state.selectedProgram, state.programStartDate);
+  if (!info) return;
+  const { currentPhase, weeksSinceStart } = info;
+  const prog = PROGRAMS[state.selectedProgram];
+  const dayOfWeek = new Date().getDay(); // 0=Sun
+  // Map to workout day based on 3x/week pattern (Mon/Wed/Fri = days 1/2/3)
+  const workoutDays = { 1: 0, 3: 1, 5: 2 }; // dayOfWeek -> dayIndex in phase
+  const dayIndex = workoutDays[dayOfWeek];
+  const isMobility = [0, 2, 4, 6].includes(dayOfWeek); // Tue/Thu/Sat/Sun
+  const isRest = dayOfWeek === 0; // Sunday
+
+  let html = '';
+  if (dayIndex !== undefined && currentPhase.days && currentPhase.days[dayIndex]) {
+    const day = currentPhase.days[dayIndex];
+    const totalSets = day.exercises.reduce((a, e) => a + e.sets, 0);
+    html = `
+      <div style="margin-bottom:12px">
+        <div class="card-label">Phase ${currentPhase.num} · ${currentPhase.name}</div>
+        <div class="card-title">${day.label}</div>
+        <div style="font-size:12px;color:var(--text2);margin-top:3px">${day.exercises.length} exercises · ${totalSets} total sets</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-primary" style="flex:1" onclick="startWorkout('${state.selectedProgram}', ${currentPhase.num}, ${dayIndex})">Start Workout</button>
+        <button class="btn btn-sm" onclick="viewBlueprint('${state.selectedProgram}', ${currentPhase.num}, ${dayIndex})">Blueprint</button>
+      </div>`;
+  } else if (isMobility && !isRest) {
+    html = `<div style="color:var(--text2);font-size:14px;line-height:1.6">
+      <div class="card-label">Active Recovery</div>
+      <div class="card-title">Mobility Session</div>
+      <div style="font-size:13px;color:var(--text2);margin-top:6px">Choose Mobility Session 1–4 from the program guide. Target your weak areas for 20–45 minutes.</div>
+    </div>`;
+  } else {
+    html = `<div style="text-align:center;padding:8px 0">
+      <div style="font-size:24px;margin-bottom:8px">🟢</div>
+      <div style="font-size:14px;color:var(--text2)">Rest or mobility day. Recover well.</div>
+    </div>`;
+  }
+  document.getElementById('today-workout-card').innerHTML = html;
+}
+
+function selectProgram(id) {
+  state.selectedProgram = id;
+  if (!state.programStartDate) state.programStartDate = null;
+  saveState();
+  renderHome();
+}
+
+function setStartDate(val) {
+  state.programStartDate = val;
+  saveState();
+  renderHome();
+}
+
+// ═══════════════════════════════════════════════════════
+// BLUEPRINT VIEW
+// ═══════════════════════════════════════════════════════
+function viewBlueprint(programId, phaseNum, dayIdx) {
+  const prog = PROGRAMS[programId];
+  const phase = prog.phases.find(p => p.num === phaseNum);
+  const day = phase.days[dayIdx];
+  const logContent = document.getElementById('log-content');
+  logContent.innerHTML = `
+    <div style="margin-bottom:16px">
+      <button class="btn btn-sm" onclick="renderLog()" style="margin-bottom:12px">← Back</button>
+      <div class="badge badge-green" style="margin-bottom:8px">${prog.shortName} · Phase ${phaseNum}</div>
+      <div class="card-title" style="font-size:22px;margin-bottom:4px">${day.label}</div>
+      <div style="font-size:12px;color:var(--text2)">Intensity ${phase.intensity} · ${phase.sets} · Rest ${phase.rest} · Tempo ${phase.tempo}</div>
+    </div>
+    <div class="card">
+      ${day.exercises.map(ex => `
+        <div class="blueprint-ex">
+          <div class="blueprint-ex-name">
+            ${ex.name}
+            ${ex.superset ? '<span class="superset-badge">SUPERSET</span>' : ''}
+          </div>
+          <div class="blueprint-ex-detail">${ex.sets} sets × ${ex.reps}${ex.note ? ' · ' + ex.note : ''}</div>
+        </div>
+      `).join('')}
+    </div>
+    <button class="btn btn-primary" style="margin-top:4px" onclick="startWorkout('${programId}', ${phaseNum}, ${dayIdx})">Start This Workout</button>`;
+  document.getElementById('log-title').textContent = 'BLUEPRINT';
+  document.getElementById('log-subtitle').textContent = day.label;
+  document.getElementById('log-action-btn').style.display = 'none';
+  switchScreen('log');
+}
+
+// ═══════════════════════════════════════════════════════
+// LOG SCREEN
+// ═══════════════════════════════════════════════════════
+function renderLog() {
+  document.getElementById('log-action-btn').style.display = '';
+  if (state.activeWorkout) {
+    renderActiveWorkout();
+  } else {
+    renderWorkoutSelector();
+  }
+}
+
+function renderWorkoutSelector() {
+  document.getElementById('log-title').textContent = 'LOG';
+  document.getElementById('log-subtitle').textContent = 'Choose a workout';
+  document.getElementById('log-action-btn').textContent = 'Quick Start';
+  document.getElementById('log-action-btn').onclick = () => handleLogAction();
+  const content = document.getElementById('log-content');
+  if (!state.selectedProgram) {
+    content.innerHTML = `<div class="empty">
+      <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      <div class="empty-title">No Program Selected</div>
+      <div class="empty-sub">Go to Home and select MAPS Performance or MAPS Aesthetic to begin.</div>
+    </div>`;
+    return;
+  }
+  const prog = PROGRAMS[state.selectedProgram];
+  let html = `<div class="badge badge-green" style="margin-bottom:14px">${prog.name}</div>`;
+  prog.phases.forEach(phase => {
+    html += `<div class="section-label">Phase ${phase.num} · ${phase.name}</div>`;
+    if (phase.days) {
+      phase.days.forEach((day, i) => {
+        html += `<div class="card" style="cursor:pointer" onclick="startWorkout('${prog.id}', ${phase.num}, ${i})">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div class="card-title" style="font-size:17px">${day.label}</div>
+              <div style="font-size:12px;color:var(--text2);margin-top:3px">${day.exercises.length} exercises</div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <button class="btn btn-sm" onclick="event.stopPropagation();viewBlueprint('${prog.id}', ${phase.num}, ${i})">View</button>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+        </div>`;
+      });
+    }
+  });
+  content.innerHTML = html;
+}
+
+function handleLogAction() {
+  if (state.activeWorkout) {
+    finishWorkout();
+  } else {
+    renderWorkoutSelector();
+  }
+}
+
+function startWorkout(programId, phaseNum, dayIdx) {
+  const prog = PROGRAMS[programId];
+  const phase = prog.phases.find(p => p.num === phaseNum);
+  const day = phase.days[dayIdx];
+  state.activeWorkout = {
+    programId, phaseNum, dayIdx,
+    label: day.label,
+    startTs: Date.now(),
+    exercises: day.exercises.map(ex => ({
+      name: ex.name,
+      targetSets: ex.sets,
+      targetReps: ex.reps,
+      note: ex.note || null,
+      superset: ex.superset || false,
+      sets: Array.from({ length: ex.sets }, () => ({ reps: '', weight: '', done: false }))
+    }))
+  };
+  saveState();
+  renderActiveWorkout();
+  switchScreen('log');
+}
+
+function renderActiveWorkout() {
+  const w = state.activeWorkout;
+  const prog = PROGRAMS[w.programId];
+  const elapsed = Math.floor((Date.now() - w.startTs) / 60000);
+  const doneCount = w.exercises.reduce((a, ex) => a + ex.sets.filter(s => s.done).length, 0);
+  const totalSets = w.exercises.reduce((a, ex) => a + ex.sets.length, 0);
+  const pct = Math.round((doneCount / totalSets) * 100);
+
+  document.getElementById('log-title').textContent = 'ACTIVE';
+  document.getElementById('log-subtitle').textContent = `${elapsed}m elapsed · ${doneCount}/${totalSets} sets`;
+  document.getElementById('log-action-btn').textContent = 'Finish';
+  document.getElementById('log-action-btn').onclick = () => finishWorkout();
+
+  let html = `
+    <div class="card" style="margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <div>
+          <div class="card-label">${prog.shortName} · Phase ${w.phaseNum}</div>
+          <div class="card-title" style="font-size:17px">${w.label}</div>
+        </div>
+        <div class="badge ${pct === 100 ? 'badge-green' : 'badge-amber'}">${pct}%</div>
+      </div>
+      <div class="phase-bar-wrap"><div class="phase-bar" style="width:${pct}%"></div></div>
+    </div>`;
+
+  w.exercises.forEach((ex, exIdx) => {
+    const allDone = ex.sets.every(s => s.done);
+    html += `<div class="exercise-row">
+      <div class="exercise-name">
+        <span>${ex.name}${ex.superset ? ' <span class="superset-badge">SS</span>' : ''}</span>
+        ${allDone ? '<span style="color:var(--green);font-size:18px">✓</span>' : ''}
+      </div>
+      ${ex.note ? `<div style="font-size:11px;color:var(--amber);margin-bottom:8px">${ex.note}</div>` : ''}
+      <div class="sets-row">
+        ${ex.sets.map((s, si) => `
+          <div class="set-chip ${s.done ? 'logged' : ''}" onclick="openSetModal(${exIdx}, ${si})">
+            <div class="set-chip-label">Set ${si + 1}</div>
+            <div class="set-chip-val">${s.done ? (s.reps || '—') + (s.weight ? '<br><span style="font-size:11px;color:var(--text2)">' + s.weight + 'lb</span>' : '') : '+'}</div>
+          </div>`).join('')}
+        <div class="add-set-btn" onclick="addSet(${exIdx})">+</div>
+      </div>
+      <div style="font-size:11px;color:var(--text3);margin-top:8px">Target: ${ex.targetSets} × ${ex.targetReps}</div>
+    </div>`;
+  });
+
+  html += `<button class="btn btn-primary" style="margin-top:8px" onclick="finishWorkout()">Complete Workout</button>
+    <button class="btn btn-danger" style="width:100%;margin-top:10px" onclick="cancelWorkout()">Cancel Workout</button>`;
+
+  document.getElementById('log-content').innerHTML = html;
+}
+
+function addSet(exIdx) {
+  state.activeWorkout.exercises[exIdx].sets.push({ reps: '', weight: '', done: false });
+  saveState();
+  renderActiveWorkout();
+}
+
+function finishWorkout() {
+  const w = state.activeWorkout;
+  const doneCount = w.exercises.reduce((a, ex) => a + ex.sets.filter(s => s.done).length, 0);
+  if (doneCount === 0 && !confirm('No sets logged. Finish anyway?')) return;
+  const record = {
+    ...w,
+    endTs: Date.now(),
+    duration: Date.now() - w.startTs
+  };
+  state.workoutHistory.unshift(record);
+  state.activeWorkout = null;
+  saveState();
+  renderLog();
+  renderProgress();
+}
+
+function cancelWorkout() {
+  if (confirm('Cancel this workout? Progress will be lost.')) {
+    state.activeWorkout = null;
+    saveState();
+    renderLog();
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// SET MODAL
+// ═══════════════════════════════════════════════════════
+function openSetModal(exIdx, setIdx) {
+  modalCtx = { exIdx, setIdx };
+  const ex = state.activeWorkout.exercises[exIdx];
+  const set = ex.sets[setIdx];
+  const prevSets = ex.sets.slice(0, setIdx).filter(s => s.done);
+
+  document.getElementById('modal-ex-name').textContent = ex.name;
+  document.getElementById('modal-set-label').textContent = `Set ${setIdx + 1} of ${ex.sets.length} · Target: ${ex.targetReps}`;
+  document.getElementById('input-reps').value = set.reps || '';
+  document.getElementById('input-weight').value = set.weight || '';
+
+  // Quick reps based on target
+  const repMatch = String(ex.targetReps).match(/(\d+)/);
+  const suggestReps = repMatch ? parseInt(repMatch[1]) : 10;
+  const quickReps = [suggestReps - 2, suggestReps, suggestReps + 2].filter(r => r > 0);
+  document.getElementById('quick-reps').innerHTML = quickReps.map(r =>
+    `<div class="quick-btn" onclick="document.getElementById('input-reps').value=${r}">${r}</div>`).join('');
+
+  // Quick weights from previous sets
+  const weights = [...new Set(prevSets.map(s => s.weight).filter(Boolean))].slice(-3);
+  if (weights.length) {
+    document.getElementById('quick-weight').innerHTML = weights.map(w =>
+      `<div class="quick-btn" onclick="document.getElementById('input-weight').value=${w}">${w}</div>`).join('');
+  } else {
+    document.getElementById('quick-weight').innerHTML = [25, 35, 45].map(w =>
+      `<div class="quick-btn" onclick="document.getElementById('input-weight').value=${w}">${w}</div>`).join('');
+  }
+
+  document.getElementById('set-modal').classList.add('open');
+  setTimeout(() => document.getElementById('input-reps').focus(), 100);
+}
+
+function closeSetModal(e) {
+  if (e.target === document.getElementById('set-modal')) {
+    document.getElementById('set-modal').classList.remove('open');
+  }
+}
+
+function saveSet() {
+  const { exIdx, setIdx } = modalCtx;
+  const reps = document.getElementById('input-reps').value;
+  const weight = document.getElementById('input-weight').value;
+  state.activeWorkout.exercises[exIdx].sets[setIdx] = { reps, weight, done: true };
+  saveState();
+  document.getElementById('set-modal').classList.remove('open');
+  renderActiveWorkout();
+}
+
+// ═══════════════════════════════════════════════════════
+// PROGRESS SCREEN
+// ═══════════════════════════════════════════════════════
+function renderProgress() {
+  const el = document.getElementById('progress-content');
+  let html = '';
+
+  // ── Phase calendar (if program active) ──
+  if (state.selectedProgram && state.programStartDate) {
+    const prog = PROGRAMS[state.selectedProgram];
+    const info = getCurrentPhaseInfo(state.selectedProgram, state.programStartDate);
+    const switchDates = getPhaseSwitchDates(state.selectedProgram, state.programStartDate);
+    html += renderPhaseCalendar(prog, info, switchDates);
+    html += renderPhaseTable(prog, info);
+  }
+
+  // ── Stats ──
+  if (state.workoutHistory.length) {
+    const totalMin = Math.round(state.workoutHistory.reduce((a, w) => a + w.duration, 0) / 60000);
+    const streak = calcStreak();
+    const totalVol = state.workoutHistory.reduce((a, w) =>
+      a + w.exercises.reduce((b, ex) =>
+        b + ex.sets.filter(s => s.done && s.reps && s.weight).reduce((c, s) =>
+          c + parseInt(s.reps || 0) * parseFloat(s.weight || 0), 0), 0), 0);
+
+    html += `<div class="section-label">Overall Stats</div>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-val">${state.workoutHistory.length}</div><div class="stat-label">Workouts</div></div>
+      <div class="stat-card"><div class="stat-val">${streak}</div><div class="stat-label">Day Streak</div></div>
+      <div class="stat-card"><div class="stat-val">${totalMin}</div><div class="stat-label">Total Minutes</div></div>
+      <div class="stat-card"><div class="stat-val">${Math.round(totalVol/1000)}k</div><div class="stat-label">Total Volume (lbs)</div></div>
+    </div>`;
+
+    // ── History ──
+    html += `<div class="section-label">Workout History</div>`;
+    state.workoutHistory.slice(0, 20).forEach((w, i) => {
+      const prog = PROGRAMS[w.programId] || {};
+      const dur = Math.round(w.duration / 60000);
+      const doneSets = w.exercises.reduce((a, ex) => a + ex.sets.filter(s => s.done).length, 0);
+      const date = new Date(w.endTs || w.startTs);
+      html += `<div class="hist-item" onclick="showHistDetail(${i})">
+        <div class="hist-top">
+          <div>
+            <div class="badge badge-green" style="margin-bottom:6px;font-size:10px">${prog.shortName || 'Workout'} · Ph ${w.phaseNum}</div>
+            <div class="hist-title">${w.label}</div>
+          </div>
+          <div style="text-align:right">
+            <div class="hist-date">${date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:2px">${date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}</div>
+          </div>
+        </div>
+        <div class="hist-stats">
+          <div class="hist-stat"><span>${dur}m</span> duration</div>
+          <div class="hist-stat"><span>${doneSets}</span> sets</div>
+          <div class="hist-stat"><span>${w.exercises.length}</span> exercises</div>
+        </div>
+      </div>`;
+    });
+  } else if (!state.selectedProgram) {
+    html += `<div class="empty">
+      <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      <div class="empty-title">No Data Yet</div>
+      <div class="empty-sub">Select a program on the Home screen and log your first workout.</div>
+    </div>`;
+  }
+
+  el.innerHTML = html;
+}
+
+function renderPhaseCalendar(prog, info, switchDates) {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth();
+  const monthName = now.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  const firstDow = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const todayNum = now.getDate();
+
+  // Worked days (by calendar date)
+  const workedDays = new Set(state.workoutHistory.map(w => {
+    const d = new Date(w.endTs || w.startTs);
+    if (d.getFullYear() === year && d.getMonth() === month) return d.getDate();
+    return null;
+  }).filter(Boolean));
+
+  // Phase switch days in this month
+  const switchDayNums = new Set(switchDates.map(d => {
+    if (d.getFullYear() === year && d.getMonth() === month) return d.getDate();
+    return null;
+  }).filter(Boolean));
+
+  let html = `<div class="section-label">Phase Calendar</div><div class="card cal-wrap">
+    <div class="cal-header">
+      <div class="cal-month">${monthName}</div>
+      ${info ? `<div class="badge badge-amber">Phase ${info.currentPhase.num}: ${info.currentPhase.name}</div>` : ''}
+    </div>
+    <div class="cal-grid">
+      ${['S','M','T','W','T','F','S'].map(d => `<div class="cal-dow">${d}</div>`).join('')}
+      ${Array.from({ length: firstDow }, () => '<div class="cal-cell empty"></div>').join('')}
+      ${Array.from({ length: daysInMonth }, (_, i) => {
+        const d = i + 1;
+        const isWorked = workedDays.has(d);
+        const isToday = d === todayNum;
+        const isSwitch = switchDayNums.has(d);
+        let cls = 'cal-cell';
+        if (isSwitch) cls += ' phase-switch';
+        else if (isWorked) cls += ' worked';
+        if (isToday) cls += ' today';
+        return `<div class="${cls}">${d}</div>`;
+      }).join('')}
+    </div>
+    <div class="cal-legend">
+      <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--green-dim);border:1px solid var(--green)"></div>Workout</div>
+      <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--blue-dim);border:1px solid var(--blue)"></div>Phase switch</div>
+      <div class="cal-legend-item"><div class="cal-legend-dot" style="border:2px solid var(--amber)"></div>Today</div>
+    </div>
+  </div>`;
+  return html;
+}
+
+function renderPhaseTable(prog, info) {
+  const startDate = new Date(state.programStartDate);
+  let html = `<div class="section-label">Phase Schedule</div><div class="card">
+    <table class="phase-table">
+      <thead><tr><th>Phase</th><th>Name</th><th>Dates</th><th>Status</th></tr></thead>
+      <tbody>`;
+  let cumWeeks = 0;
+  prog.phases.forEach(ph => {
+    const phStart = new Date(startDate);
+    phStart.setDate(phStart.getDate() + cumWeeks * 7);
+    const phEnd = new Date(phStart);
+    phEnd.setDate(phEnd.getDate() + ph.weeks * 7 - 1);
+    cumWeeks += ph.weeks;
+    const now = new Date();
+    const isCurrent = info && ph.num === info.currentPhase.num;
+    const isDone = info && ph.num < info.currentPhase.num;
+    const status = isDone ? '✓ Done' : isCurrent ? '→ Active' : 'Upcoming';
+    const statusClass = isDone ? 'badge-green' : isCurrent ? 'badge-amber' : '';
+    html += `<tr class="${isCurrent ? 'phase-row current' : ''}">
+      <td><strong>${ph.num}</strong></td>
+      <td>${ph.name}<br><span style="font-size:10px;color:var(--text3)">${ph.weeks}w · ${ph.objective}</span></td>
+      <td style="font-size:11px;color:var(--text2)">${phStart.toLocaleDateString('en-US',{month:'short',day:'numeric'})} –<br>${phEnd.toLocaleDateString('en-US',{month:'short',day:'numeric'})}</td>
+      <td><span class="badge ${statusClass}" style="font-size:10px">${status}</span></td>
+    </tr>`;
+  });
+  html += '</tbody></table></div>';
+  return html;
+}
+
+function showHistDetail(idx) {
+  const w = state.workoutHistory[idx];
+  const prog = PROGRAMS[w.programId] || {};
+  const dur = Math.round(w.duration / 60000);
+  const doneSets = w.exercises.reduce((a, ex) => a + ex.sets.filter(s => s.done).length, 0);
+  const vol = w.exercises.reduce((a, ex) =>
+    a + ex.sets.filter(s => s.done && s.reps && s.weight).reduce((b, s) =>
+      b + parseInt(s.reps || 0) * parseFloat(s.weight || 0), 0), 0);
+  const date = new Date(w.endTs || w.startTs);
+
+  let html = `
+    <button class="btn btn-sm" onclick="renderProgress()" style="margin-bottom:14px">← Back</button>
+    <div class="badge badge-green" style="margin-bottom:8px">${prog.shortName || ''} · Phase ${w.phaseNum}</div>
+    <div class="card-title" style="font-size:22px;margin-bottom:4px">${w.label}</div>
+    <div style="font-size:13px;color:var(--text2);margin-bottom:16px">${date.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})}</div>
+    <div class="stats-grid" style="margin-bottom:16px">
+      <div class="stat-card"><div class="stat-val">${dur}m</div><div class="stat-label">Duration</div></div>
+      <div class="stat-card"><div class="stat-val">${doneSets}</div><div class="stat-label">Sets Done</div></div>
+      ${vol > 0 ? `<div class="stat-card" style="grid-column:span 2"><div class="stat-val">${Math.round(vol).toLocaleString()}</div><div class="stat-label">Volume (lbs)</div></div>` : ''}
+    </div>
+    <div class="section-label">Exercise Log</div>
+    <div class="card">`;
+  w.exercises.forEach(ex => {
+    const doneSets = ex.sets.filter(s => s.done);
+    html += `<div class="blueprint-ex">
+      <div class="blueprint-ex-name">${ex.name}</div>`;
+    if (doneSets.length) {
+      html += `<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px">`;
+      doneSets.forEach((s, i) => {
+        html += `<div style="background:var(--bg3);border-radius:8px;padding:6px 10px;font-size:12px">
+          <strong>Set ${i+1}</strong>: ${s.reps || '—'} reps${s.weight ? ' @ ' + s.weight + ' lbs' : ''}
+        </div>`;
+      });
+      html += '</div>';
+    } else {
+      html += `<div style="font-size:12px;color:var(--text3);margin-top:4px">No sets logged</div>`;
+    }
+    html += '</div>';
+  });
+  html += '</div>';
+  document.getElementById('progress-content').innerHTML = html;
+}
+
+// ═══════════════════════════════════════════════════════
+// UTILITIES
+// ═══════════════════════════════════════════════════════
+function calcStreak() {
+  if (!state.workoutHistory.length) return 0;
+  const days = [...new Set(state.workoutHistory.map(w => {
+    const d = new Date(w.endTs || w.startTs);
+    d.setHours(0, 0, 0, 0);
+    return d.getTime();
+  }))].sort((a, b) => b - a);
+  let streak = 0;
+  let check = new Date();
+  check.setHours(0, 0, 0, 0);
+  for (const day of days) {
+    if (day === check.getTime() || day === check.getTime() - 86400000) {
+      streak++;
+      check = new Date(day);
+      check.setDate(check.getDate() - 1);
+    } else break;
+  }
+  return streak;
+}
+
+// ═══════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════
+loadState();
+renderHome();
+
+// Re-render timer for active workout
+setInterval(() => {
+  if (state.activeWorkout && state.currentScreen === 'log') {
+    const elapsed = Math.floor((Date.now() - state.activeWorkout.startTs) / 60000);
+    const doneCount = state.activeWorkout.exercises.reduce((a, ex) => a + ex.sets.filter(s => s.done).length, 0);
+    const totalSets = state.activeWorkout.exercises.reduce((a, ex) => a + ex.sets.length, 0);
+    document.getElementById('log-subtitle').textContent = `${elapsed}m elapsed · ${doneCount}/${totalSets} sets`;
+  }
+}, 15000);
+</script>
+</body>
+</html>
