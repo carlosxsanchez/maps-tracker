@@ -222,6 +222,14 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
       <div class="section-label">Program</div>
       <div class="prog-grid" id="prog-grid"></div>
 
+      <!-- Equipment version toggle -->
+      <div id="equipment-toggle-wrap" style="display:none;margin-bottom:4px">
+        <div style="display:flex;gap:8px">
+          <button id="btn-dumbbell" onclick="setEquipmentVersion('dumbbell')" class="btn" style="flex:1;padding:10px;border-radius:10px;font-size:13px;font-weight:700;border:2px solid var(--green);background:var(--green-dim);color:var(--green)">🏠 Dumbbell</button>
+          <button id="btn-gym" onclick="setEquipmentVersion('gym')" class="btn" style="flex:1;padding:10px;border-radius:10px;font-size:13px;font-weight:700;border:2px solid var(--border);background:var(--bg3);color:var(--text2)">🏋️ Gym</button>
+        </div>
+      </div>
+
       <!-- Active program status -->
       <div id="active-program-panel" style="display:none">
         <div class="section-label">Current Phase</div>
@@ -330,104 +338,192 @@ const PROGRAMS = {
         objective: 'Build maximal strength',
         intensity: '85-90%', tempo: '5:1:1', rest: '3-5 min',
         sets: '2-5 sets', reps: '1-6 reps',
-        days: [
-          { day: 1, label: 'Day 1 — Power & Pull', exercises: [
-            { name: 'Phase 1 Squat', sets: 5, reps: '3', note: 'Explosive concentric, slow eccentric' },
-            { name: 'Dumbbell Bench Press', sets: 3, reps: '3' },
-            { name: 'Dumbbell High Pull', sets: 3, reps: '3' },
-            { name: 'Weighted Pull-ups', sets: 2, reps: '5', note: 'Full lockout, neutral grip' },
-            { name: 'Overhead Press (Push Press)', sets: 3, reps: '3-6' },
-            { name: 'Rubber Band Side Chop', sets: 1, reps: '15-20/side', note: 'Per side' },
-          ]},
-          { day: 2, label: 'Day 2 — Deadlift & Push', exercises: [
-            { name: 'Phase 1 Dumbbell Sumo Deadlift', sets: 5, reps: '6', note: 'Ideally with bands' },
-            { name: 'Walking Lunges', sets: 3, reps: '20', note: 'Loaded with KB/BB/DB' },
-            { name: 'Weighted Dips', sets: 3, reps: '3-6' },
-            { name: 'MAPS Strength Row', sets: 3, reps: '3-6' },
-            { name: 'One Arm DB Shoulder Press', sets: 3, reps: '3-6/arm' },
-            { name: 'Rubber Band Downward Chop', sets: 3, reps: '15-20/side' },
-          ]},
-          { day: 3, label: 'Day 3 — Front Squat & Row', exercises: [
-            { name: 'Dumbbell Front Squat', sets: 3, reps: '3-6' },
-            { name: 'Dumbbell Incline Press', sets: 3, reps: '3-6' },
-            { name: 'Single Arm Bent Over Row (Split Stance)', sets: 3, reps: '10-12' },
-            { name: 'Rubber Band Pull-A-Parts (Heavy)', sets: 1, reps: '10-12', superset: true },
-            { name: 'MAPS External Rotation (Light Band)', sets: 1, reps: '15-20', superset: true },
-            { name: 'MAPS Dumbbell Suitcase Carry', sets: 1, reps: '30 sec each direction' },
-          ]},
-        ]
+        days: {
+          dumbbell: [
+            { day: 1, label: 'Day 1 — Power & Pull', exercises: [
+              { name: 'Phase 1 Squat', sets: 5, reps: '3', note: 'Explosive concentric, slow eccentric' },
+              { name: 'Dumbbell Bench Press', sets: 3, reps: '3' },
+              { name: 'Dumbbell High Pull', sets: 3, reps: '3' },
+              { name: 'Weighted Pull-ups', sets: 2, reps: '5', note: 'Full lockout, neutral grip' },
+              { name: 'Overhead Press (Dumbbell Push Press)', sets: 3, reps: '3-6' },
+              { name: 'Rubber Band Side Chop', sets: 1, reps: '15-20/side' },
+            ]},
+            { day: 2, label: 'Day 2 — Deadlift & Push', exercises: [
+              { name: 'Phase 1 Dumbbell Sumo Deadlift', sets: 5, reps: '6', note: 'Ideally with bands' },
+              { name: 'Walking Lunges', sets: 3, reps: '20', note: 'Loaded with KB/BB/DB' },
+              { name: 'Weighted Dips', sets: 3, reps: '3-6' },
+              { name: 'MAPS Strength Row', sets: 3, reps: '3-6' },
+              { name: 'One Arm Dumbbell Shoulder Press', sets: 3, reps: '3-6/arm' },
+              { name: 'Rubber Band Downward Chop', sets: 3, reps: '15-20/side' },
+            ]},
+            { day: 3, label: 'Day 3 — Front Squat & Row', exercises: [
+              { name: 'Dumbbell Front Squat', sets: 3, reps: '3-6' },
+              { name: 'Dumbbell Incline Press', sets: 3, reps: '3-6' },
+              { name: 'Single Arm Bent Over Dumbbell Row (Split Stance)', sets: 3, reps: '10-12' },
+              { name: 'Rubber Band Pull-A-Parts (Heavy)', sets: 1, reps: '10-12', superset: true },
+              { name: 'MAPS External Rotation (Light Band)', sets: 1, reps: '15-20', superset: true },
+              { name: 'MAPS Dumbbell Suitcase Carry', sets: 1, reps: '30 sec each direction' },
+            ]},
+          ],
+          gym: [
+            { day: 1, label: 'Day 1 — Power & Pull', exercises: [
+              { name: 'Barbell Back Squat', sets: 5, reps: '3', note: 'Explosive concentric, slow eccentric' },
+              { name: 'Barbell Bench Press', sets: 3, reps: '3' },
+              { name: 'Barbell High Pull', sets: 3, reps: '3' },
+              { name: 'Weighted Pull-ups', sets: 2, reps: '5', note: 'Full lockout, neutral grip' },
+              { name: 'Barbell Overhead Push Press', sets: 3, reps: '3-6' },
+              { name: 'Cable or Band Side Chop', sets: 1, reps: '15-20/side' },
+            ]},
+            { day: 2, label: 'Day 2 — Deadlift & Push', exercises: [
+              { name: 'Barbell Sumo Deadlift', sets: 5, reps: '6', note: 'Ideally with bands' },
+              { name: 'Barbell Walking Lunges', sets: 3, reps: '20' },
+              { name: 'Weighted Dips', sets: 3, reps: '3-6' },
+              { name: 'Barbell Bent Over Row', sets: 3, reps: '3-6' },
+              { name: 'Single Arm DB Shoulder Press', sets: 3, reps: '3-6/arm' },
+              { name: 'Cable Downward Chop', sets: 3, reps: '15-20/side' },
+            ]},
+            { day: 3, label: 'Day 3 — Front Squat & Row', exercises: [
+              { name: 'Barbell Front Squat', sets: 3, reps: '3-6' },
+              { name: 'Barbell Incline Press', sets: 3, reps: '3-6' },
+              { name: 'Single Arm DB Row (Split Stance)', sets: 3, reps: '10-12' },
+              { name: 'Band Pull-A-Parts (Heavy)', sets: 1, reps: '10-12', superset: true },
+              { name: 'Band External Rotation (Light)', sets: 1, reps: '15-20', superset: true },
+              { name: 'Farmer Carry (Heavy)', sets: 1, reps: '30 sec each direction' },
+            ]},
+          ]
+        }
       },
       {
         num: 2, name: 'Reactive Strength', weeks: 3, workoutsRequired: 9, startWeek: 4,
         objective: 'Build multi-planar strength',
         intensity: '75-85%', tempo: '2:0:2', rest: '30-90 sec',
         sets: '3-4 sets', reps: '15-20 reps',
-        days: [
-          { day: 1, label: 'Day 1 — Matrix & Rotation', exercises: [
-            { name: 'MAPS Matrix Lunges', sets: 4, reps: '18', note: 'Each lunge = 1 rep' },
-            { name: 'Renegade Row to Push Up', sets: 4, reps: '10-15' },
-            { name: 'One Arm Dumbbell Squat Press', sets: 4, reps: '15-20' },
-            { name: 'MAPS Rotational Lunge', sets: 4, reps: '10-15/side' },
-            { name: 'Dumbbell Trunk Rotations', sets: 4, reps: '15-20' },
-          ]},
-          { day: 2, label: 'Day 2 — Single Leg & Press', exercises: [
-            { name: 'Dumbbell Squat', sets: 4, reps: '15-20' },
-            { name: 'Dumbbell Single Leg Deadlift', sets: 4, reps: '15-20' },
-            { name: 'Dumbbell High/Low Press', sets: 4, reps: '15-20' },
-            { name: 'Dumbbell Bench Press', sets: 4, reps: '4-6', superset: true },
-            { name: 'Push Up With Rotation', sets: 4, reps: '15-20', superset: true },
-          ]},
-          { day: 3, label: 'Day 3 — Goblet & Stick', exercises: [
-            { name: 'Dumbbell Goblet Squat', sets: 4, reps: '15-20' },
-            { name: 'Dunphy Squat', sets: 4, reps: '15-20' },
-            { name: 'Stick ISO Drivers', sets: 4, reps: '15-20' },
-            { name: 'Stick Single Arm ISO Chest', sets: 4, reps: '15-20/side' },
-            { name: 'Stick Lateral Drivers', sets: 4, reps: '15-20' },
-            { name: 'Supinated Pull-Ups', sets: 3, reps: '2 short of failure', note: 'Assisted if needed' },
-          ]},
-        ]
+        days: {
+          dumbbell: [
+            { day: 1, label: 'Day 1 — Matrix & Rotation', exercises: [
+              { name: 'MAPS Matrix Lunges', sets: 4, reps: '18', note: 'Each lunge = 1 rep' },
+              { name: 'Renegade Row to Push Up', sets: 4, reps: '10-15' },
+              { name: 'One Arm Dumbbell Squat Press', sets: 4, reps: '15-20' },
+              { name: 'MAPS Rotational Lunge', sets: 4, reps: '10-15/side' },
+              { name: 'Dumbbell Trunk Rotations', sets: 4, reps: '15-20' },
+            ]},
+            { day: 2, label: 'Day 2 — Single Leg & Press', exercises: [
+              { name: 'Dumbbell Squat', sets: 4, reps: '15-20' },
+              { name: 'Dumbbell Single Leg Deadlift', sets: 4, reps: '15-20' },
+              { name: 'Dumbbell High/Low Press', sets: 4, reps: '15-20' },
+              { name: 'Dumbbell Bench Press', sets: 4, reps: '4-6', superset: true },
+              { name: 'Push Up With Rotation', sets: 4, reps: '15-20', superset: true },
+            ]},
+            { day: 3, label: 'Day 3 — Goblet & Stick', exercises: [
+              { name: 'Dumbbell Goblet Squat', sets: 4, reps: '15-20' },
+              { name: 'Dunphy Squat', sets: 4, reps: '15-20' },
+              { name: 'Stick ISO Drivers', sets: 4, reps: '15-20' },
+              { name: 'Stick Single Arm ISO Chest', sets: 4, reps: '15-20/side' },
+              { name: 'Stick Lateral Drivers', sets: 4, reps: '15-20' },
+              { name: 'Supinated Pull-Ups', sets: 3, reps: '2 short of failure', note: 'Assisted if needed' },
+            ]},
+          ],
+          gym: [
+            { day: 1, label: 'Day 1 — Matrix & Rotation', exercises: [
+              { name: 'Barbell Matrix Lunges', sets: 4, reps: '18', note: 'Each lunge = 1 rep' },
+              { name: 'Renegade Row to Push Up', sets: 4, reps: '10-15' },
+              { name: 'DB or Cable Squat Press', sets: 4, reps: '15-20' },
+              { name: 'Barbell Rotational Lunge', sets: 4, reps: '10-15/side' },
+              { name: 'Cable Trunk Rotations', sets: 4, reps: '15-20' },
+            ]},
+            { day: 2, label: 'Day 2 — Single Leg & Press', exercises: [
+              { name: 'Barbell Squat', sets: 4, reps: '15-20' },
+              { name: 'Single Leg Deadlift', sets: 4, reps: '15-20' },
+              { name: 'Cable High/Low Press', sets: 4, reps: '15-20' },
+              { name: 'Barbell Bench Press', sets: 4, reps: '4-6', superset: true },
+              { name: 'Push Up With Rotation', sets: 4, reps: '15-20', superset: true },
+            ]},
+            { day: 3, label: 'Day 3 — Squat & Pull', exercises: [
+              { name: 'Goblet Squat', sets: 4, reps: '15-20' },
+              { name: 'Bulgarian Split Squat', sets: 4, reps: '15-20' },
+              { name: 'Cable ISO Drivers', sets: 4, reps: '15-20' },
+              { name: 'Cable Single Arm Chest Press', sets: 4, reps: '15-20/side' },
+              { name: 'Cable Lateral Drivers', sets: 4, reps: '15-20' },
+              { name: 'Supinated Pull-Ups', sets: 3, reps: '2 short of failure', note: 'Assisted if needed' },
+            ]},
+          ]
+        }
       },
       {
         num: 3, name: 'Explosive Strength', weeks: 3, workoutsRequired: 9, startWeek: 7,
         objective: 'Build quick and powerful strength',
         intensity: '60-65%', tempo: '5:1:1', rest: '3-5 min',
         sets: '4 sets', reps: '15-20 reps',
-        days: [
-          { day: 1, label: 'Day 1 — Plyometric Power', exercises: [
-            { name: 'Box Jump', sets: 4, reps: '10-15', note: 'Regain composure each rep' },
-            { name: 'Dumbbell Swings', sets: 4, reps: '15-20' },
-            { name: 'Ice Skaters', sets: 4, reps: '15-20' },
-            { name: 'Plyo Push-Ups', sets: 4, reps: '15-20' },
-            { name: 'Phase III Dumbbell Squat', sets: 4, reps: '15-20' },
-          ]},
-          { day: 2, label: 'Day 2 — Speed & Power', exercises: [
-            { name: 'Single Arm Dumbbell Snatch', sets: 4, reps: '15-20/arm' },
-            { name: 'Alternating Lunge Jumps', sets: 4, reps: '15-20/leg' },
-            { name: 'Band Speed Row', sets: 4, reps: '15-20' },
-            { name: 'Rubber Band Power Punch', sets: 4, reps: '15-20' },
-            { name: 'Rubber Band Speed Pulls', sets: 4, reps: '5', note: 'Preferably with rubber bands' },
-          ]},
-        ]
+        days: {
+          dumbbell: [
+            { day: 1, label: 'Day 1 — Plyometric Power', exercises: [
+              { name: 'Box Jump', sets: 4, reps: '10-15', note: 'Regain composure each rep' },
+              { name: 'Dumbbell Swings', sets: 4, reps: '15-20' },
+              { name: 'Ice Skaters', sets: 4, reps: '15-20' },
+              { name: 'Plyo Push-Ups', sets: 4, reps: '15-20' },
+              { name: 'Phase III Dumbbell Squat', sets: 4, reps: '15-20' },
+            ]},
+            { day: 2, label: 'Day 2 — Speed & Power', exercises: [
+              { name: 'Single Arm Dumbbell Snatch', sets: 4, reps: '15-20/arm' },
+              { name: 'Alternating Lunge Jumps', sets: 4, reps: '15-20/leg' },
+              { name: 'Band Speed Row', sets: 4, reps: '15-20' },
+              { name: 'Rubber Band Power Punch', sets: 4, reps: '15-20' },
+              { name: 'Rubber Band Speed Pulls', sets: 4, reps: '5' },
+            ]},
+          ],
+          gym: [
+            { day: 1, label: 'Day 1 — Plyometric Power', exercises: [
+              { name: 'Box Jump', sets: 4, reps: '10-15', note: 'Regain composure each rep' },
+              { name: 'Kettlebell Swings', sets: 4, reps: '15-20' },
+              { name: 'Ice Skaters', sets: 4, reps: '15-20' },
+              { name: 'Plyo Push-Ups', sets: 4, reps: '15-20' },
+              { name: 'Jump Squat', sets: 4, reps: '15-20' },
+            ]},
+            { day: 2, label: 'Day 2 — Speed & Power', exercises: [
+              { name: 'Barbell Power Clean', sets: 4, reps: '15-20' },
+              { name: 'Alternating Lunge Jumps', sets: 4, reps: '15-20/leg' },
+              { name: 'Cable Speed Row', sets: 4, reps: '15-20' },
+              { name: 'Cable Power Punch', sets: 4, reps: '15-20' },
+              { name: 'Band Speed Pulls', sets: 4, reps: '5' },
+            ]},
+          ]
+        }
       },
       {
         num: 4, name: 'Strength Durability', weeks: 3, workoutsRequired: 9, startWeek: 10,
         objective: 'Expand strength endurance and conditioning',
         intensity: '80-90%', tempo: '—', rest: 'Move with composure',
         sets: '4 circuits', reps: 'Max reps / timed',
-        days: [
-          { day: 1, label: 'Day 1 — Circuit + Intervals', exercises: [
-            { name: 'Phase IV Dumbbell Squat', sets: 4, reps: '45 sec', note: 'Circuit — 3 exercises in succession' },
-            { name: 'Assisted / Bodyweight Pull-Ups', sets: 4, reps: '30 sec' },
-            { name: 'Push-Ups', sets: 4, reps: '45 sec' },
-            { name: 'MAPS Instinctive Intervals (Treadmill)', sets: 1, reps: '15 min total', note: '30 sec sprint / recover to composure' },
-          ]},
-          { day: 2, label: 'Day 2 — Dumbbell Complex', exercises: [
-            { name: 'Double Dumbbell Swings', sets: 4, reps: '20', note: '4 cycles of complex' },
-            { name: 'Dumbbell Front Squats', sets: 4, reps: '15' },
-            { name: 'Dumbbell Rotating Shoulder Press', sets: 4, reps: '10' },
-            { name: 'Push Ups with Depth', sets: 4, reps: '10' },
-          ]},
-        ]
+        days: {
+          dumbbell: [
+            { day: 1, label: 'Day 1 — Circuit + Intervals', exercises: [
+              { name: 'Phase IV Dumbbell Squat', sets: 4, reps: '45 sec', note: 'Circuit — 3 exercises in succession' },
+              { name: 'Assisted / Bodyweight Pull-Ups', sets: 4, reps: '30 sec' },
+              { name: 'Push-Ups', sets: 4, reps: '45 sec' },
+              { name: 'MAPS Instinctive Intervals (Treadmill)', sets: 1, reps: '15 min total', note: '30 sec sprint / recover to composure' },
+            ]},
+            { day: 2, label: 'Day 2 — Dumbbell Complex', exercises: [
+              { name: 'Double Dumbbell Swings', sets: 4, reps: '20', note: '4 cycles of complex' },
+              { name: 'Dumbbell Front Squats', sets: 4, reps: '15' },
+              { name: 'Dumbbell Rotating Shoulder Press', sets: 4, reps: '10' },
+              { name: 'Push Ups with Depth', sets: 4, reps: '10' },
+            ]},
+          ],
+          gym: [
+            { day: 1, label: 'Day 1 — Circuit + Intervals', exercises: [
+              { name: 'Barbell Back Squat', sets: 4, reps: '45 sec', note: 'Circuit — 3 exercises in succession' },
+              { name: 'Weighted Pull-Ups', sets: 4, reps: '30 sec' },
+              { name: 'Push-Ups', sets: 4, reps: '45 sec' },
+              { name: 'Treadmill Sprints (Instinctive Intervals)', sets: 1, reps: '15 min total', note: '30 sec sprint / recover' },
+            ]},
+            { day: 2, label: 'Day 2 — Barbell Complex', exercises: [
+              { name: 'Barbell Romanian Deadlift', sets: 4, reps: '20', note: '4 cycles of complex' },
+              { name: 'Barbell Front Squat', sets: 4, reps: '15' },
+              { name: 'Barbell Push Press', sets: 4, reps: '10' },
+              { name: 'Deficit Push Ups', sets: 4, reps: '10' },
+            ]},
+          ]
+        }
       }
     ]
   },
@@ -439,84 +535,276 @@ const PROGRAMS = {
     totalWeeks: 10,
     phases: [
       {
-        num: 1, name: 'Foundation', weeks: 3, workoutsRequired: 9, startWeek: 1,
-        objective: 'Build a muscular and aesthetic base',
-        intensity: '75-80%', tempo: '3:1:1', rest: '60-90 sec',
-        sets: '3-4 sets', reps: '8-12 reps',
-        days: [
-          { day: 1, label: 'Day 1 — Foundational Workout', exercises: [
-            { name: 'Barbell Squat', sets: 3, reps: '8-12' },
-            { name: 'Barbell Bench Press', sets: 3, reps: '8-12' },
-            { name: 'Barbell Deadlift', sets: 3, reps: '8-12' },
-            { name: 'Pull-Ups', sets: 3, reps: '8-12' },
-            { name: 'Overhead Press', sets: 3, reps: '8-12' },
-          ]},
-          { day: 2, label: 'Day 2 — Foundational Workout', exercises: [
-            { name: 'Romanian Deadlift', sets: 3, reps: '8-12' },
-            { name: 'Incline Dumbbell Press', sets: 3, reps: '8-12' },
-            { name: 'Barbell Row', sets: 3, reps: '8-12' },
-            { name: 'Dumbbell Lateral Raise', sets: 3, reps: '12-15' },
-          ]},
-          { day: 3, label: 'Day 3 — Foundational Workout', exercises: [
-            { name: 'Leg Press', sets: 3, reps: '10-15' },
-            { name: 'Cable Fly', sets: 3, reps: '12-15' },
-            { name: 'Seated Cable Row', sets: 3, reps: '10-12' },
-            { name: 'Tricep Pressdown', sets: 3, reps: '12-15' },
-            { name: 'Barbell Curl', sets: 3, reps: '12-15' },
-          ]},
-        ]
+        num: 1, name: 'Strength', weeks: 3, workoutsRequired: 9, startWeek: 1,
+        objective: 'Build maximal strength and CNS adaptation',
+        intensity: '85-90%', tempo: '3:1:1', rest: '90 sec',
+        sets: '4 sets', reps: '3-5 reps',
+        days: {
+          dumbbell: [
+            { day: 1, label: 'Day 1 — Full Body Strength', exercises: [
+              { name: 'Dumbbell Squats', sets: 5, reps: '2-5' },
+              { name: 'Dumbbell Romanian Deadlifts', sets: 3, reps: '6-8' },
+              { name: 'Incline Dumbbell Press', sets: 4, reps: '3-6' },
+              { name: 'Supinated Bent Over Dumbbell Rows', sets: 4, reps: '4-6' },
+              { name: 'Dumbbell Shrugs', sets: 4, reps: '5-7' },
+              { name: 'Dumbbell Push Press', sets: 3, reps: '3-6' },
+              { name: 'Dumbbell Rear Lateral Raises', sets: 1, reps: '8-12' },
+              { name: 'Dumbbell Curls', sets: 4, reps: '6-8' },
+              { name: 'Dumbbell Skull Crushers', sets: 4, reps: '6-8' },
+              { name: 'Leg Raises', sets: 3, reps: '10-12' },
+              { name: 'Standing Calf Raises', sets: 3, reps: '10-20' },
+            ]},
+            { day: 2, label: 'Day 2 — Deadlift Focus', exercises: [
+              { name: 'Deadlifts', sets: 5, reps: '1-4' },
+              { name: 'Dumbbell Shrugs', sets: 2, reps: '4-6' },
+              { name: 'Weighted Pull-Ups', sets: 3, reps: '4-8' },
+              { name: 'Walking Lunges', sets: 3, reps: '10/leg' },
+              { name: 'Incline Dumbbell Press', sets: 5, reps: '6-8' },
+              { name: 'Seated Arnold Press', sets: 4, reps: '6-8' },
+              { name: 'Dumbbell Rear Delt Flys', sets: 1, reps: '8-10' },
+              { name: 'Alternating Supinating Curls', sets: 4, reps: '6-8' },
+              { name: 'Dips (Weighted if necessary)', sets: 4, reps: '6-8' },
+              { name: 'Decline Sit Ups', sets: 4, reps: '10-15' },
+              { name: 'Standing Calf Raises', sets: 4, reps: '10-20' },
+            ]},
+            { day: 3, label: 'Day 3 — Goblet & Arms', exercises: [
+              { name: 'Dumbbell Goblet Squats', sets: 3, reps: '8-12' },
+              { name: 'Elbows Out Dumbbell Rows', sets: 4, reps: '6-8' },
+              { name: 'Dumbbell Press', sets: 4, reps: '6-8' },
+              { name: 'Dumbbell Upright Rows', sets: 4, reps: '6-8' },
+              { name: 'Dumbbell Preacher Curls', sets: 4, reps: '6-8' },
+              { name: 'Seated Dumbbell Overhead Tricep Extensions', sets: 4, reps: '6-8' },
+              { name: 'Ball Crunches', sets: 3, reps: '20' },
+              { name: 'Standing Single Leg Calf Raises', sets: 3, reps: '20' },
+            ]},
+          ],
+          gym: [
+            { day: 1, label: 'Day 1 — Full Body Strength', exercises: [
+              { name: 'Barbell Back Squat', sets: 5, reps: '2-5' },
+              { name: 'Romanian Deadlift', sets: 3, reps: '6-8' },
+              { name: 'Barbell Incline Press', sets: 4, reps: '3-6' },
+              { name: 'Barbell Bent Over Row (Supinated)', sets: 4, reps: '4-6' },
+              { name: 'Barbell Shrugs', sets: 4, reps: '5-7' },
+              { name: 'Barbell Push Press', sets: 3, reps: '3-6' },
+              { name: 'DB Rear Lateral Raises', sets: 1, reps: '8-12' },
+              { name: 'Barbell Curls', sets: 4, reps: '6-8' },
+              { name: 'Skull Crushers (EZ Bar)', sets: 4, reps: '6-8' },
+              { name: 'Hanging Leg Raises', sets: 3, reps: '10-12' },
+              { name: 'Standing Calf Raises (Machine)', sets: 3, reps: '10-20' },
+            ]},
+            { day: 2, label: 'Day 2 — Deadlift Focus', exercises: [
+              { name: 'Barbell Deadlift', sets: 5, reps: '1-4' },
+              { name: 'Barbell Shrugs', sets: 2, reps: '4-6' },
+              { name: 'Weighted Pull-Ups', sets: 3, reps: '4-8' },
+              { name: 'Barbell Walking Lunges', sets: 3, reps: '10/leg' },
+              { name: 'Barbell Incline Press', sets: 5, reps: '6-8' },
+              { name: 'Seated Arnold Press', sets: 4, reps: '6-8' },
+              { name: 'DB Rear Delt Flys', sets: 1, reps: '8-10' },
+              { name: 'Alternating DB Supinating Curls', sets: 4, reps: '6-8' },
+              { name: 'Weighted Dips', sets: 4, reps: '6-8' },
+              { name: 'Decline Sit Ups', sets: 4, reps: '10-15' },
+              { name: 'Standing Calf Raises (Machine)', sets: 4, reps: '10-20' },
+            ]},
+            { day: 3, label: 'Day 3 — Squat & Arms', exercises: [
+              { name: 'Barbell Front Squat', sets: 3, reps: '8-12' },
+              { name: 'Barbell Row (Elbows Out)', sets: 4, reps: '6-8' },
+              { name: 'Barbell Bench Press', sets: 4, reps: '6-8' },
+              { name: 'Barbell Upright Row', sets: 4, reps: '6-8' },
+              { name: 'Preacher Curls (EZ Bar)', sets: 4, reps: '6-8' },
+              { name: 'Overhead Tricep Extension (EZ Bar)', sets: 4, reps: '6-8' },
+              { name: 'Decline Sit Ups', sets: 3, reps: '20' },
+              { name: 'Standing Calf Raises (Machine)', sets: 3, reps: '20' },
+            ]},
+          ]
+        }
       },
       {
-        num: 2, name: 'Hypertrophy', weeks: 4, workoutsRequired: 12, startWeek: 4,
-        objective: 'Maximize muscle growth',
-        intensity: '65-75%', tempo: '2:0:2', rest: '60-90 sec',
-        sets: '3-4 sets', reps: '10-15 reps',
-        days: [
-          { day: 1, label: 'Day 1 — Volume Push', exercises: [
-            { name: 'Squat Variation', sets: 4, reps: '10-15' },
-            { name: 'Chest Press Variation', sets: 4, reps: '10-15' },
-            { name: 'Shoulder Press', sets: 4, reps: '10-15' },
-            { name: 'Tricep Work', sets: 3, reps: '12-15' },
-          ]},
-          { day: 2, label: 'Day 2 — Volume Pull', exercises: [
-            { name: 'Deadlift Variation', sets: 4, reps: '10-15' },
-            { name: 'Row Variation', sets: 4, reps: '10-15' },
-            { name: 'Pull-Up / Pulldown', sets: 4, reps: '10-15' },
-            { name: 'Bicep Work', sets: 3, reps: '12-15' },
-          ]},
-          { day: 3, label: 'Day 3 — Volume Legs', exercises: [
-            { name: 'Leg Press', sets: 4, reps: '12-15' },
-            { name: 'Leg Curl', sets: 4, reps: '12-15' },
-            { name: 'Calf Raises', sets: 4, reps: '15-20' },
-            { name: 'Core Circuit', sets: 3, reps: '15-20' },
-          ]},
-        ]
+        num: 2, name: 'Size', weeks: 4, workoutsRequired: 12, startWeek: 4,
+        objective: 'Build full round muscle bellies',
+        intensity: '65-75%', tempo: '2:0:2', rest: '60 sec',
+        sets: '3-4 sets', reps: '8-15 reps',
+        days: {
+          dumbbell: [
+            { day: 1, label: 'Day 1 — Push & Biceps', exercises: [
+              { name: 'Dumbbell Squats', sets: 3, reps: '8-12' },
+              { name: 'Dumbbell Bench Press', sets: 3, reps: '10-15' },
+              { name: 'Single Arm Dumbbell Rows', sets: 3, reps: '8-12' },
+              { name: 'Dumbbell Shrugs', sets: 3, reps: '8-12' },
+              { name: 'Dumbbell Shoulder Press', sets: 3, reps: '8-12' },
+              { name: 'Dumbbell Lateral Raises', sets: 2, reps: '8-12' },
+              { name: 'Dumbbell Curls', sets: 4, reps: '8-12' },
+              { name: 'Dumbbell Skull Crushers', sets: 4, reps: '8-12' },
+              { name: 'Leg Raises', sets: 3, reps: '10-20' },
+              { name: 'Standing Calf Raises', sets: 3, reps: '10-20' },
+            ]},
+            { day: 2, label: 'Day 2 — Pull & Triceps', exercises: [
+              { name: 'Deadlifts', sets: 3, reps: '8-12' },
+              { name: 'Incline Dumbbell Press', sets: 3, reps: '8-12' },
+              { name: 'Pull Ups', sets: 3, reps: '8-12' },
+              { name: 'Dumbbell Shrugs', sets: 3, reps: '8-12' },
+              { name: 'Dumbbell Side Lateral Raises', sets: 3, reps: '8-12' },
+              { name: 'Dumbbell Rear Lateral Raises', sets: 2, reps: '8-12' },
+              { name: 'Alternating Hammer Curls', sets: 4, reps: '8-12' },
+              { name: 'Close Grip Dumbbell Press', sets: 4, reps: '8-12' },
+              { name: 'Alternating V-Ups', sets: 3, reps: '10-20' },
+              { name: 'Standing Calf Raises', sets: 3, reps: '10-20' },
+            ]},
+            { day: 3, label: 'Day 3 — Legs & Shoulders', exercises: [
+              { name: 'Box Step Up Dumbbell', sets: 3, reps: '8-12' },
+              { name: 'Dumbbell Single Leg Deadlifts', sets: 2, reps: '10-12' },
+              { name: 'Elbows Out Dumbbell Rows', sets: 3, reps: '8-12' },
+              { name: 'Incline Dumbbell Press', sets: 3, reps: '8-12' },
+              { name: 'Dumbbell Shrugs', sets: 3, reps: '8-12' },
+              { name: 'Rotational Dumbbell Press', sets: 3, reps: '8-12' },
+              { name: 'Dumbbell Rear Delt Flys', sets: 2, reps: '10-12' },
+              { name: 'Dumbbell Spider Curls', sets: 3, reps: '10-12' },
+              { name: 'Dips', sets: 3, reps: '10-12' },
+              { name: 'Decline Twists', sets: 3, reps: '10-12' },
+              { name: 'Standing Calf Raises', sets: 3, reps: '10-20' },
+            ]},
+          ],
+          gym: [
+            { day: 1, label: 'Day 1 — Push & Biceps', exercises: [
+              { name: 'Barbell Squat', sets: 3, reps: '8-12' },
+              { name: 'Barbell Bench Press', sets: 3, reps: '10-15' },
+              { name: 'Barbell Row', sets: 3, reps: '8-12' },
+              { name: 'Barbell Shrugs', sets: 3, reps: '8-12' },
+              { name: 'Barbell Overhead Press', sets: 3, reps: '8-12' },
+              { name: 'DB Lateral Raises', sets: 2, reps: '8-12' },
+              { name: 'Barbell Curls', sets: 4, reps: '8-12' },
+              { name: 'Skull Crushers (EZ Bar)', sets: 4, reps: '8-12' },
+              { name: 'Hanging Leg Raises', sets: 3, reps: '10-20' },
+              { name: 'Standing Calf Raises (Machine)', sets: 3, reps: '10-20' },
+            ]},
+            { day: 2, label: 'Day 2 — Pull & Triceps', exercises: [
+              { name: 'Barbell Deadlift', sets: 3, reps: '8-12' },
+              { name: 'Barbell Incline Press', sets: 3, reps: '8-12' },
+              { name: 'Weighted Pull-Ups', sets: 3, reps: '8-12' },
+              { name: 'Barbell Shrugs', sets: 3, reps: '8-12' },
+              { name: 'DB Side Lateral Raises', sets: 3, reps: '8-12' },
+              { name: 'DB Rear Lateral Raises', sets: 2, reps: '8-12' },
+              { name: 'Alternating Hammer Curls', sets: 4, reps: '8-12' },
+              { name: 'Close Grip Bench Press', sets: 4, reps: '8-12' },
+              { name: 'Decline Twists', sets: 3, reps: '10-20' },
+              { name: 'Standing Calf Raises (Machine)', sets: 3, reps: '10-20' },
+            ]},
+            { day: 3, label: 'Day 3 — Legs & Shoulders', exercises: [
+              { name: 'Barbell Box Step Up', sets: 3, reps: '8-12' },
+              { name: 'Single Leg Romanian Deadlift', sets: 2, reps: '10-12' },
+              { name: 'Barbell Row (Elbows Out)', sets: 3, reps: '8-12' },
+              { name: 'Barbell Incline Press', sets: 3, reps: '8-12' },
+              { name: 'Barbell Shrugs', sets: 3, reps: '8-12' },
+              { name: 'DB Rotational Shoulder Press', sets: 3, reps: '8-12' },
+              { name: 'DB Rear Delt Flys', sets: 2, reps: '10-12' },
+              { name: 'Spider Curls (DB or Cable)', sets: 3, reps: '10-12' },
+              { name: 'Weighted Dips', sets: 3, reps: '10-12' },
+              { name: 'Decline Sit Ups with Twist', sets: 3, reps: '10-12' },
+              { name: 'Standing Calf Raises (Machine)', sets: 3, reps: '10-20' },
+            ]},
+          ]
+        }
       },
       {
-        num: 3, name: 'Cut / Conditioning', weeks: 3, workoutsRequired: 9, startWeek: 8,
-        objective: 'Reveal muscle definition and conditioning',
-        intensity: '55-65%', tempo: '1:0:1', rest: '30-45 sec',
-        sets: '4-5 sets', reps: '15-20 reps',
-        days: [
-          { day: 1, label: 'Day 1 — High Rep Circuit', exercises: [
-            { name: 'Squat to Press', sets: 4, reps: '15-20' },
-            { name: 'Renegade Row', sets: 4, reps: '15-20' },
-            { name: 'Jumping Lunges', sets: 4, reps: '15-20' },
-            { name: 'Burpees', sets: 4, reps: '10-15' },
-          ]},
-          { day: 2, label: 'Day 2 — Metabolic', exercises: [
-            { name: 'Kettlebell Swings', sets: 5, reps: '20' },
-            { name: 'Push-Up Complex', sets: 4, reps: '15-20' },
-            { name: 'Box Jump', sets: 4, reps: '10-15' },
-            { name: 'Mountain Climbers', sets: 4, reps: '30 sec' },
-          ]},
-          { day: 3, label: 'Day 3 — Full Body Circuit', exercises: [
-            { name: 'Dumbbell Complex', sets: 4, reps: '15' },
-            { name: 'Sled Push / Farmer Carry', sets: 4, reps: '40 yards' },
-            { name: 'Battle Ropes', sets: 4, reps: '30 sec' },
-            { name: 'Core Finisher', sets: 3, reps: '20' },
-          ]},
-        ]
+        num: 3, name: 'Sharpen', weeks: 3, workoutsRequired: 9, startWeek: 8,
+        objective: 'Sharpen and detail your physique',
+        intensity: '65-75%', tempo: '1:0:1', rest: 'No rest in supersets',
+        sets: '4 sets', reps: '8-15 reps',
+        days: {
+          dumbbell: [
+            { day: 1, label: 'Day 1 — Full Body Supersets', exercises: [
+              { name: 'Dumbbell Squats', sets: 4, reps: '8-12', superset: true },
+              { name: 'Front Loaded Dumbbell Squats', sets: 4, reps: '8-12', superset: true },
+              { name: 'Incline Dumbbell Press', sets: 4, reps: '8-12', superset: true },
+              { name: 'Dumbbell Flys', sets: 4, reps: '10-15', superset: true },
+              { name: 'Pull Ups', sets: 4, reps: '8-12', superset: true },
+              { name: 'Single Arm Dumbbell Rows', sets: 4, reps: '10-15', superset: true },
+              { name: 'Dumbbell Shoulder Press', sets: 4, reps: '8-12', superset: true },
+              { name: 'Dumbbell Rear Lateral Raises', sets: 4, reps: '10-15', superset: true },
+              { name: 'Dumbbell Curls', sets: 4, reps: '8-12', superset: true },
+              { name: 'Alternating Hammer Curls', sets: 4, reps: '10-15', superset: true },
+              { name: 'Close Grip Dumbbell Press', sets: 4, reps: '8-12', superset: true },
+              { name: 'Close Grip Push Ups', sets: 4, reps: '10-15', superset: true },
+              { name: 'Hanging Leg Raises', sets: 3, reps: '8-12' },
+              { name: 'Standing Calf Raises', sets: 4, reps: '8-15' },
+            ]},
+            { day: 2, label: 'Day 2 — Lower & Arms Supersets', exercises: [
+              { name: 'Sumo Dumbbell Deadlifts', sets: 4, reps: '5-7', superset: true },
+              { name: 'Pull Ups (AMRAP)', sets: 4, reps: 'Max', superset: true },
+              { name: 'Physio-Ball Leg Curls', sets: 4, reps: '8-12', superset: true },
+              { name: 'Bulgarian Split Squats', sets: 4, reps: '10-15', superset: true },
+              { name: 'Dumbbell Bench Press', sets: 4, reps: '8-12', superset: true },
+              { name: 'Dumbbell Chest Fly', sets: 4, reps: '10-15', superset: true },
+              { name: 'Dumbbell Shoulder Press', sets: 4, reps: '8-12', superset: true },
+              { name: 'Dumbbell Side Lateral Raises', sets: 4, reps: '10-15', superset: true },
+              { name: 'Dumbbell Curl 21s', sets: 4, reps: '7 (lower/upper/full)' },
+              { name: 'Incline Skull Crusher 21s', sets: 4, reps: '7 (lower/upper/full)' },
+              { name: 'Ball Crunches', sets: 3, reps: '10-20' },
+              { name: 'Standing Single Leg Calf Raises', sets: 3, reps: '10-20' },
+            ]},
+            { day: 3, label: 'Day 3 — Squat & Row Supersets', exercises: [
+              { name: 'Dumbbell Squats', sets: 4, reps: '8-12', superset: true },
+              { name: 'Sissy Squats', sets: 4, reps: '10-15', superset: true },
+              { name: 'Dumbbell Press', sets: 4, reps: '8-12', superset: true },
+              { name: 'Dumbbell Flys', sets: 4, reps: '8-12', superset: true },
+              { name: 'Supinated Bent Over Dumbbell Rows', sets: 4, reps: '10-15', superset: true },
+              { name: 'Single Arm Dumbbell Row', sets: 4, reps: '10-15', superset: true },
+              { name: 'Dumbbell Shoulder Press', sets: 4, reps: '10-15', superset: true },
+              { name: 'Dumbbell Upright Rows', sets: 4, reps: '8-12', superset: true },
+              { name: 'Seated Alternating Supinating Curls', sets: 4, reps: '10-12', superset: true },
+              { name: 'Dumbbell Skull Crushers', sets: 4, reps: '10-12', superset: true },
+              { name: 'Ball Crunches', sets: 4, reps: '10-20' },
+              { name: 'Plank', sets: 1, reps: '60 sec' },
+              { name: 'Standing Calf Raises', sets: 4, reps: '10-20' },
+            ]},
+          ],
+          gym: [
+            { day: 1, label: 'Day 1 — Full Body Supersets', exercises: [
+              { name: 'Barbell Squat', sets: 4, reps: '8-12', superset: true },
+              { name: 'Barbell Front Squat', sets: 4, reps: '8-12', superset: true },
+              { name: 'Barbell Incline Press', sets: 4, reps: '8-12', superset: true },
+              { name: 'Cable Fly', sets: 4, reps: '10-15', superset: true },
+              { name: 'Weighted Pull-Ups', sets: 4, reps: '8-12', superset: true },
+              { name: 'Cable Single Arm Row', sets: 4, reps: '10-15', superset: true },
+              { name: 'Barbell Overhead Press', sets: 4, reps: '8-12', superset: true },
+              { name: 'DB Rear Lateral Raises', sets: 4, reps: '10-15', superset: true },
+              { name: 'Barbell Curls', sets: 4, reps: '8-12', superset: true },
+              { name: 'Alternating Hammer Curls', sets: 4, reps: '10-15', superset: true },
+              { name: 'Close Grip Bench Press', sets: 4, reps: '8-12', superset: true },
+              { name: 'Close Grip Push Ups', sets: 4, reps: '10-15', superset: true },
+              { name: 'Hanging Leg Raises', sets: 3, reps: '8-12' },
+              { name: 'Standing Calf Raises (Machine)', sets: 4, reps: '8-15' },
+            ]},
+            { day: 2, label: 'Day 2 — Lower & Arms Supersets', exercises: [
+              { name: 'Barbell Sumo Deadlift', sets: 4, reps: '5-7', superset: true },
+              { name: 'Weighted Pull-Ups (AMRAP)', sets: 4, reps: 'Max', superset: true },
+              { name: 'Leg Curl (Machine)', sets: 4, reps: '8-12', superset: true },
+              { name: 'Bulgarian Split Squats', sets: 4, reps: '10-15', superset: true },
+              { name: 'Barbell Bench Press', sets: 4, reps: '8-12', superset: true },
+              { name: 'Cable Chest Fly', sets: 4, reps: '10-15', superset: true },
+              { name: 'Barbell Overhead Press', sets: 4, reps: '8-12', superset: true },
+              { name: 'DB Side Lateral Raises', sets: 4, reps: '10-15', superset: true },
+              { name: 'Barbell Curl 21s', sets: 4, reps: '7 (lower/upper/full)' },
+              { name: 'Skull Crushers 21s (EZ Bar)', sets: 4, reps: '7 (lower/upper/full)' },
+              { name: 'Decline Sit Ups', sets: 3, reps: '10-20' },
+              { name: 'Standing Calf Raises (Machine)', sets: 3, reps: '10-20' },
+            ]},
+            { day: 3, label: 'Day 3 — Squat & Row Supersets', exercises: [
+              { name: 'Barbell Squat', sets: 4, reps: '8-12', superset: true },
+              { name: 'Sissy Squats', sets: 4, reps: '10-15', superset: true },
+              { name: 'Barbell Bench Press', sets: 4, reps: '8-12', superset: true },
+              { name: 'Cable Fly', sets: 4, reps: '8-12', superset: true },
+              { name: 'Barbell Row (Supinated)', sets: 4, reps: '10-15', superset: true },
+              { name: 'Single Arm Cable Row', sets: 4, reps: '10-15', superset: true },
+              { name: 'Barbell Overhead Press', sets: 4, reps: '10-15', superset: true },
+              { name: 'Barbell Upright Row', sets: 4, reps: '8-12', superset: true },
+              { name: 'Alternating DB Supinating Curls', sets: 4, reps: '10-12', superset: true },
+              { name: 'EZ Bar Skull Crushers', sets: 4, reps: '10-12', superset: true },
+              { name: 'Decline Sit Ups with Twist', sets: 4, reps: '10-20' },
+              { name: 'Plank', sets: 1, reps: '60 sec' },
+              { name: 'Standing Calf Raises (Machine)', sets: 4, reps: '10-20' },
+            ]},
+          ]
+        }
       }
     ]
   }
@@ -526,10 +814,11 @@ const PROGRAMS = {
 // STATE
 // ═══════════════════════════════════════════════════════
 let state = {
-  selectedProgram: null,   // 'performance' | 'aesthetic'
-  programStartDate: null,  // ISO string
-  activeWorkout: null,     // { programId, phaseNum, dayNum, startTs, exercises: [{name, sets:[{reps,weight,done}]}] }
-  workoutHistory: [],      // array of completed workouts
+  selectedProgram: null,
+  programStartDate: null,
+  equipmentVersion: 'dumbbell',  // 'dumbbell' | 'gym'
+  activeWorkout: null,
+  workoutHistory: [],
   currentScreen: 'home'
 };
 
@@ -795,6 +1084,38 @@ function getCurrentPhaseInfo(programId) {
   return { currentPhase, workoutsIntoPhase, workoutsRemaining, pct, overallPct, completed, prog };
 }
 
+// Helper — get days array for current equipment version
+function getDays(phase) {
+  const v = state.equipmentVersion || 'dumbbell';
+  return (phase.days && phase.days[v]) ? phase.days[v] : (phase.days && phase.days.dumbbell) ? phase.days.dumbbell : phase.days || [];
+}
+
+// ═══════════════════════════════════════════════════════
+// EQUIPMENT VERSION
+// ═══════════════════════════════════════════════════════
+function setEquipmentVersion(v) {
+  state.equipmentVersion = v;
+  saveState();
+  updateEquipmentToggleUI();
+  renderTodayCard();
+  if (state.currentScreen === 'log') renderLog();
+  showToast(v === 'dumbbell' ? '🏠 Dumbbell version selected' : '🏋️ Gym version selected');
+}
+
+function updateEquipmentToggleUI() {
+  const v = state.equipmentVersion || 'dumbbell';
+  const btnDB = document.getElementById('btn-dumbbell');
+  const btnGym = document.getElementById('btn-gym');
+  if (!btnDB || !btnGym) return;
+  if (v === 'dumbbell') {
+    btnDB.style.cssText = 'flex:1;padding:10px;border-radius:10px;font-size:13px;font-weight:700;border:2px solid var(--green);background:var(--green-dim);color:var(--green)';
+    btnGym.style.cssText = 'flex:1;padding:10px;border-radius:10px;font-size:13px;font-weight:700;border:2px solid var(--border);background:var(--bg3);color:var(--text2)';
+  } else {
+    btnGym.style.cssText = 'flex:1;padding:10px;border-radius:10px;font-size:13px;font-weight:700;border:2px solid var(--amber);background:var(--amber-dim);color:var(--amber)';
+    btnDB.style.cssText = 'flex:1;padding:10px;border-radius:10px;font-size:13px;font-weight:700;border:2px solid var(--border);background:var(--bg3);color:var(--text2)';
+  }
+}
+
 // ═══════════════════════════════════════════════════════
 // HOME SCREEN
 // ═══════════════════════════════════════════════════════
@@ -814,13 +1135,17 @@ function renderHome() {
   `).join('');
 
   const panel = document.getElementById('active-program-panel');
+  const toggleWrap = document.getElementById('equipment-toggle-wrap');
   if (state.selectedProgram) {
     panel.style.display = 'block';
+    if (toggleWrap) toggleWrap.style.display = 'block';
+    updateEquipmentToggleUI();
     renderPhaseStatus();
     renderPhaseAlert();
     renderTodayCard();
   } else {
     panel.style.display = 'none';
+    if (toggleWrap) toggleWrap.style.display = 'none';
   }
   document.getElementById('home-program-label').textContent = state.selectedProgram
     ? PROGRAMS[state.selectedProgram].name : 'Select a program below';
@@ -903,8 +1228,8 @@ function renderTodayCard() {
   const isRest = dayOfWeek === 0; // Sunday
 
   let html = '';
-  if (dayIndex !== undefined && currentPhase.days && currentPhase.days[dayIndex]) {
-    const day = currentPhase.days[dayIndex];
+  if (dayIndex !== undefined && getDays(currentPhase)[dayIndex]) {
+    const day = getDays(currentPhase)[dayIndex];
     const totalSets = day.exercises.reduce((a, e) => a + e.sets, 0);
     html = `
       <div style="margin-bottom:12px">
@@ -943,7 +1268,7 @@ function selectProgram(id) {
 function viewBlueprint(programId, phaseNum, dayIdx) {
   const prog = PROGRAMS[programId];
   const phase = prog.phases.find(p => p.num === phaseNum);
-  const day = phase.days[dayIdx];
+  const day = getDays(phase)[dayIdx];
   const logContent = document.getElementById('log-content');
   logContent.innerHTML = `
     <div style="margin-bottom:16px">
@@ -998,11 +1323,17 @@ function renderWorkoutSelector() {
     return;
   }
   const prog = PROGRAMS[state.selectedProgram];
-  let html = `<div class="badge badge-green" style="margin-bottom:14px">${prog.name}</div>`;
+  const vLabel = (state.equipmentVersion || 'dumbbell') === 'dumbbell' ? '🏠 Dumbbell' : '🏋️ Gym';
+  let html = `<div style="display:flex;gap:8px;margin-bottom:14px;align-items:center">
+    <div class="badge badge-green">${prog.name}</div>
+    <div class="badge ${(state.equipmentVersion||'dumbbell')==='dumbbell'?'badge-green':'badge-amber'}">${vLabel}</div>
+    <button class="btn btn-sm" onclick="setEquipmentVersion(state.equipmentVersion==='dumbbell'?'gym':'dumbbell')" style="margin-left:auto;font-size:11px">Switch</button>
+  </div>`;
   prog.phases.forEach(phase => {
     html += `<div class="section-label">Phase ${phase.num} · ${phase.name}</div>`;
-    if (phase.days) {
-      phase.days.forEach((day, i) => {
+    const phaseDays = getDays(phase);
+    if (phaseDays.length) {
+      phaseDays.forEach((day, i) => {
         html += `<div class="card" style="cursor:pointer" onclick="startWorkout('${prog.id}', ${phase.num}, ${i})">
           <div style="display:flex;justify-content:space-between;align-items:center">
             <div>
@@ -1032,7 +1363,7 @@ function handleLogAction() {
 function startWorkout(programId, phaseNum, dayIdx) {
   const prog = PROGRAMS[programId];
   const phase = prog.phases.find(p => p.num === phaseNum);
-  const day = phase.days[dayIdx];
+  const day = getDays(phase)[dayIdx];
   state.activeWorkout = {
     programId, phaseNum, dayIdx,
     label: day.label,
@@ -1098,7 +1429,10 @@ function renderActiveWorkout() {
   });
 
   html += `<button class="btn btn-primary" style="margin-top:8px" onclick="finishWorkout()">Complete Workout</button>
-    <button class="btn btn-danger" style="width:100%;margin-top:10px" onclick="cancelWorkout()">Cancel Workout</button>`;
+    <div style="display:flex;gap:10px;margin-top:10px">
+      <button class="btn btn-danger" style="flex:1" onclick="cancelWorkout()">🗑 Cancel & Delete</button>
+      <button class="btn btn-sm" style="flex:1" onclick="saveWorkoutDraft()">💾 Save Draft</button>
+    </div>`;
 
   document.getElementById('log-content').innerHTML = html;
 }
@@ -1126,11 +1460,17 @@ function finishWorkout() {
 }
 
 function cancelWorkout() {
-  if (confirm('Cancel this workout? Progress will be lost.')) {
+  if (confirm('Delete this workout? All logged sets will be lost.')) {
     state.activeWorkout = null;
     saveState();
     renderLog();
   }
+}
+
+function saveWorkoutDraft() {
+  showToast('Draft saved — tap Log to resume');
+  saveState();
+  switchScreen('home');
 }
 
 // ═══════════════════════════════════════════════════════
