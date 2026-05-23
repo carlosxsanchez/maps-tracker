@@ -1566,25 +1566,29 @@ function renderProgress() {
     state.workoutHistory.slice(0, 20).forEach((w, i) => {
       const prog = PROGRAMS[w.programId] || {};
       const dur = Math.round(w.duration / 60000);
+      const durLabel = dur < 1 ? '<1m' : dur + 'm';
       const doneSets = w.exercises.reduce((a, ex) => a + ex.sets.filter(s => s.done).length, 0);
       const date = new Date(w.endTs || w.startTs);
-      html += `<div class="hist-item" onclick="showHistDetail(${i})">
-        <div class="hist-top">
-          <div>
-            <div class="badge badge-green" style="margin-bottom:6px;font-size:10px">${prog.shortName || 'Workout'} · Ph ${w.phaseNum}</div>
-            <div class="hist-title">${w.label}</div>
-          </div>
-          <div style="text-align:right">
-            <div class="hist-date">${date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</div>
-            <div style="font-size:11px;color:var(--text3);margin-top:2px">${date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}</div>
-          </div>
-        </div>
-        <div class="hist-stats">
-          <div class="hist-stat"><span>${dur}m</span> duration</div>
-          <div class="hist-stat"><span>${doneSets}</span> sets</div>
-          <div class="hist-stat"><span>${w.exercises.length}</span> exercises</div>
-        </div>
-      </div>`;
+      html += '<div class="hist-item">'
+        + '<div class="hist-top">'
+        + '<div style="flex:1;cursor:pointer" onclick="showHistDetail(' + i + ')">'
+        + '<div class="badge badge-green" style="margin-bottom:6px;font-size:10px">' + (prog.shortName||'Workout') + ' · Ph ' + w.phaseNum + '</div>'
+        + '<div class="hist-title">' + w.label + '</div>'
+        + '</div>'
+        + '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;margin-left:12px">'
+        + '<button onclick="deleteWorkout(' + i + ')" style="background:var(--red-dim);border:1px solid rgba(232,64,64,0.3);border-radius:8px;padding:7px 9px;cursor:pointer;display:flex;align-items:center;justify-content:center">'
+        + '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#e84040" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">'
+        + '<polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M9 6V4h6v2"/>'
+        + '</svg></button>'
+        + '<div style="text-align:right">'
+        + '<div class="hist-date">' + date.toLocaleDateString('en-US',{month:'short',day:'numeric'}) + '</div>'
+        + '<div style="font-size:11px;color:var(--text3);margin-top:2px">' + date.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}) + '</div>'
+        + '</div></div></div>'
+        + '<div class="hist-stats" style="cursor:pointer" onclick="showHistDetail(' + i + ')">'
+        + '<div class="hist-stat"><span>' + durLabel + '</span> duration</div>'
+        + '<div class="hist-stat"><span>' + doneSets + '</span> sets</div>'
+        + '<div class="hist-stat"><span>' + w.exercises.length + '</span> exercises</div>'
+        + '</div></div>';
     });
   } else if (!state.selectedProgram) {
     html += `<div class="empty">
@@ -1595,11 +1599,7 @@ function renderProgress() {
   }
 
   el.innerHTML = html;
-  // Wire up swipe handlers after DOM is ready
-  state.workoutHistory.slice(0, 20).forEach((_, i) => {
-    const inner = document.getElementById('hi-' + i);
-    if (inner) initSwipe(inner, i);
-  });
+
 }
 
 function renderPhaseCalendar(prog, info) {
