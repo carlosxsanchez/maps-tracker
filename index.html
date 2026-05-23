@@ -159,6 +159,11 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 .quick-btn:active { background: var(--green-dim); color: var(--green); }
 
 /* ── HISTORY ── */
+.hist-item-wrap { position: relative; overflow: hidden; border-radius: 14px; margin-bottom: 10px; }
+.hist-delete-bg { position: absolute; right: 0; top: 0; bottom: 0; width: 80px; background: var(--red); display: flex; align-items: center; justify-content: center; border-radius: 0 14px 14px 0; }
+.hist-delete-bg svg { width: 22px; height: 22px; stroke: white; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.hist-item-inner { position: relative; transition: transform 0.2s ease; touch-action: pan-y; }
+.hist-item-inner.swiped { transform: translateX(-80px); }
 .hist-item { background: var(--card); border-radius: 14px; padding: 14px 16px; margin-bottom: 10px; border: 1px solid var(--border); cursor: pointer; }
 .hist-item:active { opacity: 0.8; }
 .hist-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
@@ -1704,6 +1709,61 @@ function showHistDetail(idx) {
   });
   html += '</div>';
   document.getElementById('progress-content').innerHTML = html;
+}
+
+// ═══════════════════════════════════════════════════════
+// SWIPE TO DELETE
+// ═══════════════════════════════════════════════════════
+let swipeStartX = 0;
+let swipeStartY = 0;
+let currentSwiped = null;
+
+function swipeStart(e, idx) {
+  swipeStartX = e.touches[0].clientX;
+  swipeStartY = e.touches[0].clientY;
+}
+
+function swipeEnd(e, idx) {
+  const dx = e.changedTouches[0].clientX - swipeStartX;
+  const dy = Math.abs(e.changedTouches[0].clientY - swipeStartY);
+  // Only register horizontal swipe, ignore vertical scroll
+  if (dy > 30) return;
+  const el = document.getElementById('hi-' + idx);
+  if (!el) return;
+  if (dx < -40) {
+    // Swipe left — reveal delete
+    if (currentSwiped !== null && currentSwiped !== idx) {
+      const prev = document.getElementById('hi-' + currentSwiped);
+      if (prev) prev.classList.remove('swiped');
+    }
+    el.classList.add('swiped');
+    currentSwiped = idx;
+  } else if (dx > 20) {
+    // Swipe right — hide delete
+    el.classList.remove('swiped');
+    currentSwiped = null;
+  }
+}
+
+function handleHistClick(idx) {
+  const el = document.getElementById('hi-' + idx);
+  if (el && el.classList.contains('swiped')) {
+    el.classList.remove('swiped');
+    currentSwiped = null;
+    return;
+  }
+  showHistDetail(idx);
+}
+
+function deleteWorkout(idx) {
+  const w = state.workoutHistory[idx];
+  const dur = Math.round((w.duration || 0) / 60000);
+  const label = w.label || 'this workout';
+  if (!confirm(`Delete "${label}" (${dur}m)? This cannot be undone.`)) return;
+  state.workoutHistory.splice(idx, 1);
+  saveState();
+  showToast('Workout deleted');
+  renderProgress();
 }
 
 // ═══════════════════════════════════════════════════════
