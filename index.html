@@ -1595,6 +1595,11 @@ function renderProgress() {
   }
 
   el.innerHTML = html;
+  // Wire up swipe handlers after DOM is ready
+  state.workoutHistory.slice(0, 20).forEach((_, i) => {
+    const inner = document.getElementById('hi-' + i);
+    if (inner) initSwipe(inner, i);
+  });
 }
 
 function renderPhaseCalendar(prog, info) {
@@ -1716,50 +1721,62 @@ function showHistDetail(idx) {
 // ═══════════════════════════════════════════════════════
 let swipeStartX = 0;
 let swipeStartY = 0;
+let swipeTracking = false;
 let currentSwiped = null;
 
-function swipeStart(e, idx) {
-  swipeStartX = e.touches[0].clientX;
-  swipeStartY = e.touches[0].clientY;
-}
+function initSwipe(el, idx) {
+  el.addEventListener('touchstart', e => {
+    swipeStartX = e.touches[0].clientX;
+    swipeStartY = e.touches[0].clientY;
+    swipeTracking = true;
+  }, { passive: true });
 
-function swipeEnd(e, idx) {
-  const dx = e.changedTouches[0].clientX - swipeStartX;
-  const dy = Math.abs(e.changedTouches[0].clientY - swipeStartY);
-  // Only register horizontal swipe, ignore vertical scroll
-  if (dy > 30) return;
-  const el = document.getElementById('hi-' + idx);
-  if (!el) return;
-  if (dx < -40) {
-    // Swipe left — reveal delete
-    if (currentSwiped !== null && currentSwiped !== idx) {
-      const prev = document.getElementById('hi-' + currentSwiped);
-      if (prev) prev.classList.remove('swiped');
+  el.addEventListener('touchmove', e => {
+    if (!swipeTracking) return;
+    const dx = e.touches[0].clientX - swipeStartX;
+    const dy = Math.abs(e.touches[0].clientY - swipeStartY);
+    // If scrolling vertically, cancel swipe tracking
+    if (dy > Math.abs(dx) && dy > 8) { swipeTracking = false; return; }
+    // Prevent page scroll if swiping horizontally
+    if (Math.abs(dx) > 8) e.preventDefault();
+  }, { passive: false });
+
+  el.addEventListener('touchend', e => {
+    if (!swipeTracking) return;
+    swipeTracking = false;
+    const dx = e.changedTouches[0].clientX - swipeStartX;
+    const dy = Math.abs(e.changedTouches[0].clientY - swipeStartY);
+    if (dy > 40) return;
+    const inner = document.getElementById('hi-' + idx);
+    if (!inner) return;
+    if (dx < -50) {
+      // Close any other open item
+      if (currentSwiped !== null && currentSwiped !== idx) {
+        const prev = document.getElementById('hi-' + currentSwiped);
+        if (prev) prev.classList.remove('swiped');
+      }
+      inner.classList.add('swiped');
+      currentSwiped = idx;
+    } else if (dx > 20) {
+      inner.classList.remove('swiped');
+      if (currentSwiped === idx) currentSwiped = null;
+    } else if (Math.abs(dx) < 10) {
+      // Tap — open detail if not swiped
+      if (!inner.classList.contains('swiped')) showHistDetail(idx);
+      else { inner.classList.remove('swiped'); currentSwiped = null; }
     }
-    el.classList.add('swiped');
-    currentSwiped = idx;
-  } else if (dx > 20) {
-    // Swipe right — hide delete
-    el.classList.remove('swiped');
-    currentSwiped = null;
-  }
+  }, { passive: true });
 }
 
 function handleHistClick(idx) {
-  const el = document.getElementById('hi-' + idx);
-  if (el && el.classList.contains('swiped')) {
-    el.classList.remove('swiped');
-    currentSwiped = null;
-    return;
-  }
-  showHistDetail(idx);
+  // Handled inside initSwipe touchend
 }
 
 function deleteWorkout(idx) {
   const w = state.workoutHistory[idx];
   const dur = Math.round((w.duration || 0) / 60000);
   const label = w.label || 'this workout';
-  if (!confirm(`Delete "${label}" (${dur}m)? This cannot be undone.`)) return;
+  if (!confirm('Delete "' + label + '" (' + dur + 'm)? This cannot be undone.')) return;
   state.workoutHistory.splice(idx, 1);
   saveState();
   showToast('Workout deleted');
