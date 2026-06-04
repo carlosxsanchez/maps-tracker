@@ -1792,7 +1792,6 @@ function viewBlueprint(programId, phaseNum, dayIdx) {
             ${ex.superset ? '<span class="superset-badge">SUPERSET</span>' : ''}
           </div>
           <div class="blueprint-ex-detail">${ex.sets} sets × ${ex.reps}${ex.note ? ' · ' + ex.note : ''}</div>
-          ${buildVideoPanel(ex.name, 'bp-' + ei)}
         </div>
       `).join('')}
     </div>
@@ -1923,7 +1922,6 @@ function renderActiveWorkout() {
       </div>
       ${ex.note ? `<div style="font-size:11px;color:var(--amber);margin-bottom:8px">${ex.note}</div>` : ''}
       <div class="exercise-img-wrap" id="eximg-${exIdx}"><img alt="${ex.name}" onload="this.classList.add('loaded')" onerror="this.closest('.exercise-img-wrap').style.display='none'"></div>
-      ${buildVideoPanel(ex.name, 'aw-' + exIdx)}
       <div class="sets-row">
         ${ex.sets.map((s, si) => `
           <div class="set-chip ${s.done ? 'logged' : ''}" onclick="openSetModal(${exIdx}, ${si})">
@@ -2571,7 +2569,7 @@ async function _loadExerciseDb() {
     data.forEach(ex => {
       if (ex.images && ex.images.length > 0) {
         _exImgMap[ex.name.toLowerCase().trim()] =
-          `https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/${ex.id}/images/0.jpg`;
+          'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/' + ex.images[0];
       }
     });
   } catch(e) { _exImgMap = {}; }
@@ -2579,11 +2577,13 @@ async function _loadExerciseDb() {
 }
 
 function _scoreMatch(query, candidate) {
-  const qWords = query.toLowerCase().replace(/[^a-z0-9 ]/g,'').split(' ').filter(w => w.length > 2);
-  const c = candidate.toLowerCase();
-  let hits = 0;
-  qWords.forEach(w => { if (c.includes(w)) hits++; });
-  return qWords.length ? hits / qWords.length : 0;
+  const norm = s => s.toLowerCase().replace(/[^a-z0-9]+/g,' ').trim().split(/\s+/).filter(w => w.length > 1);
+  const qw = norm(query);
+  const cw = norm(candidate);
+  if (qw.length === 0) return 0;
+  const hits = qw.filter(w => cw.includes(w)).length;
+  // penalise both missing query words and extra db words
+  return hits / Math.max(qw.length, cw.length);
 }
 
 async function loadExerciseImages() {
@@ -2602,7 +2602,7 @@ async function loadExerciseImages() {
       let best = 0, bestUrl = null;
       for (const [name, imgUrl] of Object.entries(map)) {
         const score = _scoreMatch(ex.name, name);
-        if (score > best && score >= 0.5) { best = score; bestUrl = imgUrl; }
+        if (score > best && score >= 0.4) { best = score; bestUrl = imgUrl; }
       }
       url = bestUrl;
     }
