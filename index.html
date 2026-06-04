@@ -208,6 +208,77 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 /* ── ANIMATIONS ── */
 @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
 .screen.active .card { animation: fadeUp 0.2s ease both; }
+
+/* ── REST TIMER ── */
+#rest-timer-bar {
+  position: fixed;
+  bottom: calc(56px + var(--safe-bottom));
+  left: 0; right: 0;
+  background: var(--card);
+  border-top: 1px solid var(--border);
+  padding: 12px 16px 14px;
+  transform: translateY(110%);
+  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  z-index: 300;
+  box-shadow: 0 -8px 32px rgba(0,0,0,0.4);
+}
+#rest-timer-bar.visible { transform: translateY(0); }
+#rest-timer-inner {
+  display: flex; align-items: center; gap: 14px;
+}
+#rest-timer-label {
+  font-family: var(--font-display);
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text3);
+  min-width: 32px;
+}
+#rest-timer-digits {
+  font-family: var(--font-display);
+  font-size: 36px; font-weight: 700;
+  color: var(--text);
+  min-width: 68px;
+  line-height: 1;
+  transition: color 0.4s;
+}
+#rest-timer-digits.urgent { color: var(--amber); }
+#rest-timer-track {
+  flex: 1; height: 5px;
+  background: var(--bg3); border-radius: 3px; overflow: hidden;
+}
+#rest-timer-fill {
+  height: 100%; border-radius: 3px;
+  background: var(--green);
+  transition: width 0.9s linear, background 0.4s;
+}
+#rest-timer-fill.urgent { background: var(--amber); }
+#rest-timer-skip {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text3); font-size: 12px;
+  padding: 6px 14px; border-radius: 8px;
+  font-family: var(--font-display);
+  font-weight: 600; letter-spacing: 0.5px;
+  cursor: pointer; white-space: nowrap;
+  transition: border-color 0.2s, color 0.2s;
+}
+#rest-timer-skip:active { color: var(--text); border-color: var(--text3); }
+
+/* ── EXERCISE IMAGE ── */
+.exercise-img-wrap {
+  width: 100%; margin-bottom: 10px;
+  border-radius: 10px; overflow: hidden;
+  background: var(--bg3);
+  min-height: 40px;
+}
+.exercise-img-wrap img {
+  width: 100%; display: block;
+  max-height: 160px; object-fit: cover;
+  border-radius: 10px;
+  opacity: 0; transition: opacity 0.4s;
+}
+.exercise-img-wrap img.loaded { opacity: 1; }
 </style>
 </head>
 <body>
@@ -1420,6 +1491,7 @@ function renderActiveWorkout() {
         ${allDone ? '<span style="color:var(--green);font-size:18px">✓</span>' : ''}
       </div>
       ${ex.note ? `<div style="font-size:11px;color:var(--amber);margin-bottom:8px">${ex.note}</div>` : ''}
+      <div class="exercise-img-wrap" id="eximg-${exIdx}"><img alt="${ex.name}" onload="this.classList.add('loaded')" onerror="this.closest('.exercise-img-wrap').style.display='none'"></div>
       ${buildVideoPanel(ex.name, 'aw-' + exIdx)}
       <div class="sets-row">
         ${ex.sets.map((s, si) => `
@@ -1440,6 +1512,8 @@ function renderActiveWorkout() {
     </div>`;
 
   document.getElementById('log-content').innerHTML = html;
+  // Load exercise images asynchronously after render
+  requestAnimationFrame(() => loadExerciseImages());
 }
 
 function addSet(exIdx) {
@@ -1527,6 +1601,11 @@ function saveSet() {
   saveState();
   document.getElementById('set-modal').classList.remove('open');
   renderActiveWorkout();
+  // ── Start rest timer ──
+  const prog = PROGRAMS[state.activeWorkout.programId];
+  const phase = prog?.phases.find(p => p.num === state.activeWorkout.phaseNum);
+  const secs = parseRestSeconds(phase?.rest || '');
+  if (secs > 0) startRestTimer(secs);
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1946,7 +2025,173 @@ setInterval(() => {
     const totalSets = state.activeWorkout.exercises.reduce((a, ex) => a + ex.sets.length, 0);
     document.getElementById('log-subtitle').textContent = `${elapsed}m elapsed · ${doneCount}/${totalSets} sets`;
   }
+
+// ═══════════════════════════════════════════════════════
+// REST TIMER
+// ═══════════════════════════════════════════════════════
+let _restInterval = null;
+let _restTotal = 0;
+
+function parseRestSeconds(restStr) {
+  if (!restStr || /no rest|composure/i.test(restStr)) return 0;
+  const minM = restStr.match(/([0-9.]+)\s*-?\s*([0-9.]+)?\s*min/i);
+  if (minM) return Math.round(parseFloat(minM[1]) * 60);
+  const secM = restStr.match(/([0-9]+)\s*-?\s*([0-9]+)?\s*sec/i);
+  if (secM) {
+    const lo = parseInt(secM[1]), hi = secM[2] ? parseInt(secM[2]) : lo;
+    return Math.round((lo + hi) / 2);
+  }
+  return 0;
+}
+
+function _beep(freq, dur, delay, ctx) {
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain); gain.connect(ctx.destination);
+  osc.type = 'sine'; osc.frequency.value = freq;
+  gain.gain.setValueAtTime(0.45, ctx.currentTime + delay);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + dur);
+  osc.start(ctx.currentTime + delay);
+  osc.stop(ctx.currentTime + delay + dur + 0.05);
+}
+
+function playRestDone() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    _beep(523, 0.12, 0, ctx);
+    _beep(659, 0.12, 0.18, ctx);
+    _beep(880, 0.28, 0.36, ctx);
+  } catch(e) {}
+}
+
+function playTick() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    _beep(440, 0.06, 0, ctx);
+  } catch(e) {}
+}
+
+function startRestTimer(seconds) {
+  clearInterval(_restInterval);
+  _restTotal = seconds;
+  const bar = document.getElementById('rest-timer-bar');
+  const digits = document.getElementById('rest-timer-digits');
+  const fill = document.getElementById('rest-timer-fill');
+  if (!bar) return;
+
+  let remaining = seconds;
+
+  function fmt(s) {
+    const m = Math.floor(s / 60), sec = s % 60;
+    return m > 0 ? m + ':' + String(sec).padStart(2,'0') : sec + 's';
+  }
+
+  function update() {
+    digits.textContent = fmt(remaining);
+    const pct = (remaining / _restTotal) * 100;
+    fill.style.width = pct + '%';
+    const urgent = remaining <= 5;
+    digits.classList.toggle('urgent', urgent);
+    fill.classList.toggle('urgent', urgent);
+  }
+
+  update();
+  bar.classList.add('visible');
+
+  _restInterval = setInterval(() => {
+    remaining--;
+    if (remaining <= 3 && remaining > 0) playTick();
+    if (remaining <= 0) {
+      clearInterval(_restInterval);
+      playRestDone();
+      setTimeout(() => {
+        bar.classList.remove('visible');
+        digits.textContent = '—';
+        fill.style.width = '100%';
+        digits.classList.remove('urgent');
+        fill.classList.remove('urgent');
+      }, 1200);
+      return;
+    }
+    update();
+  }, 1000);
+}
+
+function skipRestTimer() {
+  clearInterval(_restInterval);
+  const bar = document.getElementById('rest-timer-bar');
+  if (bar) bar.classList.remove('visible');
+}
+
+// ═══════════════════════════════════════════════════════
+// EXERCISE IMAGES  (free-exercise-db via GitHub CDN)
+// ═══════════════════════════════════════════════════════
+let _exImgMap = null;
+let _exImgLoading = false;
+
+async function _loadExerciseDb() {
+  if (_exImgMap) return _exImgMap;
+  if (_exImgLoading) return null;
+  _exImgLoading = true;
+  try {
+    const r = await fetch('https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/dist/exercises.json');
+    const data = await r.json();
+    _exImgMap = {};
+    data.forEach(ex => {
+      if (ex.images && ex.images.length > 0) {
+        _exImgMap[ex.name.toLowerCase().trim()] =
+          `https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/${ex.id}/images/0.jpg`;
+      }
+    });
+  } catch(e) { _exImgMap = {}; }
+  return _exImgMap;
+}
+
+function _scoreMatch(query, candidate) {
+  const qWords = query.toLowerCase().replace(/[^a-z0-9 ]/g,'').split(' ').filter(w => w.length > 2);
+  const c = candidate.toLowerCase();
+  let hits = 0;
+  qWords.forEach(w => { if (c.includes(w)) hits++; });
+  return qWords.length ? hits / qWords.length : 0;
+}
+
+async function loadExerciseImages() {
+  const map = await _loadExerciseDb();
+  if (!map || !state.activeWorkout) return;
+  state.activeWorkout.exercises.forEach((ex, exIdx) => {
+    const wrap = document.getElementById('eximg-' + exIdx);
+    if (!wrap) return;
+    const img = wrap.querySelector('img');
+    if (!img || img.src) return;
+
+    const key = ex.name.toLowerCase().trim();
+    let url = map[key];
+
+    if (!url) {
+      let best = 0, bestUrl = null;
+      for (const [name, imgUrl] of Object.entries(map)) {
+        const score = _scoreMatch(ex.name, name);
+        if (score > best && score >= 0.5) { best = score; bestUrl = imgUrl; }
+      }
+      url = bestUrl;
+    }
+
+    if (url) img.src = url;
+    else wrap.style.display = 'none';
+  });
+}
+
 }, 15000);
 </script>
+
+<!-- REST TIMER BAR -->
+<div id="rest-timer-bar">
+  <div id="rest-timer-inner">
+    <div id="rest-timer-label">Rest</div>
+    <div id="rest-timer-digits">—</div>
+    <div id="rest-timer-track"><div id="rest-timer-fill"></div></div>
+    <button id="rest-timer-skip" onclick="skipRestTimer()">Skip</button>
+  </div>
+</div>
 </body>
 </html>
