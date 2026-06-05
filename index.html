@@ -270,19 +270,12 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 #rest-timer-skip:active { color: var(--text); border-color: var(--text3); }
 
 /* ── EXERCISE IMAGE ── */
-.exercise-img-wrap {
-  width: 100%; margin-bottom: 10px;
-  border-radius: 10px; overflow: hidden;
-  background: var(--bg3);
-  min-height: 40px;
-}
-.exercise-img-wrap img {
+.exercise-img {
   width: 100%; display: block;
-  max-height: 160px; object-fit: cover;
+  max-height: 180px; object-fit: cover;
   border-radius: 10px;
-  opacity: 0; transition: opacity 0.4s;
+  margin-bottom: 10px;
 }
-.exercise-img-wrap img.loaded { opacity: 1; }
 </style>
 </head>
 <body>
@@ -1921,7 +1914,7 @@ function renderActiveWorkout() {
         ${allDone ? '<span style="color:var(--green);font-size:18px">✓</span>' : ''}
       </div>
       ${ex.note ? `<div style="font-size:11px;color:var(--amber);margin-bottom:8px">${ex.note}</div>` : ''}
-      <div class="exercise-img-wrap" id="eximg-${exIdx}"><img alt="${ex.name}" onload="this.classList.add('loaded')" onerror="this.closest('.exercise-img-wrap').style.display='none'"></div>
+      \${(()=>{const u=EXERCISE_IMAGES[ex.name.toLowerCase().trim()];return u?'<img class="exercise-img" src="'+u+'" alt="'+ex.name+'" loading="lazy">':'';})()} 
       <div class="sets-row">
         ${ex.sets.map((s, si) => `
           <div class="set-chip ${s.done ? 'logged' : ''}" onclick="openSetModal(${exIdx}, ${si})">
@@ -1941,8 +1934,7 @@ function renderActiveWorkout() {
     </div>`;
 
   document.getElementById('log-content').innerHTML = html;
-  // Load exercise images asynchronously after render
-  requestAnimationFrame(() => loadExerciseImages());
+
 }
 
 function addSet(exIdx) {
@@ -2556,190 +2548,158 @@ function skipRestTimer() {
 // EXERCISE IMAGES  (free-exercise-db via GitHub CDN)
 // ═══════════════════════════════════════════════════════
 const EXERCISE_IMAGES = {
-  'barbell back squat': 'https://weighttraining.guide/wp-content/uploads/2016/10/barbell-squat-resized-FIXED-2.png',
-  'barbell front squat': 'https://weighttraining.guide/wp-content/uploads/2016/10/barbell-squat-resized-FIXED-2.png',
-  'front squat': 'https://weighttraining.guide/wp-content/uploads/2016/10/barbell-squat-resized-FIXED-2.png',
-  'hack squat': 'https://weighttraining.guide/wp-content/uploads/2016/10/barbell-squat-resized-FIXED-2.png',
-  'goblet squat': 'https://weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png',
-  'kettlebell goblet squat': 'https://weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png',
-  'kettlebell front squat': 'https://weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png',
-  'double kettlebell front squat': 'https://weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png',
-  'dumbbell squat': 'https://weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png',
-  'squat': 'https://weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png',
-  'air squat': 'https://weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png',
-  'pistol squat': 'https://weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png',
-  'pistol squat assist': 'https://weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png',
-  'single leg squat': 'https://weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png',
-  'suspension squat': 'https://weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png',
-  'suspension pistol squat assist': 'https://weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png',
-  'suspension single leg squat': 'https://weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png',
-  'dumbbell squat jump': 'https://weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png',
-  'kettlebell jump squat': 'https://weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png',
-  'suspension jump squat': 'https://weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png',
-  'barbell deadlift': 'https://weighttraining.guide/wp-content/uploads/2016/05/Barbell-Deadlift-1.png',
-  'deadlift': 'https://weighttraining.guide/wp-content/uploads/2016/05/Barbell-Deadlift-1.png',
-  'trap bar deadlift': 'https://weighttraining.guide/wp-content/uploads/2016/05/Barbell-Deadlift-1.png',
-  'dumbbell deadlift': 'https://weighttraining.guide/wp-content/uploads/2016/05/Barbell-Deadlift-1.png',
-  'romanian deadlift': 'https://weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png',
-  'dumbbell romanian deadlift': 'https://weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png',
-  'kettlebell deadlift': 'https://weighttraining.guide/wp-content/uploads/2022/01/Kettlebell-deadlift-1.png',
-  'double kettlebell deadlift': 'https://weighttraining.guide/wp-content/uploads/2022/01/Kettlebell-deadlift-1.png',
-  'glute-ham raise': 'https://weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png',
-  'nordic hamstring curl': 'https://weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png',
-  'suspension nordic hamstring curl': 'https://weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png',
-  'lying leg curl': 'https://weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png',
-  'suspension hamstring curl': 'https://weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png',
-  'barbell bench press': 'https://weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Bench-Press-resized.png',
-  'dumbbell bench press': 'https://weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Bench-Press-resized.png',
-  'barbell incline bench press': 'https://weighttraining.guide/wp-content/uploads/2016/11/incline-barbell-bench-press-resized.png',
-  'barbell incline press': 'https://weighttraining.guide/wp-content/uploads/2016/11/incline-barbell-bench-press-resized.png',
-  'incline barbell bench press': 'https://weighttraining.guide/wp-content/uploads/2016/11/incline-barbell-bench-press-resized.png',
-  'incline dumbbell press': 'https://weighttraining.guide/wp-content/uploads/2016/11/incline-barbell-bench-press-resized.png',
-  'dumbbell incline press': 'https://weighttraining.guide/wp-content/uploads/2016/11/incline-barbell-bench-press-resized.png',
-  'suspension chest press': 'https://weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Bench-Press-resized.png',
-  'suspension chest fly': 'https://weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Bench-Press-resized.png',
-  'push-up': 'https://weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png',
-  'push up': 'https://weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png',
-  'weighted push-up': 'https://weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png',
-  'wide push-up': 'https://weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png',
-  'archer push-up': 'https://weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png',
-  'pseudo planche push-up': 'https://weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png',
-  'suspension push-up': 'https://weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png',
-  'suspension plyometric push-up': 'https://weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png',
-  'ring push-up': 'https://weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png',
-  'diamond push-up': 'https://weighttraining.guide/wp-content/uploads/2017/07/diamond-push-up-resized.png',
-  'pike push-up': 'https://weighttraining.guide/wp-content/uploads/2021/07/Pike-push-up.png',
-  'handstand push-up': 'https://weighttraining.guide/wp-content/uploads/2021/07/Pike-push-up.png',
-  'handstand hold': 'https://weighttraining.guide/wp-content/uploads/2021/07/Pike-push-up.png',
-  'freestanding handstand': 'https://weighttraining.guide/wp-content/uploads/2021/07/Pike-push-up.png',
-  'planche lean': 'https://weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png',
-  'dip': 'https://weighttraining.guide/wp-content/uploads/2020/05/Dipping-exercises.png',
-  'ring dip': 'https://weighttraining.guide/wp-content/uploads/2020/05/Dipping-exercises.png',
-  'overhead press': 'https://weighttraining.guide/wp-content/uploads/2016/10/barbell-military-press-resized.png',
-  'barbell overhead press': 'https://weighttraining.guide/wp-content/uploads/2016/10/barbell-military-press-resized.png',
-  'push press': 'https://weighttraining.guide/wp-content/uploads/2016/10/barbell-military-press-resized.png',
-  'dumbbell push press': 'https://weighttraining.guide/wp-content/uploads/2016/10/barbell-military-press-resized.png',
-  'dumbbell overhead press': 'https://weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png',
-  'kettlebell press': 'https://weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png',
-  'double kettlebell press': 'https://weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png',
-  'kettlebell halo': 'https://weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png',
-  'kettlebell windmill': 'https://weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png',
-  'barbell row': 'https://weighttraining.guide/wp-content/uploads/2016/10/Bent-over-barbell-row.png',
-  'dumbbell row': 'https://weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png',
-  'kettlebell row': 'https://weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png',
-  'double kettlebell row': 'https://weighttraining.guide/wp-content/uploads/2016/10/Bent-over-barbell-row.png',
-  'bodyweight row': 'https://weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png',
-  'ring row': 'https://weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png',
-  'suspension row': 'https://weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png',
-  'suspension inverted row': 'https://weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png',
-  'suspension power pull': 'https://weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png',
-  'suspension power row': 'https://weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png',
-  'suspension archer row': 'https://weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png',
-  'suspension face pull': 'https://weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png',
-  'suspension reverse fly': 'https://weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png',
-  'suspension y-fly': 'https://weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png',
-  'suspension t-fly': 'https://weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png',
-  'kettlebell renegade row': 'https://weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png',
-  'pull-up': 'https://weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png',
-  'chin-up': 'https://weighttraining.guide/wp-content/uploads/2021/09/Chin-up.png',
-  'weighted pull-up': 'https://weighttraining.guide/wp-content/uploads/2021/03/Weighted-pull-up-back.png',
-  'l-sit pull-up': 'https://weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png',
-  'typewriter pull-up': 'https://weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png',
-  'dead hang': 'https://weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png',
-  'scapular pull-up': 'https://weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png',
-  'one arm pull-up assist': 'https://weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png',
-  'ring muscle-up': 'https://weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png',
-  'suspension muscle up assist': 'https://weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png',
-  'front lever hold': 'https://weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png',
-  'front lever pull': 'https://weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png',
-  'front lever tuck hold': 'https://weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png',
-  'back lever hold': 'https://weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png',
-  'barbell curl': 'https://weighttraining.guide/wp-content/uploads/2016/05/barbell-curl-resized.png',
-  'dumbbell curl': 'https://weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Alternate-Biceps-Curl-resized.png',
-  'suspension bicep curl': 'https://weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Alternate-Biceps-Curl-resized.png',
-  'skull crusher': 'https://weighttraining.guide/wp-content/uploads/2018/11/Barbell-skull-crusher-resized.png',
-  'tricep overhead extension': 'https://weighttraining.guide/wp-content/uploads/2018/11/Barbell-skull-crusher-resized.png',
-  'hip thrust': 'https://weighttraining.guide/wp-content/uploads/2021/06/Hip-thrust.png',
-  'barbell hip thrust': 'https://weighttraining.guide/wp-content/uploads/2017/04/barbell-hip-thrust-resized.png',
-  'glute bridge': 'https://weighttraining.guide/wp-content/uploads/2021/06/Hip-thrust.png',
-  'suspension hip press': 'https://weighttraining.guide/wp-content/uploads/2021/06/Hip-thrust.png',
-  'suspension hip press single leg': 'https://weighttraining.guide/wp-content/uploads/2021/06/Hip-thrust.png',
-  'dumbbell lunge': 'https://weighttraining.guide/wp-content/uploads/2016/10/Dumbbell-Lunge-resized-fixed.png',
-  'lunge': 'https://weighttraining.guide/wp-content/uploads/2016/10/Dumbbell-Lunge-resized-fixed.png',
-  'walking lunges': 'https://weighttraining.guide/wp-content/uploads/2016/10/Dumbbell-Lunge-resized-fixed.png',
-  'suspension lunge': 'https://weighttraining.guide/wp-content/uploads/2016/10/Dumbbell-Lunge-resized-fixed.png',
-  'suspension power lunge': 'https://weighttraining.guide/wp-content/uploads/2016/10/Dumbbell-Lunge-resized-fixed.png',
-  'bulgarian split squat': 'https://weighttraining.guide/wp-content/uploads/2016/11/Dumbbell-Bulgarian-Split-Squat-resized-FIXED.png',
-  'suspension bulgarian split squat': 'https://weighttraining.guide/wp-content/uploads/2016/11/Dumbbell-Bulgarian-Split-Squat-resized-FIXED.png',
-  'shrimp squat': 'https://weighttraining.guide/wp-content/uploads/2016/11/Dumbbell-Bulgarian-Split-Squat-resized-FIXED.png',
-  'step-up': 'https://weighttraining.guide/wp-content/uploads/2016/11/dumbbell-step-up-resized.png',
-  'plank': 'https://weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png',
-  'hollow body hold': 'https://weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png',
-  'suspension fallout': 'https://weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png',
-  'suspension rollout': 'https://weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png',
-  'suspension pike': 'https://weighttraining.guide/wp-content/uploads/2021/07/Pike-push-up.png',
-  'suspension body saw': 'https://weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png',
-  'suspension mountain climber': 'https://weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png',
-  'suspension atomic push-up': 'https://weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png',
-  'hanging knee raise': 'https://weighttraining.guide/wp-content/uploads/2019/05/Hanging-leg-raise-resized.png',
-  'l-sit hold': 'https://weighttraining.guide/wp-content/uploads/2019/05/Hanging-leg-raise-resized.png',
-  'dragon flag': 'https://weighttraining.guide/wp-content/uploads/2019/05/Hanging-leg-raise-resized.png',
-  'human flag prep': 'https://weighttraining.guide/wp-content/uploads/2019/05/Hanging-leg-raise-resized.png',
-  'kettlebell swing': 'https://weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png',
-  'kettlebell single arm swing': 'https://weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png',
-  'kettlebell double swing': 'https://weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png',
-  'kettlebell high pull': 'https://weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png',
-  'kettlebell clean': 'https://weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png',
-  'kettlebell clean to press': 'https://weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png',
-  'kettlebell clean and jerk': 'https://weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png',
-  'kettlebell snatch': 'https://weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png',
-  'kettlebell turkish get-up': 'https://weighttraining.guide/wp-content/uploads/2022/01/Kettlebell-deadlift-1.png',
-  'kettlebell farmers walk': 'https://weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png',
-  'kettlebell complex': 'https://weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png',
-  'kettlebell long cycle': 'https://weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png',
-  'kettlebell around the world': 'https://weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png',
-  'kettlebell figure 8': 'https://weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png',
-  'kettlebell jump clean': 'https://weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png',
-  'power clean': 'https://weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png',
-  'calf raise': 'https://weighttraining.guide/wp-content/uploads/2016/10/barbell-squat-resized-FIXED-2.png',
-  'leg press': 'https://weighttraining.guide/wp-content/uploads/2016/10/barbell-squat-resized-FIXED-2.png',
-  'suspension planche lean': 'https://weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png',
-  'suspension curl to press': 'https://weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png',
+  'barbell back squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-squat-resized-FIXED-2.png&w=600',
+  'barbell front squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-squat-resized-FIXED-2.png&w=600',
+  'front squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-squat-resized-FIXED-2.png&w=600',
+  'hack squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-squat-resized-FIXED-2.png&w=600',
+  'goblet squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'kettlebell goblet squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'kettlebell front squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'double kettlebell front squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'dumbbell squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'air squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'pistol squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'pistol squat assist': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'single leg squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'suspension squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'suspension pistol squat assist': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'suspension single leg squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'dumbbell squat jump': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'kettlebell jump squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'suspension jump squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'barbell deadlift': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Barbell-Deadlift-1.png&w=600',
+  'deadlift': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Barbell-Deadlift-1.png&w=600',
+  'trap bar deadlift': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Barbell-Deadlift-1.png&w=600',
+  'dumbbell deadlift': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Barbell-Deadlift-1.png&w=600',
+  'romanian deadlift': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png&w=600',
+  'dumbbell romanian deadlift': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png&w=600',
+  'kettlebell deadlift': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2022/01/Kettlebell-deadlift-1.png&w=600',
+  'double kettlebell deadlift': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2022/01/Kettlebell-deadlift-1.png&w=600',
+  'glute-ham raise': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png&w=600',
+  'nordic hamstring curl': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png&w=600',
+  'suspension nordic hamstring curl': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png&w=600',
+  'lying leg curl': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png&w=600',
+  'suspension hamstring curl': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png&w=600',
+  'barbell bench press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Bench-Press-resized.png&w=600',
+  'dumbbell bench press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Bench-Press-resized.png&w=600',
+  'barbell incline bench press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/incline-barbell-bench-press-resized.png&w=600',
+  'barbell incline press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/incline-barbell-bench-press-resized.png&w=600',
+  'incline barbell bench press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/incline-barbell-bench-press-resized.png&w=600',
+  'incline dumbbell press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/incline-barbell-bench-press-resized.png&w=600',
+  'dumbbell incline press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/incline-barbell-bench-press-resized.png&w=600',
+  'suspension chest press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Bench-Press-resized.png&w=600',
+  'suspension chest fly': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Bench-Press-resized.png&w=600',
+  'push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'push up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'weighted push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'wide push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'archer push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'pseudo planche push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'suspension push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'suspension plyometric push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'ring push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'diamond push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/07/diamond-push-up-resized.png&w=600',
+  'pike push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/07/Pike-push-up.png&w=600',
+  'handstand push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/07/Pike-push-up.png&w=600',
+  'handstand hold': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/07/Pike-push-up.png&w=600',
+  'freestanding handstand': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/07/Pike-push-up.png&w=600',
+  'planche lean': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'dip': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2020/05/Dipping-exercises.png&w=600',
+  'ring dip': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2020/05/Dipping-exercises.png&w=600',
+  'overhead press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-military-press-resized.png&w=600',
+  'barbell overhead press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-military-press-resized.png&w=600',
+  'push press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-military-press-resized.png&w=600',
+  'dumbbell push press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-military-press-resized.png&w=600',
+  'dumbbell overhead press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
+  'kettlebell press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
+  'double kettlebell press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
+  'kettlebell halo': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
+  'kettlebell windmill': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
+  'barbell row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Bent-over-barbell-row.png&w=600',
+  'dumbbell row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'kettlebell row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'double kettlebell row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Bent-over-barbell-row.png&w=600',
+  'bodyweight row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'ring row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'suspension row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'suspension inverted row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'suspension power pull': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'suspension power row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'suspension archer row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'suspension face pull': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'suspension reverse fly': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'suspension y-fly': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'suspension t-fly': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'kettlebell renegade row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'pull-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
+  'chin-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/09/Chin-up.png&w=600',
+  'weighted pull-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/03/Weighted-pull-up-back.png&w=600',
+  'l-sit pull-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
+  'typewriter pull-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
+  'dead hang': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
+  'scapular pull-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
+  'one arm pull-up assist': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
+  'ring muscle-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
+  'suspension muscle up assist': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
+  'front lever hold': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
+  'front lever pull': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
+  'front lever tuck hold': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
+  'back lever hold': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
+  'barbell curl': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/barbell-curl-resized.png&w=600',
+  'dumbbell curl': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Alternate-Biceps-Curl-resized.png&w=600',
+  'suspension bicep curl': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Alternate-Biceps-Curl-resized.png&w=600',
+  'skull crusher': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2018/11/Barbell-skull-crusher-resized.png&w=600',
+  'tricep overhead extension': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2018/11/Barbell-skull-crusher-resized.png&w=600',
+  'hip thrust': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/06/Hip-thrust.png&w=600',
+  'barbell hip thrust': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/04/barbell-hip-thrust-resized.png&w=600',
+  'glute bridge': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/06/Hip-thrust.png&w=600',
+  'suspension hip press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/06/Hip-thrust.png&w=600',
+  'suspension hip press single leg': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/06/Hip-thrust.png&w=600',
+  'dumbbell lunge': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Dumbbell-Lunge-resized-fixed.png&w=600',
+  'lunge': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Dumbbell-Lunge-resized-fixed.png&w=600',
+  'walking lunges': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Dumbbell-Lunge-resized-fixed.png&w=600',
+  'suspension lunge': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Dumbbell-Lunge-resized-fixed.png&w=600',
+  'suspension power lunge': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Dumbbell-Lunge-resized-fixed.png&w=600',
+  'bulgarian split squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/Dumbbell-Bulgarian-Split-Squat-resized-FIXED.png&w=600',
+  'suspension bulgarian split squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/Dumbbell-Bulgarian-Split-Squat-resized-FIXED.png&w=600',
+  'shrimp squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/Dumbbell-Bulgarian-Split-Squat-resized-FIXED.png&w=600',
+  'step-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/dumbbell-step-up-resized.png&w=600',
+  'plank': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'hollow body hold': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'suspension fallout': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'suspension rollout': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'suspension pike': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/07/Pike-push-up.png&w=600',
+  'suspension body saw': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'suspension mountain climber': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'suspension atomic push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'hanging knee raise': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2019/05/Hanging-leg-raise-resized.png&w=600',
+  'l-sit hold': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2019/05/Hanging-leg-raise-resized.png&w=600',
+  'dragon flag': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2019/05/Hanging-leg-raise-resized.png&w=600',
+  'human flag prep': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2019/05/Hanging-leg-raise-resized.png&w=600',
+  'kettlebell swing': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
+  'kettlebell single arm swing': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
+  'kettlebell double swing': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
+  'kettlebell high pull': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
+  'kettlebell clean': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
+  'kettlebell clean to press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
+  'kettlebell clean and jerk': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
+  'kettlebell snatch': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
+  'kettlebell turkish get-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2022/01/Kettlebell-deadlift-1.png&w=600',
+  'kettlebell farmers walk': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'kettlebell complex': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
+  'kettlebell long cycle': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
+  'kettlebell around the world': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
+  'kettlebell figure 8': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
+  'kettlebell jump clean': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
+  'power clean': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
+  'calf raise': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-squat-resized-FIXED-2.png&w=600',
+  'leg press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-squat-resized-FIXED-2.png&w=600',
+  'suspension planche lean': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'suspension curl to press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
 };
 
-// Instant image lookup — static map, no network fetch needed
-function loadExerciseImages() {
-  if (!state.activeWorkout) return;
-  state.activeWorkout.exercises.forEach((ex, exIdx) => {
-    const wrap = document.getElementById('eximg-' + exIdx);
-    if (!wrap) return;
-    const img = wrap.querySelector('img');
-    if (!img || img.getAttribute('src')) return;
 
-    const key = ex.name.toLowerCase().trim();
-    // 1. Direct match
-    let url = EXERCISE_IMAGES[key];
-    // 2. Strip leading equipment word and retry
-    if (!url) {
-      const stripped = key.replace(/^(dumbbell|barbell|kettlebell|double|single|weighted|bodyweight|suspension)\s+/i, '').trim();
-      url = EXERCISE_IMAGES[stripped];
-    }
-    // 3. Partial word match
-    if (!url) {
-      const qw = key.replace(/[^a-z0-9]+/g,' ').trim().split(' ').filter(w => w.length > 2);
-      let best = 0;
-      for (const [k2, u] of Object.entries(EXERCISE_IMAGES)) {
-        const cw = k2.split(' ');
-        const hits = qw.filter(w => cw.includes(w)).length;
-        const score = hits / Math.max(qw.length, cw.length);
-        if (score > best && score >= 0.5) { best = score; url = u; }
-      }
-    }
-
-    if (url) img.src = url;
-    else wrap.style.display = 'none';
-  });
-}
 
 
 }, 15000);
