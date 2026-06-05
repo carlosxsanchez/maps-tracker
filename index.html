@@ -2555,46 +2555,144 @@ function skipRestTimer() {
 // ═══════════════════════════════════════════════════════
 // EXERCISE IMAGES  (free-exercise-db via GitHub CDN)
 // ═══════════════════════════════════════════════════════
-let _exImgMap = null;
-let _exImgLoading = false;
+const EXERCISE_IMAGES = {
+  'barbell back squat': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Full_Squat/0.jpg',
+  'barbell front squat': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Front_Barbell_Squat/0.jpg',
+  'front squat': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Front_Barbell_Squat/0.jpg',
+  'goblet squat': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Goblet_Squat/0.jpg',
+  'kettlebell goblet squat': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Goblet_Squat/0.jpg',
+  'dumbbell squat': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Squat/0.jpg',
+  'air squat': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Air_Squat/0.jpg',
+  'squat': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Air_Squat/0.jpg',
+  'hack squat': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Hack_Squat/0.jpg',
+  'leg press': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Leg_Press/0.jpg',
+  'pistol squat': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Pistol_Squat/0.jpg',
+  'pistol squat assist': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Pistol_Squat/0.jpg',
+  'suspension squat': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Air_Squat/0.jpg',
+  'single leg squat': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Pistol_Squat/0.jpg',
+  'dumbbell squat jump': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Jump_Squat/0.jpg',
+  'suspension jump squat': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Jump_Squat/0.jpg',
+  'box jump': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Jump_Squat/0.jpg',
+  'barbell deadlift': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Deadlift/0.jpg',
+  'deadlift': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Deadlift/0.jpg',
+  'trap bar deadlift': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Deadlift/0.jpg',
+  'romanian deadlift': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Romanian_Deadlift/0.jpg',
+  'dumbbell romanian deadlift': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Romanian_Deadlift/0.jpg',
+  'dumbbell deadlift': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Romanian_Deadlift/0.jpg',
+  'kettlebell deadlift': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Romanian_Deadlift/0.jpg',
+  'double kettlebell deadlift': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Romanian_Deadlift/0.jpg',
+  'glute-ham raise': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Natural_Leg_Curl/0.jpg',
+  'nordic hamstring curl': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Natural_Leg_Curl/0.jpg',
+  'suspension nordic hamstring curl': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Natural_Leg_Curl/0.jpg',
+  'lying leg curl': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Lying_Leg_Curls/0.jpg',
+  'suspension hamstring curl': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Lying_Leg_Curls/0.jpg',
+  'dumbbell lunge': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Lunges/0.jpg',
+  'lunge': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Lunges/0.jpg',
+  'walking lunges': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Lunges/0.jpg',
+  'suspension lunge': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Lunges/0.jpg',
+  'suspension bulgarian split squat': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Bulgarian_Split_Squat/0.jpg',
+  'bulgarian split squat': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Bulgarian_Split_Squat/0.jpg',
+  'shrimp squat': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Pistol_Squat/0.jpg',
+  'step-up': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Step_Ups/0.jpg',
+  'hip thrust': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Hip_Thrust/0.jpg',
+  'glute bridge': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Glute_Bridge/0.jpg',
+  'calf raise': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Standing_Calf_Raises/0.jpg',
+  'barbell bench press': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Bench_Press_-_Medium_Grip/0.jpg',
+  'barbell incline bench press': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Incline_Bench_Press_-_Medium_Grip/0.jpg',
+  'barbell incline press': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Incline_Bench_Press_-_Medium_Grip/0.jpg',
+  'dumbbell bench press': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Bench_Press/0.jpg',
+  'incline dumbbell press': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Incline_Dumbbell_Press/0.jpg',
+  'dumbbell incline press': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Incline_Dumbbell_Press/0.jpg',
+  'push-up': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Pushups/0.jpg',
+  'push up': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Pushups/0.jpg',
+  'wide push-up': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Wide-Grip_Push-up/0.jpg',
+  'diamond push-up': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Diamond_Push-up/0.jpg',
+  'pike push-up': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Pike_Push-up/0.jpg',
+  'archer push-up': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Pushups/0.jpg',
+  'weighted push-up': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Pushups/0.jpg',
+  'pseudo planche push-up': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Pushups/0.jpg',
+  'suspension push-up': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Pushups/0.jpg',
+  'suspension chest fly': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Flyes/0.jpg',
+  'suspension chest press': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Bench_Press/0.jpg',
+  'suspension plyometric push-up': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Plyometric_Push-Ups/0.jpg',
+  'dip': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dips_-_Chest_Version/0.jpg',
+  'ring dip': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dips_-_Chest_Version/0.jpg',
+  'ring push-up': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Pushups/0.jpg',
+  'push press': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Push_Press/0.jpg',
+  'dumbbell push press': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Push_Press/0.jpg',
+  'dumbbell overhead press': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Shoulder_Press/0.jpg',
+  'overhead press': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Shoulder_Press/0.jpg',
+  'kettlebell press': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Shoulder_Press/0.jpg',
+  'double kettlebell press': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Shoulder_Press/0.jpg',
+  'barbell row': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bent_Over_Barbell_Row/0.jpg',
+  'dumbbell row': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bent-Over_One-Arm_Dumbbell_Row/0.jpg',
+  'kettlebell row': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bent-Over_One-Arm_Dumbbell_Row/0.jpg',
+  'double kettlebell row': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bent-Over_Two-Dumbbell_Row/0.jpg',
+  'pull-up': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Pullups/0.jpg',
+  'chin-up': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Chin-Up/0.jpg',
+  'weighted pull-up': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Weighted_Pull-up/0.jpg',
+  'l-sit pull-up': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Pullups/0.jpg',
+  'typewriter pull-up': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Pullups/0.jpg',
+  'bodyweight row': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bent-Over_Two-Dumbbell_Row/0.jpg',
+  'ring row': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bent-Over_Two-Dumbbell_Row/0.jpg',
+  'dead hang': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Pullups/0.jpg',
+  'scapular pull-up': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Scapular_Pull-Up/0.jpg',
+  'suspension row': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bent-Over_One-Arm_Dumbbell_Row/0.jpg',
+  'suspension inverted row': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bent-Over_Two-Dumbbell_Row/0.jpg',
+  'suspension power pull': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bent-Over_One-Arm_Dumbbell_Row/0.jpg',
+  'suspension power row': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bent-Over_One-Arm_Dumbbell_Row/0.jpg',
+  'suspension archer row': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bent-Over_One-Arm_Dumbbell_Row/0.jpg',
+  'suspension reverse fly': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Rear_Delt_Row/0.jpg',
+  'suspension face pull': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Rear_Delt_Row/0.jpg',
+  'suspension y-fly': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Rear_Delt_Row/0.jpg',
+  'suspension t-fly': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Rear_Delt_Row/0.jpg',
+  'ring muscle-up': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Pullups/0.jpg',
+  'suspension muscle up assist': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Pullups/0.jpg',
+  'one arm pull-up assist': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Pullups/0.jpg',
+  'barbell curl': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Curl/0.jpg',
+  'dumbbell curl': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Bicep_Curl/0.jpg',
+  'suspension bicep curl': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Bicep_Curl/0.jpg',
+  'skull crusher': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/EZ-Bar_Skullcrusher/0.jpg',
+  'tricep overhead extension': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Seated_Dumbbell_Palms_In_Alternating_Front_Raise/0.jpg',
+  'plank': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Plank/0.jpg',
+  'hanging knee raise': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Hanging_Leg-Hip_Raise/0.jpg',
+  'l-sit hold': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Hanging_Leg-Hip_Raise/0.jpg',
+  'suspension pike': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Hanging_Leg-Hip_Raise/0.jpg',
+  'suspension fallout': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Plank/0.jpg',
+  'suspension mountain climber': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Mountain_Climbers/0.jpg',
+  'suspension rollout': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Plank/0.jpg',
+  'suspension body saw': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Plank/0.jpg',
+  'suspension atomic push-up': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Mountain_Climbers/0.jpg',
+  'dragon flag': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Leg_Raises/0.jpg',
+  'power clean': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Clean_and_Press/0.jpg',
+  'kettlebell clean': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Clean_and_Press/0.jpg',
+  'kettlebell clean to press': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Clean_and_Press/0.jpg',
+  'kettlebell clean and jerk': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Clean_and_Press/0.jpg',
+  'kettlebell snatch': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Snatch/0.jpg',
+  'kettlebell single arm swing': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/One-Arm_Kettlebell_Swings/0.jpg',
+  'kettlebell swing': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/One-Arm_Kettlebell_Swings/0.jpg',
+  'kettlebell double swing': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/One-Arm_Kettlebell_Swings/0.jpg',
+  'kettlebell high pull': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/One-Arm_Kettlebell_Swings/0.jpg',
+  'kettlebell jump squat': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Jump_Squat/0.jpg',
+  'kettlebell jump clean': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Clean_and_Press/0.jpg',
+  'kettlebell turkish get-up': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Turkish_Get-Up_(Kettlebell)/0.jpg',
+  'kettlebell renegade row': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Renegade_Row/0.jpg',
+  'kettlebell farmers walk': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Farmers_Walk/0.jpg',
+  'kettlebell front squat': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Goblet_Squat/0.jpg',
+  'kettlebell windmill': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Side_Bend/0.jpg',
+  'kettlebell halo': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Shoulder_Press/0.jpg',
+  'kettlebell around the world': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Shoulder_Press/0.jpg',
+  'kettlebell figure 8': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/One-Arm_Kettlebell_Swings/0.jpg',
+  'kettlebell complex': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Clean_and_Press/0.jpg',
+  'kettlebell long cycle': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Clean_and_Press/0.jpg',
+  'handstand push-up': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Handstand_Push-Ups/0.jpg',
+  'handstand hold': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Handstand_Push-Ups/0.jpg',
+  'freestanding handstand': 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Handstand_Push-Ups/0.jpg',
+};
 
-async function _loadExerciseDb() {
-  if (_exImgMap) return _exImgMap;
-  if (_exImgLoading) return null;
-  _exImgLoading = true;
-  try {
-    const r = await fetch('https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/dist/exercises.json');
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    const data = await r.json();
-    _exImgMap = {};
-    const BASE = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
-    data.forEach(ex => {
-      if (ex.images && ex.images.length > 0) {
-        _exImgMap[ex.name.toLowerCase().trim()] = BASE + ex.images[0];
-      }
-    });
-    console.log('[ExerciseDB] Loaded', Object.keys(_exImgMap).length, 'exercises');
-  } catch(e) {
-    console.warn('[ExerciseDB] Load failed:', e.message);
-    _exImgMap = {};
-    _exImgLoading = false;
-  }
-  return _exImgMap;
-}
-
-function _scoreMatch(query, candidate) {
-  const norm = s => s.toLowerCase().replace(/[^a-z0-9]+/g,' ').trim().split(/\s+/).filter(w => w.length > 1);
-  const qw = norm(query);
-  const cw = norm(candidate);
-  if (qw.length === 0) return 0;
-  const hits = qw.filter(w => cw.includes(w)).length;
-  // penalise both missing query words and extra db words
-  return hits / Math.max(qw.length, cw.length);
-}
-
-async function loadExerciseImages() {
-  const map = await _loadExerciseDb();
-  if (!map || !state.activeWorkout) return;
+// Instant image lookup — static map, no network fetch needed
+function loadExerciseImages() {
+  if (!state.activeWorkout) return;
   state.activeWorkout.exercises.forEach((ex, exIdx) => {
     const wrap = document.getElementById('eximg-' + exIdx);
     if (!wrap) return;
@@ -2602,31 +2700,30 @@ async function loadExerciseImages() {
     if (!img || img.getAttribute('src')) return;
 
     const key = ex.name.toLowerCase().trim();
-    let url = map[key];
-
-    // Partial exact: try removing leading modifier words (Dumbbell, Barbell, etc.)
+    // 1. Direct match
+    let url = EXERCISE_IMAGES[key];
+    // 2. Strip leading equipment word and retry
     if (!url) {
       const stripped = key.replace(/^(dumbbell|barbell|kettlebell|double|single|weighted|bodyweight|suspension)\s+/i, '').trim();
-      url = map[stripped] || Object.entries(map).find(([k]) => k === stripped)?.[1];
+      url = EXERCISE_IMAGES[stripped];
     }
-
-    // Fuzzy fallback
+    // 3. Partial word match
     if (!url) {
-      let best = 0, bestUrl = null;
-      for (const [name, imgUrl] of Object.entries(map)) {
-        const score = _scoreMatch(ex.name, name);
-        if (score > best && score >= 0.35) { best = score; bestUrl = imgUrl; }
+      const qw = key.replace(/[^a-z0-9]+/g,' ').trim().split(' ').filter(w => w.length > 2);
+      let best = 0;
+      for (const [k2, u] of Object.entries(EXERCISE_IMAGES)) {
+        const cw = k2.split(' ');
+        const hits = qw.filter(w => cw.includes(w)).length;
+        const score = hits / Math.max(qw.length, cw.length);
+        if (score > best && score >= 0.5) { best = score; url = u; }
       }
-      url = bestUrl;
     }
 
-    if (url) {
-      img.src = url;
-    } else {
-      wrap.style.display = 'none';
-    }
+    if (url) img.src = url;
+    else wrap.style.display = 'none';
   });
 }
+
 
 }, 15000);
 </script>
