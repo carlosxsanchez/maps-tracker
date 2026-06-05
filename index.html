@@ -1914,7 +1914,7 @@ function renderActiveWorkout() {
         ${allDone ? '<span style="color:var(--green);font-size:18px">✓</span>' : ''}
       </div>
       ${ex.note ? `<div style="font-size:11px;color:var(--amber);margin-bottom:8px">${ex.note}</div>` : ''}
-      \${(()=>{const u=EXERCISE_IMAGES[ex.name.toLowerCase().trim()];return u?'<img class="exercise-img" src="'+u+'" alt="'+ex.name+'" loading="lazy">':'';})()} 
+      ${(()=>{const u=EXERCISE_IMAGES[ex.name.toLowerCase().trim()];return u?'<img class="exercise-img" src="'+u+'" alt="'+ex.name+'" loading="lazy">':'';})()} 
       <div class="sets-row">
         ${ex.sets.map((s, si) => `
           <div class="set-chip ${s.done ? 'logged' : ''}" onclick="openSetModal(${exIdx}, ${si})">
