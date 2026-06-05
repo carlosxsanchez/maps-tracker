@@ -2564,15 +2564,21 @@ async function _loadExerciseDb() {
   _exImgLoading = true;
   try {
     const r = await fetch('https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/dist/exercises.json');
+    if (!r.ok) throw new Error('HTTP ' + r.status);
     const data = await r.json();
     _exImgMap = {};
+    const BASE = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
     data.forEach(ex => {
       if (ex.images && ex.images.length > 0) {
-        _exImgMap[ex.name.toLowerCase().trim()] =
-          'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/' + ex.images[0];
+        _exImgMap[ex.name.toLowerCase().trim()] = BASE + ex.images[0];
       }
     });
-  } catch(e) { _exImgMap = {}; }
+    console.log('[ExerciseDB] Loaded', Object.keys(_exImgMap).length, 'exercises');
+  } catch(e) {
+    console.warn('[ExerciseDB] Load failed:', e.message);
+    _exImgMap = {};
+    _exImgLoading = false;
+  }
   return _exImgMap;
 }
 
@@ -2593,22 +2599,32 @@ async function loadExerciseImages() {
     const wrap = document.getElementById('eximg-' + exIdx);
     if (!wrap) return;
     const img = wrap.querySelector('img');
-    if (!img || img.src) return;
+    if (!img || img.getAttribute('src')) return;
 
     const key = ex.name.toLowerCase().trim();
     let url = map[key];
 
+    // Partial exact: try removing leading modifier words (Dumbbell, Barbell, etc.)
+    if (!url) {
+      const stripped = key.replace(/^(dumbbell|barbell|kettlebell|double|single|weighted|bodyweight|suspension)\s+/i, '').trim();
+      url = map[stripped] || Object.entries(map).find(([k]) => k === stripped)?.[1];
+    }
+
+    // Fuzzy fallback
     if (!url) {
       let best = 0, bestUrl = null;
       for (const [name, imgUrl] of Object.entries(map)) {
         const score = _scoreMatch(ex.name, name);
-        if (score > best && score >= 0.4) { best = score; bestUrl = imgUrl; }
+        if (score > best && score >= 0.35) { best = score; bestUrl = imgUrl; }
       }
       url = bestUrl;
     }
 
-    if (url) img.src = url;
-    else wrap.style.display = 'none';
+    if (url) {
+      img.src = url;
+    } else {
+      wrap.style.display = 'none';
+    }
   });
 }
 
