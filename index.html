@@ -42,13 +42,13 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 .screen { display: none; flex-direction: column; flex: 1; overflow: hidden; }
 .screen.active { display: flex; }
 
-/* ── NAV ── */
+/* NAV */
 .nav { display: flex; background: var(--bg2); border-top: 1px solid var(--border); padding-bottom: var(--safe-bottom); flex-shrink: 0; }
 .nav-btn { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 10px 4px 8px; font-size: 10px; font-family: var(--font-body); font-weight: 500; color: var(--text3); border: none; background: transparent; cursor: pointer; gap: 3px; letter-spacing: 0.5px; text-transform: uppercase; }
 .nav-btn.active { color: var(--green); }
 .nav-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
-/* ── HEADER ── */
+/* HEADER */
 .header { display: flex; align-items: flex-end; justify-content: space-between; padding: 16px 20px 14px; flex-shrink: 0; border-bottom: 1px solid var(--border); }
 .header-left h1 { font-family: var(--font-display); font-size: 28px; font-weight: 800; letter-spacing: 1px; color: var(--green); }
 .header-left p { font-size: 12px; color: var(--text2); margin-top: 1px; }
@@ -61,24 +61,24 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 .btn-icon { background: transparent; color: var(--text2); padding: 6px; border: none; display: flex; align-items: center; }
 .btn-icon svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
-/* ── SCROLL ── */
+/* SCROLL */
 .scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 16px; }
 .scroll-notop { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 0 16px 16px; }
 
-/* ── CARDS ── */
+/* CARDS */
 .card { background: var(--card); border-radius: 14px; padding: 16px; margin-bottom: 12px; border: 1px solid var(--border); }
 .card-label { font-size: 11px; font-weight: 600; color: var(--text2); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
 .card-title { font-family: var(--font-display); font-size: 20px; font-weight: 700; letter-spacing: 0.5px; }
 .section-label { font-size: 11px; font-weight: 600; color: var(--text2); letter-spacing: 1px; text-transform: uppercase; margin: 20px 0 10px; }
 
-/* ── PILLS / BADGES ── */
+/* PILLS / BADGES */
 .badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; }
 .badge-green { background: var(--green-dim); color: var(--green); }
 .badge-amber { background: var(--amber-dim); color: var(--amber); }
 .badge-red { background: var(--red-dim); color: var(--red); }
 .badge-blue { background: var(--blue-dim); color: var(--blue); }
 
-/* ── PROGRAM SELECTOR ── */
+/* PROGRAM SELECTOR */
 .prog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .prog-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 14px; cursor: pointer; transition: all 0.15s; }
 .prog-card.selected { border-color: var(--green); background: var(--green-dim); }
@@ -86,11 +86,11 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 .prog-card-name { font-family: var(--font-display); font-size: 16px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 4px; }
 .prog-card-sub { font-size: 11px; color: var(--text2); }
 
-/* ── PHASE PROGRESS BAR ── */
+/* PHASE PROGRESS BAR */
 .phase-bar-wrap { background: var(--bg3); border-radius: 6px; height: 8px; overflow: hidden; margin-top: 6px; }
 .phase-bar { height: 100%; border-radius: 6px; background: var(--green); transition: width 0.5s ease; }
 
-/* ── PHASE TIMELINE ── */
+/* PHASE TIMELINE */
 .phase-timeline { display: flex; gap: 0; margin-bottom: 16px; }
 .phase-seg { flex: 1; height: 6px; background: var(--bg3); position: relative; }
 .phase-seg:first-child { border-radius: 3px 0 0 3px; }
@@ -99,7 +99,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 .phase-seg.active { background: var(--amber); }
 .phase-seg + .phase-seg { border-left: 2px solid var(--bg); }
 
-/* ── CALENDAR GRID ── */
+/* CALENDAR GRID */
 .cal-wrap { margin-bottom: 16px; }
 .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
 .cal-month { font-family: var(--font-display); font-size: 18px; font-weight: 700; letter-spacing: 0.5px; }
@@ -109,13 +109,12 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 .cal-cell.worked { background: var(--green-dim); color: var(--green); font-weight: 700; }
 .cal-cell.today { border: 2px solid var(--amber); color: var(--text); }
 .cal-cell.today.worked { border-color: var(--green); }
-.cal-cell.phase-switch { background: var(--blue-dim); color: var(--blue); font-weight: 700; }
 .cal-cell.empty { background: transparent; }
 .cal-legend { display: flex; gap: 12px; margin-top: 10px; flex-wrap: wrap; }
 .cal-legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text2); }
 .cal-legend-dot { width: 10px; height: 10px; border-radius: 3px; }
 
-/* ── VIDEO PANEL ── */
+/* VIDEO PANEL */
 .video-panel { background: var(--bg3); border-radius: 12px; margin: 10px 0; overflow: hidden; border: 1px solid var(--border); }
 .video-panel-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; cursor: pointer; }
 .video-panel-title { font-size: 12px; font-weight: 600; color: var(--text2); letter-spacing: 0.5px; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
@@ -126,13 +125,13 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 .video-search-btn { display: flex; align-items: center; gap: 6px; margin-top: 8px; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 12px; color: var(--text2); text-decoration: none; }
 .video-search-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
 
-/* ── PHASE SWITCHER ALERT ── */
+/* PHASE SWITCHER ALERT */
 .phase-alert { background: var(--blue-dim); border: 1px solid rgba(74,158,255,0.25); border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; display: flex; gap: 12px; align-items: flex-start; }
 .phase-alert-icon { font-size: 20px; flex-shrink: 0; }
 .phase-alert-text { font-size: 13px; color: var(--text); line-height: 1.5; }
 .phase-alert-text strong { color: var(--blue); font-weight: 700; }
 
-/* ── WORKOUT BUILDER ── */
+/* WORKOUT BUILDER */
 .exercise-row { background: var(--card2); border-radius: 12px; padding: 14px; margin-bottom: 10px; border: 1px solid var(--border); }
 .exercise-name { font-family: var(--font-display); font-size: 17px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
 .sets-row { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
@@ -142,7 +141,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 .set-chip-val { font-family: var(--font-display); font-size: 16px; font-weight: 700; margin-top: 2px; }
 .add-set-btn { flex-shrink: 0; background: var(--bg3); border: 1px dashed var(--border); border-radius: 10px; padding: 8px 10px; min-width: 48px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text3); font-size: 20px; }
 
-/* ── SET ENTRY MODAL ── */
+/* SET ENTRY MODAL */
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 100; display: none; align-items: flex-end; }
 .modal-overlay.open { display: flex; }
 .modal { background: var(--bg2); border-radius: 24px 24px 0 0; padding: 20px 20px calc(20px + var(--safe-bottom)); width: 100%; max-height: 75vh; overflow-y: auto; border-top: 1px solid var(--border); }
@@ -158,12 +157,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 .quick-btn { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; font-size: 13px; font-weight: 600; color: var(--text2); cursor: pointer; }
 .quick-btn:active { background: var(--green-dim); color: var(--green); }
 
-/* ── HISTORY ── */
-.hist-item-wrap { position: relative; overflow: hidden; border-radius: 14px; margin-bottom: 10px; }
-.hist-delete-bg { position: absolute; right: 0; top: 0; bottom: 0; width: 80px; background: var(--red); display: flex; align-items: center; justify-content: center; border-radius: 0 14px 14px 0; }
-.hist-delete-bg svg { width: 22px; height: 22px; stroke: white; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.hist-item-inner { position: relative; transition: transform 0.2s ease; touch-action: pan-y; }
-.hist-item-inner.swiped { transform: translateX(-80px); }
+/* HISTORY */
 .hist-item { background: var(--card); border-radius: 14px; padding: 14px 16px; margin-bottom: 10px; border: 1px solid var(--border); cursor: pointer; }
 .hist-item:active { opacity: 0.8; }
 .hist-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
@@ -173,115 +167,71 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 .hist-stat { font-size: 12px; color: var(--text2); }
 .hist-stat span { font-weight: 600; color: var(--text); }
 
-/* ── BLUEPRINT ── */
+/* BLUEPRINT */
 .blueprint-ex { padding: 12px 0; border-bottom: 1px solid var(--border); }
 .blueprint-ex:last-child { border-bottom: none; }
 .blueprint-ex-name { font-family: var(--font-display); font-size: 16px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 3px; }
 .blueprint-ex-detail { font-size: 12px; color: var(--text2); }
 .superset-badge { background: var(--amber-dim); color: var(--amber); font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 4px; letter-spacing: 0.5px; margin-left: 8px; }
 
-/* ── STATS ── */
+/* STATS */
 .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
 .stat-card { background: var(--card); border-radius: 14px; padding: 16px; border: 1px solid var(--border); }
 .stat-val { font-family: var(--font-display); font-size: 32px; font-weight: 800; color: var(--green); line-height: 1; }
 .stat-label { font-size: 11px; color: var(--text2); font-weight: 500; margin-top: 4px; letter-spacing: 0.5px; text-transform: uppercase; }
 
-/* ── EMPTY STATE ── */
+/* EMPTY STATE */
 .empty { text-align: center; padding: 60px 20px; color: var(--text2); }
 .empty svg { width: 48px; height: 48px; stroke: var(--text3); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 16px; }
 .empty-title { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--text3); margin-bottom: 6px; }
 .empty-sub { font-size: 13px; line-height: 1.6; }
 
-/* ── DIVIDER ── */
+/* DIVIDER */
 .divider { height: 1px; background: var(--border); margin: 16px 0; }
 
-/* ── PROGRAM OVERVIEW TABLE ── */
+/* PROGRAM OVERVIEW TABLE */
 .phase-table { width: 100%; border-collapse: collapse; font-size: 12px; }
 .phase-table th { font-size: 10px; font-weight: 600; color: var(--text3); letter-spacing: 0.5px; text-transform: uppercase; padding: 6px 8px; text-align: left; border-bottom: 1px solid var(--border); }
 .phase-table td { padding: 10px 8px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.4; }
 .phase-table tr:last-child td { border-bottom: none; }
 .phase-row.current td { background: rgba(245,166,35,0.05); }
 
-/* ── SCROLL FIX ── */
 ::-webkit-scrollbar { display: none; }
 
-/* ── ANIMATIONS ── */
 @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
 .screen.active .card { animation: fadeUp 0.2s ease both; }
 
-/* ── REST TIMER ── */
+/* REST TIMER */
 #rest-timer-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0; right: 0;
-  background: var(--card);
-  border-top: 1px solid var(--border);
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--card); border-top: 1px solid var(--border);
   padding: 12px 16px 14px;
   transform: translateY(100%);
   transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
-  z-index: 300;
-  pointer-events: none;
+  z-index: 300; pointer-events: none;
   box-shadow: 0 -8px 32px rgba(0,0,0,0.4);
 }
 #rest-timer-bar.visible {
   transform: translateY(calc(-1 * (56px + var(--safe-bottom))));
   pointer-events: auto;
 }
-#rest-timer-inner {
-  display: flex; align-items: center; gap: 14px;
-}
-#rest-timer-label {
-  font-family: var(--font-display);
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--text3);
-  min-width: 32px;
-}
-#rest-timer-digits {
-  font-family: var(--font-display);
-  font-size: 36px; font-weight: 700;
-  color: var(--text);
-  min-width: 68px;
-  line-height: 1;
-  transition: color 0.4s;
-}
+#rest-timer-inner { display: flex; align-items: center; gap: 14px; }
+#rest-timer-label { font-family: var(--font-display); font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text3); min-width: 32px; }
+#rest-timer-digits { font-family: var(--font-display); font-size: 36px; font-weight: 700; color: var(--text); min-width: 68px; line-height: 1; transition: color 0.4s; }
 #rest-timer-digits.urgent { color: var(--amber); }
-#rest-timer-track {
-  flex: 1; height: 5px;
-  background: var(--bg3); border-radius: 3px; overflow: hidden;
-}
-#rest-timer-fill {
-  height: 100%; border-radius: 3px;
-  background: var(--green);
-  transition: width 0.9s linear, background 0.4s;
-}
+#rest-timer-track { flex: 1; height: 5px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+#rest-timer-fill { height: 100%; border-radius: 3px; background: var(--green); transition: width 0.9s linear, background 0.4s; }
 #rest-timer-fill.urgent { background: var(--amber); }
-#rest-timer-skip {
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--text3); font-size: 12px;
-  padding: 6px 14px; border-radius: 8px;
-  font-family: var(--font-display);
-  font-weight: 600; letter-spacing: 0.5px;
-  cursor: pointer; white-space: nowrap;
-  transition: border-color 0.2s, color 0.2s;
-}
-#rest-timer-skip:active { color: var(--text); border-color: var(--text3); }
+#rest-timer-skip { background: none; border: 1px solid var(--border); color: var(--text3); font-size: 12px; padding: 6px 14px; border-radius: 8px; font-family: var(--font-display); font-weight: 600; letter-spacing: 0.5px; cursor: pointer; white-space: nowrap; }
 
-/* ── EXERCISE IMAGE ── */
-.exercise-img {
-  width: 100%; display: block;
-  max-height: 180px; object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 10px;
-}
+/* EXERCISE IMAGE */
+.exercise-img { width: 100%; display: block; max-height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 10px; }
 </style>
 </head>
 <body>
 <div id="app">
 
-  <!-- ══ HOME ══ -->
+  <!-- HOME -->
   <div class="screen active" id="screen-home">
     <div class="header">
       <div class="header-left">
@@ -291,33 +241,25 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
       <div class="header-right" id="home-date"></div>
     </div>
     <div class="scroll">
-      <!-- Program selector -->
       <div class="section-label">Program</div>
       <div class="prog-grid" id="prog-grid"></div>
-
-      <!-- Equipment version toggle -->
       <div id="equipment-toggle-wrap" style="display:none;margin-bottom:4px">
         <div style="display:flex;gap:8px">
           <button id="btn-dumbbell" onclick="setEquipmentVersion('dumbbell')" class="btn" style="flex:1;padding:10px;border-radius:10px;font-size:13px;font-weight:700;border:2px solid var(--green);background:var(--green-dim);color:var(--green)">🏠 Dumbbell</button>
           <button id="btn-gym" onclick="setEquipmentVersion('gym')" class="btn" style="flex:1;padding:10px;border-radius:10px;font-size:13px;font-weight:700;border:2px solid var(--border);background:var(--bg3);color:var(--text2)">🏋️ Gym</button>
         </div>
       </div>
-
-      <!-- Active program status -->
       <div id="active-program-panel" style="display:none">
         <div class="section-label">Current Phase</div>
         <div class="card" id="phase-status-card"></div>
-
-        <!-- Phase switch alert -->
         <div id="phase-alert-wrap"></div>
-
         <div class="section-label">Today's Workout</div>
         <div class="card" id="today-workout-card"></div>
       </div>
     </div>
   </div>
 
-  <!-- ══ LOG ══ -->
+  <!-- LOG -->
   <div class="screen" id="screen-log">
     <div class="header">
       <div class="header-left">
@@ -329,7 +271,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
     <div class="scroll" id="log-content"></div>
   </div>
 
-  <!-- ══ PROGRESS ══ -->
+  <!-- PROGRESS -->
   <div class="screen" id="screen-progress">
     <div class="header">
       <div class="header-left">
@@ -340,7 +282,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
     <div class="scroll" id="progress-content"></div>
   </div>
 
-  <!-- ══ SETTINGS ══ -->
+  <!-- SETTINGS -->
   <div class="screen" id="screen-settings">
     <div class="header">
       <div class="header-left">
@@ -351,7 +293,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
     <div class="scroll" id="settings-content"></div>
   </div>
 
-  <!-- ══ NAV ══ -->
+  <!-- NAV -->
   <nav class="nav">
     <button class="nav-btn active" onclick="switchScreen('home')" id="nav-home">
       <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -372,7 +314,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
   </nav>
 </div>
 
-<!-- ══ SET ENTRY MODAL ══ -->
+<!-- SET ENTRY MODAL -->
 <div class="modal-overlay" id="set-modal" onclick="closeSetModal(event)">
   <div class="modal">
     <div class="modal-handle"></div>
@@ -394,23 +336,195 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
   </div>
 </div>
 
+<!-- REST TIMER BAR -->
+<div id="rest-timer-bar">
+  <div id="rest-timer-inner">
+    <div id="rest-timer-label">Rest</div>
+    <div id="rest-timer-digits">—</div>
+    <div id="rest-timer-track"><div id="rest-timer-fill"></div></div>
+    <button id="rest-timer-skip" onclick="skipRestTimer()">Skip</button>
+  </div>
+</div>
+
 <script>
 // ═══════════════════════════════════════════════════════
-// DATA: MAPS Performance & Aesthetic Programs
+// EXERCISE IMAGE HELPER — FIX: named function replaces broken IIFE
+// ═══════════════════════════════════════════════════════
+function _exImg(name) {
+  var u = EXERCISE_IMAGES[(name || '').toLowerCase().trim()];
+  if (!u) return '';
+  return '<img class="exercise-img" src="' + u + '" alt="' + (name || '').replace(/"/g, "'") + '" loading="lazy" onerror="this.style.display=\'none\'">';
+}
+
+// ═══════════════════════════════════════════════════════
+// EXERCISE IMAGES MAP
+// ═══════════════════════════════════════════════════════
+const EXERCISE_IMAGES = {
+  'barbell back squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-squat-resized-FIXED-2.png&w=600',
+  'barbell front squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-squat-resized-FIXED-2.png&w=600',
+  'front squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-squat-resized-FIXED-2.png&w=600',
+  'hack squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-squat-resized-FIXED-2.png&w=600',
+  'goblet squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'kettlebell goblet squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'kettlebell front squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'double kettlebell front squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'dumbbell squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'dumbbell squats': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'pistol squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'pistol squat assist': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'single leg squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'suspension squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'suspension pistol squat assist': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'dumbbell squat jump': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'kettlebell jump squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'suspension jump squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'barbell deadlift': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Barbell-Deadlift-1.png&w=600',
+  'deadlift': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Barbell-Deadlift-1.png&w=600',
+  'deadlifts': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Barbell-Deadlift-1.png&w=600',
+  'trap bar deadlift': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Barbell-Deadlift-1.png&w=600',
+  'dumbbell deadlift': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Barbell-Deadlift-1.png&w=600',
+  'romanian deadlift': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png&w=600',
+  'dumbbell romanian deadlift': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png&w=600',
+  'dumbbell romanian deadlifts': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png&w=600',
+  'kettlebell deadlift': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2022/01/Kettlebell-deadlift-1.png&w=600',
+  'double kettlebell deadlift': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2022/01/Kettlebell-deadlift-1.png&w=600',
+  'nordic hamstring curl': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png&w=600',
+  'suspension nordic hamstring curl': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png&w=600',
+  'lying leg curl': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png&w=600',
+  'suspension hamstring curl': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png&w=600',
+  'dumbbell single leg deadlift': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png&w=600',
+  'dumbbell single leg deadlifts': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png&w=600',
+  'barbell bench press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Bench-Press-resized.png&w=600',
+  'dumbbell bench press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Bench-Press-resized.png&w=600',
+  'barbell incline press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/incline-barbell-bench-press-resized.png&w=600',
+  'incline dumbbell press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/incline-barbell-bench-press-resized.png&w=600',
+  'dumbbell incline press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/incline-barbell-bench-press-resized.png&w=600',
+  'incline bench press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/incline-barbell-bench-press-resized.png&w=600',
+  'suspension chest press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Bench-Press-resized.png&w=600',
+  'push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'push up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'push-ups': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'weighted push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'wide push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'archer push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'pseudo planche push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'suspension push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'suspension plyometric push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'plyo push-ups': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'ring push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'diamond push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/07/diamond-push-up-resized.png&w=600',
+  'pike push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/07/Pike-push-up.png&w=600',
+  'handstand push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/07/Pike-push-up.png&w=600',
+  'handstand hold': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/07/Pike-push-up.png&w=600',
+  'freestanding handstand': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/07/Pike-push-up.png&w=600',
+  'planche lean': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'dip': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2020/05/Dipping-exercises.png&w=600',
+  'dips': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2020/05/Dipping-exercises.png&w=600',
+  'weighted dips': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2020/05/Dipping-exercises.png&w=600',
+  'ring dip': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2020/05/Dipping-exercises.png&w=600',
+  'overhead press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-military-press-resized.png&w=600',
+  'barbell overhead press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-military-press-resized.png&w=600',
+  'push press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-military-press-resized.png&w=600',
+  'dumbbell push press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-military-press-resized.png&w=600',
+  'dumbbell overhead press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
+  'dumbbell shoulder press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
+  'seated arnold press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
+  'kettlebell press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
+  'double kettlebell press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
+  'kettlebell halo': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
+  'kettlebell windmill': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
+  'barbell row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Bent-over-barbell-row.png&w=600',
+  'dumbbell row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'single arm dumbbell rows': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'kettlebell row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'double kettlebell row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Bent-over-barbell-row.png&w=600',
+  'bodyweight row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'suspension row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'suspension inverted row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'suspension power row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'suspension face pull': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'suspension reverse fly': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'kettlebell renegade row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'renegade row to push up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'pull-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
+  'pull ups': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
+  'chin-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/09/Chin-up.png&w=600',
+  'weighted pull-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/03/Weighted-pull-up-back.png&w=600',
+  'weighted pull-ups': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/03/Weighted-pull-up-back.png&w=600',
+  'dead hang': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
+  'scapular pull-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
+  'ring muscle-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
+  'suspension muscle up assist': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
+  'front lever hold': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
+  'front lever pull': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
+  'front lever tuck hold': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
+  'back lever hold': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
+  'barbell curl': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/barbell-curl-resized.png&w=600',
+  'dumbbell curl': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Alternate-Biceps-Curl-resized.png&w=600',
+  'dumbbell curls': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Alternate-Biceps-Curl-resized.png&w=600',
+  'suspension bicep curl': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Alternate-Biceps-Curl-resized.png&w=600',
+  'skull crusher': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2018/11/Barbell-skull-crusher-resized.png&w=600',
+  'dumbbell skull crushers': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2018/11/Barbell-skull-crusher-resized.png&w=600',
+  'tricep overhead extension': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2018/11/Barbell-skull-crusher-resized.png&w=600',
+  'hip thrust': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/06/Hip-thrust.png&w=600',
+  'glute bridge': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/06/Hip-thrust.png&w=600',
+  'suspension hip press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/06/Hip-thrust.png&w=600',
+  'suspension hip press single leg': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/06/Hip-thrust.png&w=600',
+  'dumbbell lunge': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Dumbbell-Lunge-resized-fixed.png&w=600',
+  'lunge': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Dumbbell-Lunge-resized-fixed.png&w=600',
+  'walking lunges': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Dumbbell-Lunge-resized-fixed.png&w=600',
+  'suspension lunge': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Dumbbell-Lunge-resized-fixed.png&w=600',
+  'suspension power lunge': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Dumbbell-Lunge-resized-fixed.png&w=600',
+  'bulgarian split squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/Dumbbell-Bulgarian-Split-Squat-resized-FIXED.png&w=600',
+  'suspension bulgarian split squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/Dumbbell-Bulgarian-Split-Squat-resized-FIXED.png&w=600',
+  'shrimp squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/Dumbbell-Bulgarian-Split-Squat-resized-FIXED.png&w=600',
+  'step-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/dumbbell-step-up-resized.png&w=600',
+  'box step up dumbbell': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/dumbbell-step-up-resized.png&w=600',
+  'plank': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'hollow body hold': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'suspension fallout': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'suspension pike': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/07/Pike-push-up.png&w=600',
+  'suspension mountain climber': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'suspension atomic push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
+  'hanging knee raise': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2019/05/Hanging-leg-raise-resized.png&w=600',
+  'leg raises': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2019/05/Hanging-leg-raise-resized.png&w=600',
+  'l-sit hold': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2019/05/Hanging-leg-raise-resized.png&w=600',
+  'dragon flag': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2019/05/Hanging-leg-raise-resized.png&w=600',
+  'decline sit ups': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2019/05/Hanging-leg-raise-resized.png&w=600',
+  'ball crunches': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2019/05/Hanging-leg-raise-resized.png&w=600',
+  'kettlebell swing': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
+  'kettlebell single arm swing': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
+  'kettlebell double swing': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
+  'kettlebell high pull': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
+  'kettlebell clean': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
+  'kettlebell clean to press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
+  'kettlebell clean and jerk': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
+  'kettlebell snatch': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
+  'kettlebell turkish get-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2022/01/Kettlebell-deadlift-1.png&w=600',
+  'kettlebell farmers walk': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
+  'kettlebell complex': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
+  'kettlebell long cycle': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
+  'power clean': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
+  'calf raise': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-squat-resized-FIXED-2.png&w=600',
+  'standing calf raises': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-squat-resized-FIXED-2.png&w=600',
+  'leg press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-squat-resized-FIXED-2.png&w=600',
+  'dumbbell shrugs': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-squat-resized-FIXED-2.png&w=600',
+  'box jump': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
+  'dumbbell swings': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
+  'double dumbbell swings': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
+  'single arm dumbbell snatch': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
+};
+
+// ═══════════════════════════════════════════════════════
+// PROGRAM DATA
 // ═══════════════════════════════════════════════════════
 const PROGRAMS = {
   performance: {
-    id: 'performance',
-    name: 'MAPS Performance',
-    shortName: 'Performance',
-    color: '#3ecf8e',
-    totalWeeks: 12,
+    id: 'performance', name: 'MAPS Performance', shortName: 'Performance', color: '#3ecf8e', totalWeeks: 12,
     phases: [
-      {
-        num: 1, name: 'Raw Strength', weeks: 3, workoutsRequired: 9, startWeek: 1,
-        objective: 'Build maximal strength',
-        intensity: '85-90%', tempo: '5:1:1', rest: '3-5 min',
-        sets: '2-5 sets', reps: '1-6 reps',
+      { num: 1, name: 'Raw Strength', weeks: 3, workoutsRequired: 9, startWeek: 1,
+        objective: 'Build maximal strength', intensity: '85-90%', tempo: '5:1:1', rest: '3-5 min', sets: '2-5 sets', reps: '1-6 reps',
         days: {
           dumbbell: [
             { day: 1, label: 'Day 1 — Power & Pull', exercises: [
@@ -466,11 +580,8 @@ const PROGRAMS = {
           ]
         }
       },
-      {
-        num: 2, name: 'Reactive Strength', weeks: 3, workoutsRequired: 9, startWeek: 4,
-        objective: 'Build multi-planar strength',
-        intensity: '75-85%', tempo: '2:0:2', rest: '30-90 sec',
-        sets: '3-4 sets', reps: '15-20 reps',
+      { num: 2, name: 'Reactive Strength', weeks: 3, workoutsRequired: 9, startWeek: 4,
+        objective: 'Build multi-planar strength', intensity: '75-85%', tempo: '2:0:2', rest: '30-90 sec', sets: '3-4 sets', reps: '15-20 reps',
         days: {
           dumbbell: [
             { day: 1, label: 'Day 1 — Matrix & Rotation', exercises: [
@@ -522,11 +633,8 @@ const PROGRAMS = {
           ]
         }
       },
-      {
-        num: 3, name: 'Explosive Strength', weeks: 3, workoutsRequired: 9, startWeek: 7,
-        objective: 'Build quick and powerful strength',
-        intensity: '60-65%', tempo: '5:1:1', rest: '3-5 min',
-        sets: '4 sets', reps: '15-20 reps',
+      { num: 3, name: 'Explosive Strength', weeks: 3, workoutsRequired: 9, startWeek: 7,
+        objective: 'Build quick and powerful strength', intensity: '60-65%', tempo: '5:1:1', rest: '3-5 min', sets: '4 sets', reps: '15-20 reps',
         days: {
           dumbbell: [
             { day: 1, label: 'Day 1 — Plyometric Power', exercises: [
@@ -562,11 +670,8 @@ const PROGRAMS = {
           ]
         }
       },
-      {
-        num: 4, name: 'Strength Durability', weeks: 3, workoutsRequired: 9, startWeek: 10,
-        objective: 'Expand strength endurance and conditioning',
-        intensity: '80-90%', tempo: '—', rest: 'Move with composure',
-        sets: '4 circuits', reps: 'Max reps / timed',
+      { num: 4, name: 'Strength Durability', weeks: 3, workoutsRequired: 9, startWeek: 10,
+        objective: 'Expand strength endurance and conditioning', intensity: '80-90%', tempo: '—', rest: 'Move with composure', sets: '4 circuits', reps: 'Max reps / timed',
         days: {
           dumbbell: [
             { day: 1, label: 'Day 1 — Circuit + Intervals', exercises: [
@@ -601,17 +706,10 @@ const PROGRAMS = {
     ]
   },
   aesthetic: {
-    id: 'aesthetic',
-    name: 'MAPS Aesthetic',
-    shortName: 'Aesthetic',
-    color: '#4a9eff',
-    totalWeeks: 10,
+    id: 'aesthetic', name: 'MAPS Aesthetic', shortName: 'Aesthetic', color: '#4a9eff', totalWeeks: 10,
     phases: [
-      {
-        num: 1, name: 'Strength', weeks: 3, workoutsRequired: 9, startWeek: 1,
-        objective: 'Build maximal strength and CNS adaptation',
-        intensity: '85-90%', tempo: '3:1:1', rest: '90 sec',
-        sets: '4 sets', reps: '3-5 reps',
+      { num: 1, name: 'Strength', weeks: 3, workoutsRequired: 9, startWeek: 1,
+        objective: 'Build maximal strength and CNS adaptation', intensity: '85-90%', tempo: '3:1:1', rest: '90 sec', sets: '4 sets', reps: '3-5 reps',
         days: {
           dumbbell: [
             { day: 1, label: 'Day 1 — Full Body Strength', exercises: [
@@ -691,11 +789,8 @@ const PROGRAMS = {
           ]
         }
       },
-      {
-        num: 2, name: 'Size', weeks: 4, workoutsRequired: 12, startWeek: 4,
-        objective: 'Build full round muscle bellies',
-        intensity: '65-75%', tempo: '2:0:2', rest: '60 sec',
-        sets: '3-4 sets', reps: '8-15 reps',
+      { num: 2, name: 'Size', weeks: 4, workoutsRequired: 12, startWeek: 4,
+        objective: 'Build full round muscle bellies', intensity: '65-75%', tempo: '2:0:2', rest: '60 sec', sets: '3-4 sets', reps: '8-15 reps',
         days: {
           dumbbell: [
             { day: 1, label: 'Day 1 — Push & Biceps', exercises: [
@@ -777,11 +872,8 @@ const PROGRAMS = {
           ]
         }
       },
-      {
-        num: 3, name: 'Sharpen', weeks: 3, workoutsRequired: 9, startWeek: 8,
-        objective: 'Sharpen and detail your physique',
-        intensity: '65-75%', tempo: '1:0:1', rest: 'No rest in supersets',
-        sets: '4 sets', reps: '8-15 reps',
+      { num: 3, name: 'Sharpen', weeks: 3, workoutsRequired: 9, startWeek: 8,
+        objective: 'Sharpen and detail your physique', intensity: '65-75%', tempo: '1:0:1', rest: 'No rest in supersets', sets: '4 sets', reps: '8-15 reps',
         days: {
           dumbbell: [
             { day: 1, label: 'Day 1 — Full Body Supersets', exercises: [
@@ -881,434 +973,7 @@ const PROGRAMS = {
       }
     ]
   }
-,
-  macrocycle: {
-    id: 'macrocycle', name: 'Macro Cycle', shortName: 'Macro', color: '#4a9eff', totalWeeks: 12,
-    phases: [
-      { num: 1, name: 'Accumulation', weeks: 4, workoutsRequired: 12, startWeek: 1,
-        objective: 'Build volume and work capacity', intensity: '65-75%', tempo: '2:1:2', rest: '60-90 sec', sets: '3-4 sets', reps: '10-15 reps',
-        days: {
-          dumbbell: [
-            { day: 1, label: 'Day 1 — Lower Volume', exercises: [
-              { name: 'Goblet Squat', sets: 4, reps: '12', note: 'Full depth, stay upright' },
-              { name: 'Romanian Deadlift', sets: 4, reps: '12', note: 'Hinge at hips, soft knees' },
-              { name: 'Dumbbell Lunge', sets: 3, reps: '12/side' },
-              { name: 'Hip Thrust', sets: 3, reps: '15', note: 'Full hip extension at top' },
-              { name: 'Calf Raise', sets: 3, reps: '20' } ]},
-            { day: 2, label: 'Day 2 — Upper Volume', exercises: [
-              { name: 'Dumbbell Bench Press', sets: 4, reps: '12' },
-              { name: 'Dumbbell Row', sets: 4, reps: '12/side' },
-              { name: 'Dumbbell Overhead Press', sets: 3, reps: '12' },
-              { name: 'Dumbbell Curl', sets: 3, reps: '15' },
-              { name: 'Tricep Overhead Extension', sets: 3, reps: '15' } ]},
-            { day: 3, label: 'Day 3 — Full Body', exercises: [
-              { name: 'Dumbbell Squat', sets: 3, reps: '15' },
-              { name: 'Push-Up', sets: 3, reps: '15-20', note: 'Controlled descent' },
-              { name: 'Dumbbell Row', sets: 3, reps: '12/side' },
-              { name: 'Dumbbell Romanian Deadlift', sets: 3, reps: '12' },
-              { name: 'Plank', sets: 3, reps: '45 sec' } ]}
-          ],
-          gym: [
-            { day: 1, label: 'Day 1 — Lower Volume', exercises: [
-              { name: 'Barbell Back Squat', sets: 4, reps: '12', note: 'Full depth' },
-              { name: 'Romanian Deadlift', sets: 4, reps: '12' },
-              { name: 'Leg Press', sets: 3, reps: '15' },
-              { name: 'Lying Leg Curl', sets: 3, reps: '15' },
-              { name: 'Calf Raise', sets: 4, reps: '20' } ]},
-            { day: 2, label: 'Day 2 — Upper Volume', exercises: [
-              { name: 'Barbell Bench Press', sets: 4, reps: '12' },
-              { name: 'Barbell Row', sets: 4, reps: '12', note: 'Overhand grip' },
-              { name: 'Overhead Press', sets: 3, reps: '12' },
-              { name: 'Barbell Curl', sets: 3, reps: '15' },
-              { name: 'Skull Crusher', sets: 3, reps: '15' } ]},
-            { day: 3, label: 'Day 3 — Full Body', exercises: [
-              { name: 'Trap Bar Deadlift', sets: 3, reps: '12' },
-              { name: 'Pull-Up', sets: 3, reps: '8-12', note: 'Use band if needed' },
-              { name: 'Dumbbell Bench Press', sets: 3, reps: '12' },
-              { name: 'Leg Press', sets: 3, reps: '15' },
-              { name: 'Plank', sets: 3, reps: '45 sec' } ]}
-          ] } },
-      { num: 2, name: 'Intensification', weeks: 4, workoutsRequired: 12, startWeek: 5,
-        objective: 'Build strength and intensity', intensity: '80-90%', tempo: '3:1:1', rest: '2-3 min', sets: '4-5 sets', reps: '4-8 reps',
-        days: {
-          dumbbell: [
-            { day: 1, label: 'Day 1 — Lower Strength', exercises: [
-              { name: 'Goblet Squat', sets: 5, reps: '5', note: 'Heavy, controlled eccentric' },
-              { name: 'Romanian Deadlift', sets: 4, reps: '6' },
-              { name: 'Bulgarian Split Squat', sets: 4, reps: '8/side' },
-              { name: 'Hip Thrust', sets: 4, reps: '8' } ]},
-            { day: 2, label: 'Day 2 — Upper Strength', exercises: [
-              { name: 'Dumbbell Bench Press', sets: 5, reps: '5', note: 'Heavy, spot if needed' },
-              { name: 'Dumbbell Row', sets: 5, reps: '6/side' },
-              { name: 'Dumbbell Overhead Press', sets: 4, reps: '6' },
-              { name: 'Weighted Push-Up', sets: 3, reps: '8' } ]},
-            { day: 3, label: 'Day 3 — Power Day', exercises: [
-              { name: 'Dumbbell Squat Jump', sets: 4, reps: '6', note: 'Explosive concentric' },
-              { name: 'Dumbbell Deadlift', sets: 4, reps: '5' },
-              { name: 'Push-Up', sets: 4, reps: '8', note: 'Explosive' },
-              { name: 'Dumbbell Row', sets: 3, reps: '8/side' } ]}
-          ],
-          gym: [
-            { day: 1, label: 'Day 1 — Lower Strength', exercises: [
-              { name: 'Barbell Back Squat', sets: 5, reps: '5', note: '80-85% 1RM' },
-              { name: 'Romanian Deadlift', sets: 4, reps: '6' },
-              { name: 'Hack Squat', sets: 3, reps: '8' },
-              { name: 'Glute-Ham Raise', sets: 3, reps: '8' } ]},
-            { day: 2, label: 'Day 2 — Upper Strength', exercises: [
-              { name: 'Barbell Bench Press', sets: 5, reps: '5' },
-              { name: 'Weighted Pull-Up', sets: 4, reps: '6', note: 'Add weight progressively' },
-              { name: 'Overhead Press', sets: 4, reps: '6' },
-              { name: 'Barbell Row', sets: 4, reps: '6' } ]},
-            { day: 3, label: 'Day 3 — Power Day', exercises: [
-              { name: 'Power Clean', sets: 4, reps: '4', note: 'Focus on technique' },
-              { name: 'Barbell Back Squat', sets: 3, reps: '3', note: '85% 1RM' },
-              { name: 'Push Press', sets: 4, reps: '5' },
-              { name: 'Barbell Row', sets: 3, reps: '6' } ]}
-          ] } },
-      { num: 3, name: 'Peaking', weeks: 4, workoutsRequired: 12, startWeek: 9,
-        objective: 'Peak strength expression', intensity: '90-95%', tempo: '5:1:1', rest: '3-5 min', sets: '2-5 sets', reps: '1-5 reps',
-        days: {
-          dumbbell: [
-            { day: 1, label: 'Day 1 — Lower Peak', exercises: [
-              { name: 'Goblet Squat', sets: 5, reps: '3', note: 'Near maximal effort' },
-              { name: 'Romanian Deadlift', sets: 4, reps: '3' },
-              { name: 'Dumbbell Lunge', sets: 3, reps: '5/side' } ]},
-            { day: 2, label: 'Day 2 — Upper Peak', exercises: [
-              { name: 'Dumbbell Bench Press', sets: 5, reps: '3', note: 'Max strength effort' },
-              { name: 'Dumbbell Row', sets: 4, reps: '5/side' },
-              { name: 'Dumbbell Overhead Press', sets: 3, reps: '5' } ]}
-          ],
-          gym: [
-            { day: 1, label: 'Day 1 — Lower Peak', exercises: [
-              { name: 'Barbell Back Squat', sets: 5, reps: '2', note: '90-95% 1RM' },
-              { name: 'Deadlift', sets: 4, reps: '2', note: 'Near maximal' },
-              { name: 'Front Squat', sets: 3, reps: '3' } ]},
-            { day: 2, label: 'Day 2 — Upper Peak', exercises: [
-              { name: 'Barbell Bench Press', sets: 5, reps: '2', note: '90-95% 1RM' },
-              { name: 'Weighted Pull-Up', sets: 4, reps: '4' },
-              { name: 'Overhead Press', sets: 3, reps: '3' } ]}
-          ] } }
-    ]
-  },
-  suspension: {
-    id: 'suspension', name: 'MAPS Suspension', shortName: 'Suspension', color: '#9b59b6', totalWeeks: 18,
-    phases: [
-      { num: 1, name: 'Foundation', weeks: 6, workoutsRequired: 18, startWeek: 1,
-        objective: 'Build baseline suspension strength and stability', intensity: '60-70%', tempo: '2:1:2', rest: '60 sec', sets: '2-3 sets', reps: '10-15 reps',
-        days: {
-          dumbbell: [
-            { day: 1, label: 'Day 1 — Upper Push & Core', exercises: [
-              { name: 'Suspension Push-Up', sets: 3, reps: '12', note: 'Body at 45° for beginner' },
-              { name: 'Suspension Chest Fly', sets: 3, reps: '12', note: 'Control the return' },
-              { name: 'Suspension Fallout', sets: 3, reps: '10', note: 'Maintain plank position' },
-              { name: 'Suspension Pike', sets: 3, reps: '10', note: 'Drive hips up, arms straight' },
-              { name: 'Suspension Mountain Climber', sets: 3, reps: '20' } ]},
-            { day: 2, label: 'Day 2 — Lower Body', exercises: [
-              { name: 'Suspension Squat', sets: 3, reps: '15', note: 'Hold handles for stability' },
-              { name: 'Suspension Lunge', sets: 3, reps: '12/side', note: 'Back foot in handles' },
-              { name: 'Suspension Hip Press', sets: 3, reps: '15', note: 'Heels in handles' },
-              { name: 'Suspension Hamstring Curl', sets: 3, reps: '10', note: 'Bridge and curl feet to glutes' },
-              { name: 'Single Leg Squat', sets: 3, reps: '8/side', note: 'Use handles for balance' } ]},
-            { day: 3, label: 'Day 3 — Upper Pull & Shoulders', exercises: [
-              { name: 'Suspension Row', sets: 3, reps: '15', note: 'Pull chest to handles' },
-              { name: 'Suspension Face Pull', sets: 3, reps: '15', note: 'Pull to forehead, elbows wide' },
-              { name: 'Suspension Bicep Curl', sets: 3, reps: '12', note: 'Lean back, palms up' },
-              { name: 'Suspension Y-Fly', sets: 3, reps: '12', note: 'Arms form a Y overhead' },
-              { name: 'Suspension T-Fly', sets: 3, reps: '12', note: 'Arms form a T at shoulder height' } ]}
-          ],
-          gym: [
-            { day: 1, label: 'Day 1 — Upper Push & Core', exercises: [
-              { name: 'Suspension Push-Up', sets: 3, reps: '12' }, { name: 'Suspension Chest Fly', sets: 3, reps: '12' },
-              { name: 'Suspension Fallout', sets: 3, reps: '10' }, { name: 'Suspension Pike', sets: 3, reps: '10' },
-              { name: 'Suspension Mountain Climber', sets: 3, reps: '20' } ]},
-            { day: 2, label: 'Day 2 — Lower Body', exercises: [
-              { name: 'Suspension Squat', sets: 3, reps: '15' }, { name: 'Suspension Lunge', sets: 3, reps: '12/side' },
-              { name: 'Suspension Hip Press', sets: 3, reps: '15' }, { name: 'Suspension Hamstring Curl', sets: 3, reps: '10' },
-              { name: 'Single Leg Squat', sets: 3, reps: '8/side' } ]},
-            { day: 3, label: 'Day 3 — Upper Pull & Shoulders', exercises: [
-              { name: 'Suspension Row', sets: 3, reps: '15' }, { name: 'Suspension Face Pull', sets: 3, reps: '15' },
-              { name: 'Suspension Bicep Curl', sets: 3, reps: '12' }, { name: 'Suspension Y-Fly', sets: 3, reps: '12' },
-              { name: 'Suspension T-Fly', sets: 3, reps: '12' } ]}
-          ] } },
-      { num: 2, name: 'Strength', weeks: 6, workoutsRequired: 18, startWeek: 7,
-        objective: 'Build functional strength through suspension training', intensity: '75-85%', tempo: '3:1:2', rest: '90 sec', sets: '3-4 sets', reps: '6-10 reps',
-        days: {
-          dumbbell: [
-            { day: 1, label: 'Day 1 — Horizontal Push & Core', exercises: [
-              { name: 'Suspension Push-Up', sets: 4, reps: '10', note: 'More horizontal = harder' },
-              { name: 'Suspension Chest Press', sets: 4, reps: '8', note: 'Body parallel to ground' },
-              { name: 'Suspension Rollout', sets: 3, reps: '8' },
-              { name: 'Suspension Atomic Push-Up', sets: 3, reps: '8', superset: true },
-              { name: 'Suspension Mountain Climber', sets: 3, reps: '15', superset: true } ]},
-            { day: 2, label: 'Day 2 — Lower Strength', exercises: [
-              { name: 'Suspension Pistol Squat Assist', sets: 4, reps: '8/side', note: 'Decrease assistance weekly' },
-              { name: 'Suspension Bulgarian Split Squat', sets: 4, reps: '8/side' },
-              { name: 'Suspension Hip Press Single Leg', sets: 3, reps: '10/side' },
-              { name: 'Suspension Hamstring Curl', sets: 4, reps: '8', note: 'Single leg variation' } ]},
-            { day: 3, label: 'Day 3 — Vertical Pull', exercises: [
-              { name: 'Suspension Inverted Row', sets: 4, reps: '10', note: 'Body horizontal to ground' },
-              { name: 'Suspension Power Pull', sets: 3, reps: '8/side', note: 'Single-arm rotation' },
-              { name: 'Suspension Curl to Press', sets: 3, reps: '8' },
-              { name: 'Suspension Reverse Fly', sets: 3, reps: '12' } ]}
-          ],
-          gym: [
-            { day: 1, label: 'Day 1 — Horizontal Push & Core', exercises: [
-              { name: 'Suspension Push-Up', sets: 4, reps: '10' }, { name: 'Suspension Chest Press', sets: 4, reps: '8' },
-              { name: 'Suspension Rollout', sets: 3, reps: '8' },
-              { name: 'Suspension Atomic Push-Up', sets: 3, reps: '8', superset: true },
-              { name: 'Suspension Mountain Climber', sets: 3, reps: '15', superset: true } ]},
-            { day: 2, label: 'Day 2 — Lower Strength', exercises: [
-              { name: 'Suspension Pistol Squat Assist', sets: 4, reps: '8/side' },
-              { name: 'Suspension Bulgarian Split Squat', sets: 4, reps: '8/side' },
-              { name: 'Suspension Hip Press Single Leg', sets: 3, reps: '10/side' },
-              { name: 'Suspension Hamstring Curl', sets: 4, reps: '8' } ]},
-            { day: 3, label: 'Day 3 — Vertical Pull', exercises: [
-              { name: 'Suspension Inverted Row', sets: 4, reps: '10' }, { name: 'Suspension Power Pull', sets: 3, reps: '8/side' },
-              { name: 'Suspension Curl to Press', sets: 3, reps: '8' }, { name: 'Suspension Reverse Fly', sets: 3, reps: '12' } ]}
-          ] } },
-      { num: 3, name: 'Power', weeks: 6, workoutsRequired: 18, startWeek: 13,
-        objective: 'Develop explosive power and advanced suspension skills', intensity: '80-90%', tempo: '1:0:X', rest: '2 min', sets: '4-5 sets', reps: '4-8 reps',
-        days: {
-          dumbbell: [
-            { day: 1, label: 'Day 1 — Explosive Push', exercises: [
-              { name: 'Suspension Plyometric Push-Up', sets: 4, reps: '6', note: 'Explosive, hands off handles' },
-              { name: 'Suspension Chest Press', sets: 4, reps: '6', note: 'Accelerate through press' },
-              { name: 'Suspension Planche Lean', sets: 3, reps: '30 sec' },
-              { name: 'Suspension Body Saw', sets: 3, reps: '8' } ]},
-            { day: 2, label: 'Day 2 — Lower Power', exercises: [
-              { name: 'Suspension Jump Squat', sets: 4, reps: '8', note: 'Explosive drive, soft landing' },
-              { name: 'Suspension Single Leg Squat', sets: 4, reps: '6/side' },
-              { name: 'Suspension Power Lunge', sets: 3, reps: '8/side', note: 'Jump and switch legs' },
-              { name: 'Suspension Nordic Hamstring Curl', sets: 3, reps: '5', note: 'Slow eccentric' } ]},
-            { day: 3, label: 'Day 3 — Explosive Pull', exercises: [
-              { name: 'Suspension Muscle Up Assist', sets: 4, reps: '5', note: 'Row + transition + press' },
-              { name: 'Suspension Power Row', sets: 4, reps: '8', note: 'Explosive pull' },
-              { name: 'Suspension Archer Row', sets: 3, reps: '8/side' },
-              { name: 'Suspension Atomic Push-Up', sets: 3, reps: '10' } ]}
-          ],
-          gym: [
-            { day: 1, label: 'Day 1 — Explosive Push', exercises: [
-              { name: 'Suspension Plyometric Push-Up', sets: 4, reps: '6' }, { name: 'Suspension Chest Press', sets: 4, reps: '6' },
-              { name: 'Suspension Planche Lean', sets: 3, reps: '30 sec' }, { name: 'Suspension Body Saw', sets: 3, reps: '8' } ]},
-            { day: 2, label: 'Day 2 — Lower Power', exercises: [
-              { name: 'Suspension Jump Squat', sets: 4, reps: '8' }, { name: 'Suspension Single Leg Squat', sets: 4, reps: '6/side' },
-              { name: 'Suspension Power Lunge', sets: 3, reps: '8/side' }, { name: 'Suspension Nordic Hamstring Curl', sets: 3, reps: '5' } ]},
-            { day: 3, label: 'Day 3 — Explosive Pull', exercises: [
-              { name: 'Suspension Muscle Up Assist', sets: 4, reps: '5' }, { name: 'Suspension Power Row', sets: 4, reps: '8' },
-              { name: 'Suspension Archer Row', sets: 3, reps: '8/side' }, { name: 'Suspension Atomic Push-Up', sets: 3, reps: '10' } ]}
-          ] } }
-    ]
-  },
-  calisthenics: {
-    id: 'calisthenics', name: 'Calisthenics', shortName: 'Calisthenics', color: '#e74c3c', totalWeeks: 12,
-    phases: [
-      { num: 1, name: 'Fundamentals', weeks: 4, workoutsRequired: 12, startWeek: 1,
-        objective: 'Master foundational movement patterns', intensity: '60-70%', tempo: '2:1:2', rest: '90 sec', sets: '3 sets', reps: '8-15 reps',
-        days: {
-          dumbbell: [
-            { day: 1, label: 'Day 1 — Push', exercises: [
-              { name: 'Push-Up', sets: 3, reps: '12-20', note: 'Full range of motion' },
-              { name: 'Diamond Push-Up', sets: 3, reps: '10', note: 'Elbows in, triceps focus' },
-              { name: 'Pike Push-Up', sets: 3, reps: '10', note: 'Hips high, shoulder focus' },
-              { name: 'Dip', sets: 3, reps: '8-12', note: 'Parallel bars or chair' },
-              { name: 'Wide Push-Up', sets: 3, reps: '12' } ]},
-            { day: 2, label: 'Day 2 — Pull', exercises: [
-              { name: 'Pull-Up', sets: 3, reps: '5-8', note: 'Full dead hang to chin over bar' },
-              { name: 'Chin-Up', sets: 3, reps: '6-10', note: 'Supinated grip' },
-              { name: 'Bodyweight Row', sets: 3, reps: '12-15', note: 'Under table or low bar' },
-              { name: 'Dead Hang', sets: 3, reps: '30 sec' },
-              { name: 'Scapular Pull-Up', sets: 3, reps: '10', note: 'Retract and depress scapulae' } ]},
-            { day: 3, label: 'Day 3 — Legs & Core', exercises: [
-              { name: 'Squat', sets: 4, reps: '20', note: 'Full depth bodyweight' },
-              { name: 'Lunge', sets: 3, reps: '12/side' },
-              { name: 'Glute Bridge', sets: 3, reps: '20' },
-              { name: 'Plank', sets: 3, reps: '30-60 sec' },
-              { name: 'Hollow Body Hold', sets: 3, reps: '20-30 sec', note: 'Lower back pressed to floor' },
-              { name: 'Hanging Knee Raise', sets: 3, reps: '10-15' } ]}
-          ],
-          gym: [
-            { day: 1, label: 'Day 1 — Push', exercises: [
-              { name: 'Push-Up', sets: 3, reps: '15-20' }, { name: 'Ring Dip', sets: 3, reps: '8-12' },
-              { name: 'Pike Push-Up', sets: 3, reps: '10' }, { name: 'Diamond Push-Up', sets: 3, reps: '10' }, { name: 'Dip', sets: 3, reps: '12' } ]},
-            { day: 2, label: 'Day 2 — Pull', exercises: [
-              { name: 'Pull-Up', sets: 4, reps: '6-10' }, { name: 'Chin-Up', sets: 3, reps: '8-12' },
-              { name: 'Ring Row', sets: 3, reps: '12-15' }, { name: 'Dead Hang', sets: 3, reps: '30 sec' }, { name: 'Scapular Pull-Up', sets: 3, reps: '10' } ]},
-            { day: 3, label: 'Day 3 — Legs & Core', exercises: [
-              { name: 'Squat', sets: 4, reps: '20' }, { name: 'Step-Up', sets: 3, reps: '15/side' },
-              { name: 'Nordic Hamstring Curl', sets: 3, reps: '5', note: 'Slow eccentric' },
-              { name: 'L-Sit Hold', sets: 3, reps: '10-20 sec' }, { name: 'Hanging Knee Raise', sets: 3, reps: '15' } ]}
-          ] } },
-      { num: 2, name: 'Strength', weeks: 4, workoutsRequired: 12, startWeek: 5,
-        objective: 'Build calisthenics strength toward advanced skills', intensity: '75-85%', tempo: '3:2:1', rest: '2 min', sets: '4 sets', reps: '4-8 reps',
-        days: {
-          dumbbell: [
-            { day: 1, label: 'Day 1 — Advanced Push', exercises: [
-              { name: 'Archer Push-Up', sets: 4, reps: '8/side', note: 'Load one arm progressively' },
-              { name: 'Pseudo Planche Push-Up', sets: 4, reps: '8', note: 'Lean forward, straight body' },
-              { name: 'Handstand Hold', sets: 4, reps: '20-30 sec', note: 'Against wall, work balance' },
-              { name: 'Pike Push-Up', sets: 3, reps: '8', note: 'Head to floor depth' },
-              { name: 'Dip', sets: 3, reps: '10', note: 'Deep dip' } ]},
-            { day: 2, label: 'Day 2 — Advanced Pull', exercises: [
-              { name: 'Weighted Pull-Up', sets: 4, reps: '5', note: 'Add 10-20% bodyweight' },
-              { name: 'L-Sit Pull-Up', sets: 3, reps: '5', note: 'Legs parallel throughout' },
-              { name: 'Typewriter Pull-Up', sets: 3, reps: '5/side', note: 'Shift to each side at top' },
-              { name: 'Front Lever Tuck Hold', sets: 3, reps: '10-15 sec', note: 'Knees to chest, horizontal' },
-              { name: 'Bodyweight Row', sets: 3, reps: '15', note: 'Feet elevated' } ]},
-            { day: 3, label: 'Day 3 — Legs & Planche Prep', exercises: [
-              { name: 'Pistol Squat Assist', sets: 4, reps: '8/side', note: 'Work toward unassisted' },
-              { name: 'Bulgarian Split Squat', sets: 3, reps: '10/side' },
-              { name: 'Shrimp Squat', sets: 3, reps: '6/side', note: 'Reach back, grab ankle' },
-              { name: 'Planche Lean', sets: 4, reps: '10-20 sec', note: 'On parallettes, lean forward' },
-              { name: 'L-Sit Hold', sets: 4, reps: '15-20 sec' } ]}
-          ],
-          gym: [
-            { day: 1, label: 'Day 1 — Advanced Push', exercises: [
-              { name: 'Archer Push-Up', sets: 4, reps: '8/side' }, { name: 'Ring Push-Up', sets: 4, reps: '10' },
-              { name: 'Handstand Hold', sets: 4, reps: '20-30 sec' }, { name: 'Ring Dip', sets: 4, reps: '8' }, { name: 'Pseudo Planche Push-Up', sets: 3, reps: '8' } ]},
-            { day: 2, label: 'Day 2 — Advanced Pull', exercises: [
-              { name: 'Weighted Pull-Up', sets: 5, reps: '5' }, { name: 'L-Sit Pull-Up', sets: 3, reps: '5' },
-              { name: 'Ring Row', sets: 3, reps: '12', note: 'Body horizontal' },
-              { name: 'Front Lever Tuck Hold', sets: 4, reps: '10-15 sec' }, { name: 'Typewriter Pull-Up', sets: 3, reps: '5/side' } ]},
-            { day: 3, label: 'Day 3 — Legs & Skills', exercises: [
-              { name: 'Pistol Squat', sets: 4, reps: '6/side' }, { name: 'Shrimp Squat', sets: 3, reps: '6/side' },
-              { name: 'Planche Lean', sets: 4, reps: '20 sec' }, { name: 'L-Sit Hold', sets: 4, reps: '20 sec' },
-              { name: 'Nordic Hamstring Curl', sets: 3, reps: '6' } ]}
-          ] } },
-      { num: 3, name: 'Skills', weeks: 4, workoutsRequired: 12, startWeek: 9,
-        objective: 'Master advanced calisthenics skills', intensity: '85-95%', tempo: 'Skill-based', rest: '3 min', sets: '5 sets', reps: '3-5 / holds',
-        days: {
-          dumbbell: [
-            { day: 1, label: 'Day 1 — Handstand & Push Skills', exercises: [
-              { name: 'Freestanding Handstand', sets: 5, reps: '5-10 sec', note: 'Balance kicks to hold' },
-              { name: 'Handstand Push-Up', sets: 4, reps: '3-5', note: 'Against wall, full ROM' },
-              { name: 'Planche Lean', sets: 4, reps: '30 sec' },
-              { name: 'Ring Muscle-Up', sets: 3, reps: '3-5', note: 'False grip, pull to push transition' } ]},
-            { day: 2, label: 'Day 2 — Front Lever & Pull Skills', exercises: [
-              { name: 'Front Lever Hold', sets: 5, reps: '5-10 sec', note: 'Advanced tuck progression' },
-              { name: 'Front Lever Pull', sets: 4, reps: '3-5' },
-              { name: 'One Arm Pull-Up Assist', sets: 3, reps: '5/side', note: 'Towel or band assist' },
-              { name: 'Back Lever Hold', sets: 3, reps: '5-10 sec', note: 'Tuck to straddle progression' } ]},
-            { day: 3, label: 'Day 3 — Pistol & Dragon Flag', exercises: [
-              { name: 'Pistol Squat', sets: 5, reps: '5/side', note: 'Deep, controlled' },
-              { name: 'Shrimp Squat', sets: 4, reps: '5/side', note: 'Full depth' },
-              { name: 'Dragon Flag', sets: 4, reps: '5', note: 'Slow eccentric descent' },
-              { name: 'Human Flag Prep', sets: 3, reps: '5-10 sec', note: 'Push/pull on vertical pole' } ]}
-          ],
-          gym: [
-            { day: 1, label: 'Day 1 — Handstand & Push Skills', exercises: [
-              { name: 'Freestanding Handstand', sets: 5, reps: '5-10 sec' }, { name: 'Handstand Push-Up', sets: 4, reps: '3-5' },
-              { name: 'Ring Muscle-Up', sets: 4, reps: '3-5' }, { name: 'Planche Lean', sets: 4, reps: '30 sec' } ]},
-            { day: 2, label: 'Day 2 — Lever & Pull Skills', exercises: [
-              { name: 'Front Lever Hold', sets: 5, reps: '5-10 sec' }, { name: 'Front Lever Pull', sets: 4, reps: '3-5' },
-              { name: 'Back Lever Hold', sets: 3, reps: '5-10 sec' }, { name: 'One Arm Pull-Up Assist', sets: 3, reps: '5/side' } ]},
-            { day: 3, label: 'Day 3 — Legs & Dragon Flag', exercises: [
-              { name: 'Pistol Squat', sets: 5, reps: '5/side' }, { name: 'Shrimp Squat', sets: 4, reps: '5/side' },
-              { name: 'Dragon Flag', sets: 4, reps: '5' }, { name: 'Human Flag Prep', sets: 3, reps: '10 sec' } ]}
-          ] } }
-    ]
-  },
-  kb4a: {
-    id: 'kb4a', name: 'KB4A', shortName: 'KB4A', color: '#e67e22', totalWeeks: 12,
-    phases: [
-      { num: 1, name: 'Foundation', weeks: 4, workoutsRequired: 12, startWeek: 1,
-        objective: 'Master kettlebell fundamentals', intensity: '60-70%', tempo: '2:0:2', rest: '60-90 sec', sets: '3 sets', reps: '10-15 reps',
-        days: {
-          dumbbell: [
-            { day: 1, label: 'Day 1 — Swing & Press', exercises: [
-              { name: 'Kettlebell Swing', sets: 4, reps: '20', note: 'Hip hinge, explosive hip drive' },
-              { name: 'Kettlebell Press', sets: 3, reps: '10/side', note: 'Rack position, press overhead' },
-              { name: 'Kettlebell Goblet Squat', sets: 3, reps: '15', note: 'Elbows inside knees at bottom' },
-              { name: 'Kettlebell Windmill', sets: 3, reps: '8/side', note: 'Arm locked, eyes on bell' },
-              { name: 'Kettlebell Halo', sets: 3, reps: '10/direction', note: 'Circle around head, core tight' } ]},
-            { day: 2, label: 'Day 2 — Clean & Squat', exercises: [
-              { name: 'Kettlebell Clean', sets: 4, reps: '8/side', note: 'Pull from hip, catch in rack' },
-              { name: 'Kettlebell Front Squat', sets: 4, reps: '10', note: 'Double KB rack position' },
-              { name: 'Kettlebell Deadlift', sets: 3, reps: '12', note: 'Hinge pattern' },
-              { name: 'Kettlebell Row', sets: 3, reps: '12/side', note: 'Hip hinge, pull to hip' },
-              { name: 'Kettlebell Around the World', sets: 3, reps: '10/direction' } ]},
-            { day: 3, label: 'Day 3 — Full Body Flow', exercises: [
-              { name: 'Kettlebell Turkish Get-Up', sets: 3, reps: '3/side', note: 'Slow and deliberate, arm locked' },
-              { name: 'Kettlebell Swing', sets: 3, reps: '15' },
-              { name: 'Kettlebell Clean to Press', sets: 3, reps: '8/side', note: 'Combine clean and press' },
-              { name: 'Kettlebell Goblet Squat', sets: 3, reps: '12' },
-              { name: 'Kettlebell Figure 8', sets: 3, reps: '10/direction', note: 'Pass between legs in hip hinge' } ]}
-          ],
-          gym: [
-            { day: 1, label: 'Day 1 — Swing & Press', exercises: [
-              { name: 'Kettlebell Swing', sets: 4, reps: '20' }, { name: 'Kettlebell Press', sets: 3, reps: '10/side' },
-              { name: 'Kettlebell Goblet Squat', sets: 3, reps: '15' }, { name: 'Kettlebell Windmill', sets: 3, reps: '8/side' }, { name: 'Kettlebell Halo', sets: 3, reps: '10/direction' } ]},
-            { day: 2, label: 'Day 2 — Clean & Squat', exercises: [
-              { name: 'Kettlebell Clean', sets: 4, reps: '8/side' }, { name: 'Kettlebell Front Squat', sets: 4, reps: '10' },
-              { name: 'Kettlebell Deadlift', sets: 3, reps: '12' }, { name: 'Kettlebell Row', sets: 3, reps: '12/side' }, { name: 'Kettlebell Swing', sets: 3, reps: '15' } ]},
-            { day: 3, label: 'Day 3 — Full Body Flow', exercises: [
-              { name: 'Kettlebell Turkish Get-Up', sets: 4, reps: '3/side' }, { name: 'Kettlebell Swing', sets: 3, reps: '20' },
-              { name: 'Kettlebell Clean to Press', sets: 3, reps: '8/side' }, { name: 'Kettlebell Goblet Squat', sets: 3, reps: '12' }, { name: 'Kettlebell Row', sets: 3, reps: '10/side' } ]}
-          ] } },
-      { num: 2, name: 'Strength-Endurance', weeks: 4, workoutsRequired: 12, startWeek: 5,
-        objective: 'Build strength and conditioning through complexes', intensity: '70-80%', tempo: 'Smooth', rest: '30-60 sec', sets: '4 sets', reps: '8-12 reps',
-        days: {
-          dumbbell: [
-            { day: 1, label: 'Day 1 — Ballistic Power', exercises: [
-              { name: 'Kettlebell Snatch', sets: 4, reps: '8/side', note: 'Swing to overhead in one motion' },
-              { name: 'Kettlebell Single Arm Swing', sets: 4, reps: '20', note: 'Alternate at top' },
-              { name: 'Kettlebell Jump Squat', sets: 3, reps: '10', note: 'Light bell, explosive' },
-              { name: 'Kettlebell High Pull', sets: 3, reps: '12/side', note: 'Drive elbow high' } ]},
-            { day: 2, label: 'Day 2 — Grind Strength', exercises: [
-              { name: 'Double Kettlebell Press', sets: 4, reps: '8', note: 'Both bells simultaneously' },
-              { name: 'Double Kettlebell Front Squat', sets: 4, reps: '8', note: 'Rack position, full depth' },
-              { name: 'Double Kettlebell Row', sets: 4, reps: '10' },
-              { name: 'Kettlebell Turkish Get-Up', sets: 3, reps: '3/side', note: 'Heavier than phase 1' } ]},
-            { day: 3, label: 'Day 3 — Complex', exercises: [
-              { name: 'Kettlebell Complex', sets: 4, reps: '5/side', note: 'Swing→Clean→Press→Squat→Row' },
-              { name: 'Kettlebell Renegade Row', sets: 3, reps: '8/side', note: 'Plank, row then push-up' },
-              { name: 'Kettlebell Farmers Walk', sets: 3, reps: '40m', note: 'Heavy bells, chest tall' },
-              { name: 'Kettlebell Swing', sets: 3, reps: '30', note: 'Conditioning finisher' } ]}
-          ],
-          gym: [
-            { day: 1, label: 'Day 1 — Ballistic Power', exercises: [
-              { name: 'Kettlebell Snatch', sets: 4, reps: '8/side' }, { name: 'Kettlebell Single Arm Swing', sets: 4, reps: '20' },
-              { name: 'Kettlebell Jump Squat', sets: 3, reps: '10' }, { name: 'Kettlebell High Pull', sets: 3, reps: '12/side' } ]},
-            { day: 2, label: 'Day 2 — Grind Strength', exercises: [
-              { name: 'Double Kettlebell Press', sets: 4, reps: '8' }, { name: 'Double Kettlebell Front Squat', sets: 4, reps: '8' },
-              { name: 'Double Kettlebell Row', sets: 4, reps: '10' }, { name: 'Kettlebell Turkish Get-Up', sets: 3, reps: '3/side' } ]},
-            { day: 3, label: 'Day 3 — Complex', exercises: [
-              { name: 'Kettlebell Complex', sets: 4, reps: '5/side' }, { name: 'Kettlebell Renegade Row', sets: 3, reps: '8/side' },
-              { name: 'Kettlebell Farmers Walk', sets: 3, reps: '40m' }, { name: 'Kettlebell Snatch', sets: 3, reps: '10/side' } ]}
-          ] } },
-      { num: 3, name: 'Power', weeks: 4, workoutsRequired: 12, startWeek: 9,
-        objective: 'Peak athletic power output', intensity: '80-90%', tempo: 'Explosive', rest: '2 min', sets: '5 sets', reps: '4-6 reps',
-        days: {
-          dumbbell: [
-            { day: 1, label: 'Day 1 — Max Power', exercises: [
-              { name: 'Kettlebell Snatch', sets: 5, reps: '5/side', note: 'Maximum speed and power' },
-              { name: 'Kettlebell Double Swing', sets: 4, reps: '15', note: 'Two bells, maximal hip power' },
-              { name: 'Kettlebell Clean and Jerk', sets: 4, reps: '5/side', note: 'Full power chain' },
-              { name: 'Kettlebell Jump Clean', sets: 3, reps: '5/side', note: 'Explosive lower body drive' } ]},
-            { day: 2, label: 'Day 2 — Max Strength', exercises: [
-              { name: 'Double Kettlebell Press', sets: 5, reps: '5', note: 'Heaviest weight' },
-              { name: 'Double Kettlebell Front Squat', sets: 5, reps: '5', note: 'Max load, deep squat' },
-              { name: 'Kettlebell Turkish Get-Up', sets: 4, reps: '3/side', note: 'Heaviest bell' },
-              { name: 'Double Kettlebell Deadlift', sets: 4, reps: '5' } ]},
-            { day: 3, label: 'Day 3 — Athletic Complex', exercises: [
-              { name: 'Kettlebell Long Cycle', sets: 5, reps: '5 min', note: 'Clean & jerk for time' },
-              { name: 'Kettlebell Renegade Row', sets: 4, reps: '6/side' },
-              { name: 'Kettlebell Swing', sets: 4, reps: '25', note: 'Max speed finisher' },
-              { name: 'Kettlebell Windmill', sets: 3, reps: '5/side', note: 'Heavy windmill' } ]}
-          ],
-          gym: [
-            { day: 1, label: 'Day 1 — Max Power', exercises: [
-              { name: 'Kettlebell Snatch', sets: 5, reps: '5/side' }, { name: 'Kettlebell Double Swing', sets: 4, reps: '15' },
-              { name: 'Kettlebell Clean and Jerk', sets: 4, reps: '5/side' }, { name: 'Kettlebell Jump Clean', sets: 3, reps: '5/side' } ]},
-            { day: 2, label: 'Day 2 — Max Strength', exercises: [
-              { name: 'Double Kettlebell Press', sets: 5, reps: '5' }, { name: 'Double Kettlebell Front Squat', sets: 5, reps: '5' },
-              { name: 'Kettlebell Turkish Get-Up', sets: 4, reps: '3/side' }, { name: 'Double Kettlebell Deadlift', sets: 4, reps: '5' } ]},
-            { day: 3, label: 'Day 3 — Athletic Complex', exercises: [
-              { name: 'Kettlebell Long Cycle', sets: 5, reps: '5 min' }, { name: 'Kettlebell Renegade Row', sets: 4, reps: '6/side' },
-              { name: 'Kettlebell Swing', sets: 4, reps: '25' }, { name: 'Kettlebell Windmill', sets: 3, reps: '5/side' } ]}
-          ] } }
-    ]
-  }
-}
+};
 
 // ═══════════════════════════════════════════════════════
 // STATE
@@ -1316,65 +981,45 @@ const PROGRAMS = {
 let state = {
   selectedProgram: null,
   programStartDate: null,
-  equipmentVersion: 'dumbbell',  // 'dumbbell' | 'gym'
+  equipmentVersion: 'dumbbell',
   activeWorkout: null,
   workoutHistory: [],
   currentScreen: 'home'
 };
 
-let modalCtx = null; // { exIdx, setIdx }
+let modalCtx = null;
 
-// ═══════════════════════════════════════════════════════
-// STORAGE — with multi-version migration
-// ═══════════════════════════════════════════════════════
 const STORAGE_KEY = 'maps_state_v4';
 const LEGACY_KEYS = ['maps_state_v3', 'maps_state_v2', 'maps_state_v1', 'maps_state'];
 
 function loadState() {
   try {
-    // Try current key first
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) { state = { ...state, ...JSON.parse(saved) }; return; }
-    // Auto-migrate from any prior version
     for (const key of LEGACY_KEYS) {
       const legacy = localStorage.getItem(key);
-      if (legacy) {
-        const parsed = JSON.parse(legacy);
-        state = { ...state, ...parsed };
-        saveState(); // re-save under new key
-        console.log('Migrated data from', key);
-        return;
-      }
+      if (legacy) { const parsed = JSON.parse(legacy); state = { ...state, ...parsed }; saveState(); return; }
     }
-  } catch(e) { console.warn('loadState error:', e); }
+  } catch(e) {}
 }
 
 function saveState() {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
 }
 
-// ── Export: download state as JSON file ──
 function exportData() {
   try {
     const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url;
-    a.download = 'maps_backup_' + new Date().toISOString().slice(0,10) + '.json';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    a.href = url; a.download = 'maps_backup_' + new Date().toISOString().slice(0,10) + '.json';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
     showToast('Backup downloaded');
-  } catch(e) {
-    showToast('Export failed: ' + e.message);
-  }
+  } catch(e) { showToast('Export failed'); }
 }
 
-// ── Import: read a JSON file or raw JSON paste ──
 function importFromFile(input) {
-  const file = input.files[0];
-  if (!file) return;
+  const file = input.files[0]; if (!file) return;
   const reader = new FileReader();
   reader.onload = e => applyImport(e.target.result);
   reader.readAsText(file);
@@ -1389,26 +1034,18 @@ function importFromPaste() {
 function applyImport(jsonText) {
   try {
     const parsed = JSON.parse(jsonText);
-    // Validate it looks like MAPS data
     if (typeof parsed !== 'object') throw new Error('Not a valid MAPS backup');
-    // Merge history (deduplicate by startTs)
     const existingTs = new Set((state.workoutHistory || []).map(w => w.startTs));
     const incoming = (parsed.workoutHistory || []).filter(w => !existingTs.has(w.startTs));
-    state.workoutHistory = [...(state.workoutHistory || []), ...incoming]
-      .sort((a, b) => (b.endTs || b.startTs) - (a.endTs || a.startTs));
-    // Restore program settings if not already set
+    state.workoutHistory = [...(state.workoutHistory || []), ...incoming].sort((a, b) => (b.endTs || b.startTs) - (a.endTs || a.startTs));
     if (!state.selectedProgram && parsed.selectedProgram) state.selectedProgram = parsed.selectedProgram;
     if (!state.programStartDate && parsed.programStartDate) state.programStartDate = parsed.programStartDate;
     saveState();
-    showToast(`Imported ${incoming.length} workout${incoming.length !== 1 ? 's' : ''}`);
-    renderSettings();
-    renderProgress();
-  } catch(e) {
-    showToast('Import failed: ' + e.message);
-  }
+    showToast('Imported ' + incoming.length + ' workout' + (incoming.length !== 1 ? 's' : ''));
+    renderSettings(); renderProgress();
+  } catch(e) { showToast('Import failed: ' + e.message); }
 }
 
-// ── Toast ──
 function showToast(msg) {
   let t = document.getElementById('toast');
   if (!t) {
@@ -1417,21 +1054,16 @@ function showToast(msg) {
     t.style.cssText = 'position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#222;color:#f0f0f0;padding:10px 18px;border-radius:20px;font-size:14px;font-weight:500;z-index:999;border:1px solid rgba(255,255,255,0.1);pointer-events:none;opacity:0;transition:opacity 0.2s';
     document.body.appendChild(t);
   }
-  t.textContent = msg;
-  t.style.opacity = '1';
+  t.textContent = msg; t.style.opacity = '1';
   setTimeout(() => { t.style.opacity = '0'; }, 2500);
 }
 
-// ── Scan all localStorage keys for any MAPS data ──
 function scanAllKeys() {
   const found = [];
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
     if (key && key.toLowerCase().includes('maps')) {
-      try {
-        const val = JSON.parse(localStorage.getItem(key));
-        if (val && val.workoutHistory) found.push({ key, count: val.workoutHistory.length });
-      } catch(e) {}
+      try { const val = JSON.parse(localStorage.getItem(key)); if (val && val.workoutHistory) found.push({ key, count: val.workoutHistory.length }); } catch(e) {}
     }
   }
   return found;
@@ -1453,65 +1085,39 @@ function switchScreen(name) {
 }
 
 // ═══════════════════════════════════════════════════════
-// SETTINGS SCREEN
+// SETTINGS
 // ═══════════════════════════════════════════════════════
 function renderSettings() {
   const count = (state.workoutHistory || []).length;
-  const legacyFound = scanAllKeys();
-  const legacyHtml = legacyFound.length ? `
-    <div class="card" style="margin-bottom:12px;border-color:rgba(74,158,255,0.3)">
-      <div class="card-label" style="color:var(--blue)">Legacy Data Detected</div>
-      <div style="font-size:13px;color:var(--text2);margin:6px 0 12px;line-height:1.5">
-        Found ${legacyFound.map(f => `<strong style="color:var(--text)">${f.count} workouts</strong> in <code style="font-size:11px;color:var(--text3)">${f.key}</code>`).join(', ')} from a prior version.
-      </div>
-      <button class="btn btn-primary" onclick="migrateAllLegacy()">Import Legacy Data Now</button>
-    </div>` : '';
-
   document.getElementById('settings-content').innerHTML = `
     <div class="section-label">Current Data</div>
     <div class="card" style="margin-bottom:12px">
       <div style="display:flex;justify-content:space-between;align-items:center">
         <div>
           <div style="font-size:15px;font-weight:600">${count} workout${count !== 1 ? 's' : ''} logged</div>
-          <div style="font-size:12px;color:var(--text2);margin-top:3px">
-            ${state.selectedProgram ? 'Program: ' + PROGRAMS[state.selectedProgram].name : 'No program selected'}
-            ${state.programStartDate ? ' · Started ' + new Date(state.programStartDate).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : ''}
-          </div>
+          <div style="font-size:12px;color:var(--text2);margin-top:3px">${state.selectedProgram ? 'Program: ' + PROGRAMS[state.selectedProgram].name : 'No program selected'}</div>
         </div>
         <div class="badge badge-green">${STORAGE_KEY}</div>
       </div>
     </div>
-
-    ${legacyHtml}
-
     <div class="section-label">Backup & Restore</div>
     <div class="card" style="margin-bottom:12px">
-      <div style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.5">
-        Export saves everything — your program, start date, and full workout history — as a JSON file. Use it to move data to a new device or the Vercel app.
-      </div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.5">Export saves everything as a JSON file. Use it to move data to a new device.</div>
       <button class="btn btn-primary" onclick="exportData()" style="margin-bottom:10px">Export Backup (JSON)</button>
     </div>
-
     <div class="card" style="margin-bottom:12px">
       <div class="card-label">Import from File</div>
-      <div style="font-size:13px;color:var(--text2);margin:6px 0 12px;line-height:1.5">
-        Select a <code style="font-size:11px;color:var(--text3)">.json</code> backup file. Workouts will be merged — no duplicates created.
-      </div>
+      <div style="font-size:13px;color:var(--text2);margin:6px 0 12px;line-height:1.5">Select a .json backup file. Workouts will be merged with no duplicates.</div>
       <label style="display:block;background:var(--bg3);border:1px dashed var(--border);border-radius:10px;padding:14px;text-align:center;cursor:pointer;font-size:14px;color:var(--text2)">
         Tap to choose file
         <input type="file" accept=".json,application/json" onchange="importFromFile(this)" style="display:none">
       </label>
     </div>
-
     <div class="card" style="margin-bottom:24px">
-      <div class="card-label">Import from Clipboard / Paste</div>
-      <div style="font-size:13px;color:var(--text2);margin:6px 0 12px;line-height:1.5">
-        Paste raw JSON from a backup if the file picker does not work on your device.
-      </div>
+      <div class="card-label">Import from Paste</div>
       <textarea id="import-paste" placeholder="Paste JSON backup here..." style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px;color:var(--text);font-size:13px;min-height:80px;resize:vertical;font-family:monospace"></textarea>
       <button class="btn btn-primary" onclick="importFromPaste()" style="margin-top:10px">Import from Paste</button>
     </div>
-
     <div class="section-label">Danger Zone</div>
     <div class="card" style="margin-bottom:24px">
       <div style="font-size:13px;color:var(--text2);margin-bottom:12px">Permanently deletes all workout history and resets settings. Export a backup first.</div>
@@ -1519,64 +1125,28 @@ function renderSettings() {
     </div>`;
 }
 
-function migrateAllLegacy() {
-  let totalImported = 0;
-  const existingTs = new Set((state.workoutHistory || []).map(w => w.startTs));
-  for (const key of [...LEGACY_KEYS, ...scanAllKeys().map(f => f.key)]) {
-    try {
-      const val = JSON.parse(localStorage.getItem(key) || 'null');
-      if (!val || !val.workoutHistory) continue;
-      const incoming = val.workoutHistory.filter(w => !existingTs.has(w.startTs));
-      incoming.forEach(w => existingTs.add(w.startTs));
-      state.workoutHistory = [...(state.workoutHistory || []), ...incoming];
-      if (!state.selectedProgram && val.selectedProgram) state.selectedProgram = val.selectedProgram;
-      if (!state.programStartDate && val.programStartDate) state.programStartDate = val.programStartDate;
-      totalImported += incoming.length;
-    } catch(e) {}
-  }
-  state.workoutHistory.sort((a, b) => (b.endTs || b.startTs) - (a.endTs || a.startTs));
-  saveState();
-  showToast(`Imported ${totalImported} workout${totalImported !== 1 ? 's' : ''} from legacy data`);
-  renderSettings();
-  renderProgress();
-}
-
 function resetAllData() {
   if (!confirm('This will permanently delete all your workout history and settings. Export a backup first. Continue?')) return;
   state = { selectedProgram: null, programStartDate: null, activeWorkout: null, workoutHistory: [], currentScreen: 'home' };
-  saveState();
-  showToast('All data reset');
-  renderSettings();
-  renderHome();
+  saveState(); showToast('All data reset'); renderSettings(); renderHome();
 }
 
 // ═══════════════════════════════════════════════════════
-// PHASE CALCULATION — based on workouts completed, not dates
+// PHASE CALCULATION
 // ═══════════════════════════════════════════════════════
 function countCompletedWorkouts(programId) {
   return (state.workoutHistory || []).filter(w => w.programId === programId).length;
 }
 
 function getCurrentPhaseInfo(programId) {
-  const prog = PROGRAMS[programId];
-  if (!prog) return null;
+  const prog = PROGRAMS[programId]; if (!prog) return null;
   const completed = countCompletedWorkouts(programId);
-  let cumWorkouts = 0;
-  let currentPhase = null;
-  let workoutsIntoPhase = 0;
+  let cumWorkouts = 0, currentPhase = null, workoutsIntoPhase = 0;
   for (const ph of prog.phases) {
-    if (completed < cumWorkouts + ph.workoutsRequired) {
-      currentPhase = ph;
-      workoutsIntoPhase = completed - cumWorkouts;
-      break;
-    }
+    if (completed < cumWorkouts + ph.workoutsRequired) { currentPhase = ph; workoutsIntoPhase = completed - cumWorkouts; break; }
     cumWorkouts += ph.workoutsRequired;
   }
-  // Program complete — stay on last phase
-  if (!currentPhase) {
-    currentPhase = prog.phases[prog.phases.length - 1];
-    workoutsIntoPhase = currentPhase.workoutsRequired;
-  }
+  if (!currentPhase) { currentPhase = prog.phases[prog.phases.length - 1]; workoutsIntoPhase = currentPhase.workoutsRequired; }
   const workoutsRemaining = Math.max(0, currentPhase.workoutsRequired - workoutsIntoPhase);
   const pct = Math.min(100, Math.round((workoutsIntoPhase / currentPhase.workoutsRequired) * 100));
   const totalRequired = prog.phases.reduce((a, p) => a + p.workoutsRequired, 0);
@@ -1584,7 +1154,6 @@ function getCurrentPhaseInfo(programId) {
   return { currentPhase, workoutsIntoPhase, workoutsRemaining, pct, overallPct, completed, prog };
 }
 
-// Helper — get days array for current equipment version
 function getDays(phase) {
   const v = state.equipmentVersion || 'dumbbell';
   return (phase.days && phase.days[v]) ? phase.days[v] : (phase.days && phase.days.dumbbell) ? phase.days.dumbbell : phase.days || [];
@@ -1594,10 +1163,7 @@ function getDays(phase) {
 // EQUIPMENT VERSION
 // ═══════════════════════════════════════════════════════
 function setEquipmentVersion(v) {
-  state.equipmentVersion = v;
-  saveState();
-  updateEquipmentToggleUI();
-  renderTodayCard();
+  state.equipmentVersion = v; saveState(); updateEquipmentToggleUI(); renderTodayCard();
   if (state.currentScreen === 'log') renderLog();
   showToast(v === 'dumbbell' ? '🏠 Dumbbell version selected' : '🏋️ Gym version selected');
 }
@@ -1621,56 +1187,37 @@ function updateEquipmentToggleUI() {
 // ═══════════════════════════════════════════════════════
 function renderHome() {
   const now = new Date();
-  document.getElementById('home-date').textContent =
-    now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
-
-  // Program grid
+  document.getElementById('home-date').textContent = now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
   const grid = document.getElementById('prog-grid');
   grid.innerHTML = Object.values(PROGRAMS).map(p => `
     <div class="prog-card ${state.selectedProgram === p.id ? 'selected' : ''}" onclick="selectProgram('${p.id}')">
       <div class="prog-card-name" style="color:${state.selectedProgram === p.id ? p.color : 'var(--text)'}">${p.shortName}</div>
       <div class="prog-card-sub">${p.phases.length} phases · ${p.totalWeeks} weeks</div>
       ${state.selectedProgram === p.id ? renderPhaseMiniBar(p.id) : ''}
-    </div>
-  `).join('');
-
+    </div>`).join('');
   const panel = document.getElementById('active-program-panel');
   const toggleWrap = document.getElementById('equipment-toggle-wrap');
   if (state.selectedProgram) {
-    panel.style.display = 'block';
-    if (toggleWrap) toggleWrap.style.display = 'block';
-    updateEquipmentToggleUI();
-    renderPhaseStatus();
-    renderPhaseAlert();
-    renderTodayCard();
+    panel.style.display = 'block'; if (toggleWrap) toggleWrap.style.display = 'block';
+    updateEquipmentToggleUI(); renderPhaseStatus(); renderPhaseAlert(); renderTodayCard();
   } else {
-    panel.style.display = 'none';
-    if (toggleWrap) toggleWrap.style.display = 'none';
+    panel.style.display = 'none'; if (toggleWrap) toggleWrap.style.display = 'none';
   }
-  document.getElementById('home-program-label').textContent = state.selectedProgram
-    ? PROGRAMS[state.selectedProgram].name : 'Select a program below';
+  document.getElementById('home-program-label').textContent = state.selectedProgram ? PROGRAMS[state.selectedProgram].name : 'Select a program below';
 }
 
 function renderPhaseMiniBar(programId) {
-  const info = getCurrentPhaseInfo(programId);
-  if (!info) return '';
+  const info = getCurrentPhaseInfo(programId); if (!info) return '';
   const prog = PROGRAMS[programId];
-  return `<div class="phase-bar-wrap" style="margin-top:8px"><div class="phase-bar" style="width:${info.overallPct}%;background:${prog.color}"></div></div>
-  <div style="font-size:10px;color:var(--text2);margin-top:4px">Phase ${info.currentPhase.num} · ${info.workoutsIntoPhase}/${info.currentPhase.workoutsRequired} workouts</div>`;
+  return '<div class="phase-bar-wrap" style="margin-top:8px"><div class="phase-bar" style="width:' + info.overallPct + '%;background:' + prog.color + '"></div></div>' +
+    '<div style="font-size:10px;color:var(--text2);margin-top:4px">Phase ' + info.currentPhase.num + ' · ' + info.workoutsIntoPhase + '/' + info.currentPhase.workoutsRequired + ' workouts</div>';
 }
 
 function renderPhaseStatus() {
-  const info = getCurrentPhaseInfo(state.selectedProgram);
-  if (!info) return;
+  const info = getCurrentPhaseInfo(state.selectedProgram); if (!info) return;
   const prog = PROGRAMS[state.selectedProgram];
   const { currentPhase, workoutsIntoPhase, workoutsRemaining, pct } = info;
-
-  const segs = prog.phases.map(ph => {
-    const isDone = ph.num < currentPhase.num;
-    const isActive = ph.num === currentPhase.num;
-    return `<div class="phase-seg ${isDone ? 'done' : isActive ? 'active' : ''}"></div>`;
-  }).join('');
-
+  const segs = prog.phases.map(ph => '<div class="phase-seg ' + (ph.num < currentPhase.num ? 'done' : ph.num === currentPhase.num ? 'active' : '') + '"></div>').join('');
   document.getElementById('phase-status-card').innerHTML = `
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
       <div>
@@ -1678,9 +1225,7 @@ function renderPhaseStatus() {
         <div class="card-title">${currentPhase.name}</div>
         <div style="font-size:12px;color:var(--text2);margin-top:3px">${currentPhase.objective}</div>
       </div>
-      <div class="badge ${workoutsRemaining <= 3 ? 'badge-amber' : 'badge-green'}">
-        ${workoutsRemaining} workout${workoutsRemaining !== 1 ? 's' : ''} left
-      </div>
+      <div class="badge ${workoutsRemaining <= 3 ? 'badge-amber' : 'badge-green'}">${workoutsRemaining} left</div>
     </div>
     <div class="phase-timeline">${segs}</div>
     <div style="margin:8px 0 4px;font-size:12px;color:var(--text2)">${workoutsIntoPhase} of ${currentPhase.workoutsRequired} workouts completed</div>
@@ -1699,78 +1244,45 @@ function renderPhaseAlert() {
   const nextPhase = prog.phases.find(p => p.num === currentPhase.num + 1);
   let html = '';
   if (nextPhase && workoutsRemaining <= 3) {
-    html = `<div class="phase-alert">
-      <div class="phase-alert-icon">🔄</div>
-      <div class="phase-alert-text">
-        <strong>${workoutsRemaining} workout${workoutsRemaining !== 1 ? 's' : ''} until Phase ${nextPhase.num}</strong><br>
-        Up next: ${nextPhase.name} — ${nextPhase.objective}.
-      </div>
-    </div>`;
+    html = '<div class="phase-alert"><div class="phase-alert-icon">🔄</div><div class="phase-alert-text"><strong>' + workoutsRemaining + ' workout' + (workoutsRemaining !== 1 ? 's' : '') + ' until Phase ' + nextPhase.num + '</strong><br>Up next: ' + nextPhase.name + ' — ' + nextPhase.objective + '.</div></div>';
   } else if (!nextPhase && workoutsRemaining === 0) {
-    html = `<div class="phase-alert">
-      <div class="phase-alert-icon">🏆</div>
-      <div class="phase-alert-text"><strong>Program complete!</strong><br>You have finished all phases. Consider restarting or switching programs.</div>
-    </div>`;
+    html = '<div class="phase-alert"><div class="phase-alert-icon">🏆</div><div class="phase-alert-text"><strong>Program complete!</strong><br>You have finished all phases.</div></div>';
   }
   document.getElementById('phase-alert-wrap').innerHTML = html;
 }
 
 function renderTodayCard() {
-  const info = getCurrentPhaseInfo(state.selectedProgram);
-  if (!info) return;
-  const { currentPhase, workoutsIntoPhase } = info;
-  const prog = PROGRAMS[state.selectedProgram];
-  const dayOfWeek = new Date().getDay(); // 0=Sun
-  // Map to workout day based on 3x/week pattern (Mon/Wed/Fri = days 1/2/3)
-  const workoutDays = { 1: 0, 3: 1, 5: 2 }; // dayOfWeek -> dayIndex in phase
+  const info = getCurrentPhaseInfo(state.selectedProgram); if (!info) return;
+  const { currentPhase } = info;
+  const dayOfWeek = new Date().getDay();
+  const workoutDays = { 1: 0, 3: 1, 5: 2 };
   const dayIndex = workoutDays[dayOfWeek];
-  const isMobility = [0, 2, 4, 6].includes(dayOfWeek); // Tue/Thu/Sat/Sun
-  const isRest = dayOfWeek === 0; // Sunday
-
+  const isMobility = [2, 4, 6].includes(dayOfWeek);
   let html = '';
   if (dayIndex !== undefined && getDays(currentPhase)[dayIndex]) {
     const day = getDays(currentPhase)[dayIndex];
     const totalSets = day.exercises.reduce((a, e) => a + e.sets, 0);
-    html = `
-      <div style="margin-bottom:12px">
-        <div class="card-label">Phase ${currentPhase.num} · ${currentPhase.name}</div>
-        <div class="card-title">${day.label}</div>
-        <div style="font-size:12px;color:var(--text2);margin-top:3px">${day.exercises.length} exercises · ${totalSets} total sets</div>
-      </div>
-      <div style="display:flex;gap:8px">
-        <button class="btn btn-primary" style="flex:1" onclick="startWorkout('${state.selectedProgram}', ${currentPhase.num}, ${dayIndex})">Start Workout</button>
-        <button class="btn btn-sm" onclick="viewBlueprint('${state.selectedProgram}', ${currentPhase.num}, ${dayIndex})">Blueprint</button>
-      </div>`;
-  } else if (isMobility && !isRest) {
-    html = `<div style="color:var(--text2);font-size:14px;line-height:1.6">
-      <div class="card-label">Active Recovery</div>
-      <div class="card-title">Mobility Session</div>
-      <div style="font-size:13px;color:var(--text2);margin-top:6px">Choose Mobility Session 1–4 from the program guide. Target your weak areas for 20–45 minutes.</div>
-    </div>`;
+    html = '<div style="margin-bottom:12px"><div class="card-label">Phase ' + currentPhase.num + ' · ' + currentPhase.name + '</div><div class="card-title">' + day.label + '</div><div style="font-size:12px;color:var(--text2);margin-top:3px">' + day.exercises.length + ' exercises · ' + totalSets + ' total sets</div></div>' +
+      '<div style="display:flex;gap:8px"><button class="btn btn-primary" style="flex:1" onclick="startWorkout(\'' + state.selectedProgram + '\',' + currentPhase.num + ',' + dayIndex + ')">Start Workout</button>' +
+      '<button class="btn btn-sm" onclick="viewBlueprint(\'' + state.selectedProgram + '\',' + currentPhase.num + ',' + dayIndex + ')">Blueprint</button></div>';
+  } else if (isMobility) {
+    html = '<div class="card-label">Active Recovery</div><div class="card-title">Mobility Session</div><div style="font-size:13px;color:var(--text2);margin-top:6px">Choose Mobility Session 1-4 from the program guide.</div>';
   } else {
-    html = `<div style="text-align:center;padding:8px 0">
-      <div style="font-size:24px;margin-bottom:8px">🟢</div>
-      <div style="font-size:14px;color:var(--text2)">Rest or mobility day. Recover well.</div>
-    </div>`;
+    html = '<div style="text-align:center;padding:8px 0"><div style="font-size:24px;margin-bottom:8px">🟢</div><div style="font-size:14px;color:var(--text2)">Rest or mobility day. Recover well.</div></div>';
   }
   document.getElementById('today-workout-card').innerHTML = html;
 }
 
-function selectProgram(id) {
-  state.selectedProgram = id;
-  saveState();
-  renderHome();
-}
+function selectProgram(id) { state.selectedProgram = id; saveState(); renderHome(); }
 
 // ═══════════════════════════════════════════════════════
-// BLUEPRINT VIEW
+// BLUEPRINT
 // ═══════════════════════════════════════════════════════
 function viewBlueprint(programId, phaseNum, dayIdx) {
   const prog = PROGRAMS[programId];
   const phase = prog.phases.find(p => p.num === phaseNum);
   const day = getDays(phase)[dayIdx];
-  const logContent = document.getElementById('log-content');
-  logContent.innerHTML = `
+  document.getElementById('log-content').innerHTML = `
     <div style="margin-bottom:16px">
       <button class="btn btn-sm" onclick="renderLog()" style="margin-bottom:12px">← Back</button>
       <div class="badge badge-green" style="margin-bottom:8px">${prog.shortName} · Phase ${phaseNum}</div>
@@ -1778,17 +1290,13 @@ function viewBlueprint(programId, phaseNum, dayIdx) {
       <div style="font-size:12px;color:var(--text2)">Intensity ${phase.intensity} · ${phase.sets} · Rest ${phase.rest} · Tempo ${phase.tempo}</div>
     </div>
     <div class="card">
-      ${day.exercises.map((ex, ei) => `
+      ${day.exercises.map(ex => `
         <div class="blueprint-ex">
-          <div class="blueprint-ex-name">
-            ${ex.name}
-            ${ex.superset ? '<span class="superset-badge">SUPERSET</span>' : ''}
-          </div>
+          <div class="blueprint-ex-name">${ex.name}${ex.superset ? '<span class="superset-badge">SUPERSET</span>' : ''}</div>
           <div class="blueprint-ex-detail">${ex.sets} sets × ${ex.reps}${ex.note ? ' · ' + ex.note : ''}</div>
-        </div>
-      `).join('')}
+        </div>`).join('')}
     </div>
-    <button class="btn btn-primary" style="margin-top:4px" onclick="startWorkout('${programId}', ${phaseNum}, ${dayIdx})">Start This Workout</button>`;
+    <button class="btn btn-primary" style="margin-top:4px" onclick="startWorkout('${programId}',${phaseNum},${dayIdx})">Start This Workout</button>`;
   document.getElementById('log-title').textContent = 'BLUEPRINT';
   document.getElementById('log-subtitle').textContent = day.label;
   document.getElementById('log-action-btn').style.display = 'none';
@@ -1800,11 +1308,7 @@ function viewBlueprint(programId, phaseNum, dayIdx) {
 // ═══════════════════════════════════════════════════════
 function renderLog() {
   document.getElementById('log-action-btn').style.display = '';
-  if (state.activeWorkout) {
-    renderActiveWorkout();
-  } else {
-    renderWorkoutSelector();
-  }
+  if (state.activeWorkout) { renderActiveWorkout(); } else { renderWorkoutSelector(); }
 }
 
 function renderWorkoutSelector() {
@@ -1814,71 +1318,39 @@ function renderWorkoutSelector() {
   document.getElementById('log-action-btn').onclick = () => handleLogAction();
   const content = document.getElementById('log-content');
   if (!state.selectedProgram) {
-    content.innerHTML = `<div class="empty">
-      <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-      <div class="empty-title">No Program Selected</div>
-      <div class="empty-sub">Go to Home and select MAPS Performance or MAPS Aesthetic to begin.</div>
-    </div>`;
+    content.innerHTML = '<div class="empty"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><div class="empty-title">No Program Selected</div><div class="empty-sub">Go to Home and select a program to begin.</div></div>';
     return;
   }
   const prog = PROGRAMS[state.selectedProgram];
   const vLabel = (state.equipmentVersion || 'dumbbell') === 'dumbbell' ? '🏠 Dumbbell' : '🏋️ Gym';
-  let html = `<div style="display:flex;gap:8px;margin-bottom:14px;align-items:center">
-    <div class="badge badge-green">${prog.name}</div>
-    <div class="badge ${(state.equipmentVersion||'dumbbell')==='dumbbell'?'badge-green':'badge-amber'}">${vLabel}</div>
-    <button class="btn btn-sm" onclick="setEquipmentVersion(state.equipmentVersion==='dumbbell'?'gym':'dumbbell')" style="margin-left:auto;font-size:11px">Switch</button>
-  </div>`;
+  let html = '<div style="display:flex;gap:8px;margin-bottom:14px;align-items:center"><div class="badge badge-green">' + prog.name + '</div><div class="badge ' + ((state.equipmentVersion||'dumbbell')==='dumbbell'?'badge-green':'badge-amber') + '">' + vLabel + '</div><button class="btn btn-sm" onclick="setEquipmentVersion(state.equipmentVersion===\'dumbbell\'?\'gym\':\'dumbbell\')" style="margin-left:auto;font-size:11px">Switch</button></div>';
   prog.phases.forEach(phase => {
-    html += `<div class="section-label">Phase ${phase.num} · ${phase.name}</div>`;
-    const phaseDays = getDays(phase);
-    if (phaseDays.length) {
-      phaseDays.forEach((day, i) => {
-        html += `<div class="card" style="cursor:pointer" onclick="startWorkout('${prog.id}', ${phase.num}, ${i})">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div>
-              <div class="card-title" style="font-size:17px">${day.label}</div>
-              <div style="font-size:12px;color:var(--text2);margin-top:3px">${day.exercises.length} exercises</div>
-            </div>
-            <div style="display:flex;gap:8px;align-items:center">
-              <button class="btn btn-sm" onclick="event.stopPropagation();viewBlueprint('${prog.id}', ${phase.num}, ${i})">View</button>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-            </div>
-          </div>
-        </div>`;
-      });
-    }
+    html += '<div class="section-label">Phase ' + phase.num + ' · ' + phase.name + '</div>';
+    getDays(phase).forEach((day, i) => {
+      html += '<div class="card" style="cursor:pointer" onclick="startWorkout(\'' + prog.id + '\',' + phase.num + ',' + i + ')">' +
+        '<div style="display:flex;justify-content:space-between;align-items:center">' +
+        '<div><div class="card-title" style="font-size:17px">' + day.label + '</div><div style="font-size:12px;color:var(--text2);margin-top:3px">' + day.exercises.length + ' exercises</div></div>' +
+        '<div style="display:flex;gap:8px;align-items:center"><button class="btn btn-sm" onclick="event.stopPropagation();viewBlueprint(\'' + prog.id + '\',' + phase.num + ',' + i + ')">View</button>' +
+        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div></div></div>';
+    });
   });
   content.innerHTML = html;
 }
 
-function handleLogAction() {
-  if (state.activeWorkout) {
-    finishWorkout();
-  } else {
-    renderWorkoutSelector();
-  }
-}
+function handleLogAction() { if (state.activeWorkout) { finishWorkout(); } else { renderWorkoutSelector(); } }
 
 function startWorkout(programId, phaseNum, dayIdx) {
   const prog = PROGRAMS[programId];
   const phase = prog.phases.find(p => p.num === phaseNum);
   const day = getDays(phase)[dayIdx];
   state.activeWorkout = {
-    programId, phaseNum, dayIdx,
-    label: day.label,
-    startTs: Date.now(),
+    programId, phaseNum, dayIdx, label: day.label, startTs: Date.now(),
     exercises: day.exercises.map(ex => ({
-      name: ex.name,
-      targetSets: ex.sets,
-      targetReps: ex.reps,
-      note: ex.note || null,
-      superset: ex.superset || false,
+      name: ex.name, targetSets: ex.sets, targetReps: ex.reps, note: ex.note || null, superset: ex.superset || false,
       sets: Array.from({ length: ex.sets }, () => ({ reps: '', weight: '', done: false }))
     }))
   };
-  saveState();
-  renderActiveWorkout();
-  switchScreen('log');
+  saveState(); renderActiveWorkout(); switchScreen('log');
 }
 
 function renderActiveWorkout() {
@@ -1890,88 +1362,55 @@ function renderActiveWorkout() {
   const pct = Math.round((doneCount / totalSets) * 100);
 
   document.getElementById('log-title').textContent = 'ACTIVE';
-  document.getElementById('log-subtitle').textContent = `${elapsed}m elapsed · ${doneCount}/${totalSets} sets`;
+  document.getElementById('log-subtitle').textContent = elapsed + 'm elapsed · ' + doneCount + '/' + totalSets + ' sets';
   document.getElementById('log-action-btn').textContent = 'Finish';
   document.getElementById('log-action-btn').onclick = () => finishWorkout();
 
-  let html = `
-    <div class="card" style="margin-bottom:16px">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-        <div>
-          <div class="card-label">${prog.shortName} · Phase ${w.phaseNum}</div>
-          <div class="card-title" style="font-size:17px">${w.label}</div>
-        </div>
-        <div class="badge ${pct === 100 ? 'badge-green' : 'badge-amber'}">${pct}%</div>
-      </div>
-      <div class="phase-bar-wrap"><div class="phase-bar" style="width:${pct}%"></div></div>
-    </div>`;
+  let html = '<div class="card" style="margin-bottom:16px">' +
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">' +
+    '<div><div class="card-label">' + prog.shortName + ' · Phase ' + w.phaseNum + '</div>' +
+    '<div class="card-title" style="font-size:17px">' + w.label + '</div></div>' +
+    '<div class="badge ' + (pct === 100 ? 'badge-green' : 'badge-amber') + '">' + pct + '%</div></div>' +
+    '<div class="phase-bar-wrap"><div class="phase-bar" style="width:' + pct + '%"></div></div></div>';
 
   w.exercises.forEach((ex, exIdx) => {
     const allDone = ex.sets.every(s => s.done);
-    html += `<div class="exercise-row">
-      <div class="exercise-name">
-        <span>${ex.name}${ex.superset ? ' <span class="superset-badge">SS</span>' : ''}</span>
-        ${allDone ? '<span style="color:var(--green);font-size:18px">✓</span>' : ''}
-      </div>
-      ${ex.note ? `<div style="font-size:11px;color:var(--amber);margin-bottom:8px">${ex.note}</div>` : ''}
-      ${(()=>{const u=EXERCISE_IMAGES[ex.name.toLowerCase().trim()];return u?'<img class="exercise-img" src="'+u+'" alt="'+ex.name+'" loading="lazy">':'';})()} 
-      <div class="sets-row">
-        ${ex.sets.map((s, si) => `
-          <div class="set-chip ${s.done ? 'logged' : ''}" onclick="openSetModal(${exIdx}, ${si})">
-            <div class="set-chip-label">Set ${si + 1}</div>
-            <div class="set-chip-val">${s.done ? (s.reps || '—') + (s.weight ? '<br><span style="font-size:11px;color:var(--text2)">' + s.weight + 'lb</span>' : '') : '+'}</div>
-          </div>`).join('')}
-        <div class="add-set-btn" onclick="addSet(${exIdx})">+</div>
-      </div>
-      <div style="font-size:11px;color:var(--text3);margin-top:8px">Target: ${ex.targetSets} × ${ex.targetReps}</div>
-    </div>`;
+    html += '<div class="exercise-row">' +
+      '<div class="exercise-name"><span>' + ex.name + (ex.superset ? ' <span class="superset-badge">SS</span>' : '') + '</span>' +
+      (allDone ? '<span style="color:var(--green);font-size:18px">✓</span>' : '') + '</div>' +
+      (ex.note ? '<div style="font-size:11px;color:var(--amber);margin-bottom:8px">' + ex.note + '</div>' : '') +
+      _exImg(ex.name) +
+      '<div class="sets-row">' +
+      ex.sets.map((s, si) => '<div class="set-chip ' + (s.done ? 'logged' : '') + '" onclick="openSetModal(' + exIdx + ',' + si + ')">' +
+        '<div class="set-chip-label">Set ' + (si + 1) + '</div>' +
+        '<div class="set-chip-val">' + (s.done ? (s.reps || '—') + (s.weight ? '<br><span style="font-size:11px;color:var(--text2)">' + s.weight + 'lb</span>' : '') : '+') + '</div></div>').join('') +
+      '<div class="add-set-btn" onclick="addSet(' + exIdx + ')">+</div></div>' +
+      '<div style="font-size:11px;color:var(--text3);margin-top:8px">Target: ' + ex.targetSets + ' × ' + ex.targetReps + '</div></div>';
   });
 
-  html += `<button class="btn btn-primary" style="margin-top:8px" onclick="finishWorkout()">Complete Workout</button>
-    <div style="display:flex;gap:10px;margin-top:10px">
-      <button class="btn btn-danger" style="flex:1" onclick="cancelWorkout()">🗑 Cancel & Delete</button>
-      <button class="btn btn-sm" style="flex:1" onclick="saveWorkoutDraft()">💾 Save Draft</button>
-    </div>`;
+  html += '<button class="btn btn-primary" style="margin-top:8px" onclick="finishWorkout()">Complete Workout</button>' +
+    '<div style="display:flex;gap:10px;margin-top:10px">' +
+    '<button class="btn btn-danger" style="flex:1" onclick="cancelWorkout()">🗑 Cancel & Delete</button>' +
+    '<button class="btn btn-sm" style="flex:1" onclick="saveWorkoutDraft()">💾 Save Draft</button></div>';
 
   document.getElementById('log-content').innerHTML = html;
-
 }
 
-function addSet(exIdx) {
-  state.activeWorkout.exercises[exIdx].sets.push({ reps: '', weight: '', done: false });
-  saveState();
-  renderActiveWorkout();
-}
+function addSet(exIdx) { state.activeWorkout.exercises[exIdx].sets.push({ reps: '', weight: '', done: false }); saveState(); renderActiveWorkout(); }
 
 function finishWorkout() {
   const w = state.activeWorkout;
   const doneCount = w.exercises.reduce((a, ex) => a + ex.sets.filter(s => s.done).length, 0);
   if (doneCount === 0 && !confirm('No sets logged. Finish anyway?')) return;
-  const record = {
-    ...w,
-    endTs: Date.now(),
-    duration: Date.now() - w.startTs
-  };
-  state.workoutHistory.unshift(record);
-  state.activeWorkout = null;
-  saveState();
-  renderLog();
-  renderProgress();
+  state.workoutHistory.unshift({ ...w, endTs: Date.now(), duration: Date.now() - w.startTs });
+  state.activeWorkout = null; saveState(); renderLog(); renderProgress();
 }
 
 function cancelWorkout() {
-  if (confirm('Delete this workout? All logged sets will be lost.')) {
-    state.activeWorkout = null;
-    saveState();
-    renderLog();
-  }
+  if (confirm('Delete this workout? All logged sets will be lost.')) { state.activeWorkout = null; saveState(); renderLog(); }
 }
 
-function saveWorkoutDraft() {
-  showToast('Draft saved — tap Log to resume');
-  saveState();
-  switchScreen('home');
-}
+function saveWorkoutDraft() { showToast('Draft saved — tap Log to resume'); saveState(); switchScreen('home'); }
 
 // ═══════════════════════════════════════════════════════
 // SET MODAL
@@ -1981,48 +1420,26 @@ function openSetModal(exIdx, setIdx) {
   const ex = state.activeWorkout.exercises[exIdx];
   const set = ex.sets[setIdx];
   const prevSets = ex.sets.slice(0, setIdx).filter(s => s.done);
-
   document.getElementById('modal-ex-name').textContent = ex.name;
-  document.getElementById('modal-set-label').textContent = `Set ${setIdx + 1} of ${ex.sets.length} · Target: ${ex.targetReps}`;
+  document.getElementById('modal-set-label').textContent = 'Set ' + (setIdx + 1) + ' of ' + ex.sets.length + ' · Target: ' + ex.targetReps;
   document.getElementById('input-reps').value = set.reps || '';
   document.getElementById('input-weight').value = set.weight || '';
-
-  // Quick reps based on target
   const repMatch = String(ex.targetReps).match(/(\d+)/);
   const suggestReps = repMatch ? parseInt(repMatch[1]) : 10;
   const quickReps = [suggestReps - 2, suggestReps, suggestReps + 2].filter(r => r > 0);
-  document.getElementById('quick-reps').innerHTML = quickReps.map(r =>
-    `<div class="quick-btn" onclick="document.getElementById('input-reps').value=${r}">${r}</div>`).join('');
-
-  // Quick weights from previous sets
+  document.getElementById('quick-reps').innerHTML = quickReps.map(r => '<div class="quick-btn" onclick="document.getElementById(\'input-reps\').value=' + r + '">' + r + '</div>').join('');
   const weights = [...new Set(prevSets.map(s => s.weight).filter(Boolean))].slice(-3);
-  if (weights.length) {
-    document.getElementById('quick-weight').innerHTML = weights.map(w =>
-      `<div class="quick-btn" onclick="document.getElementById('input-weight').value=${w}">${w}</div>`).join('');
-  } else {
-    document.getElementById('quick-weight').innerHTML = [25, 35, 45].map(w =>
-      `<div class="quick-btn" onclick="document.getElementById('input-weight').value=${w}">${w}</div>`).join('');
-  }
-
+  document.getElementById('quick-weight').innerHTML = (weights.length ? weights : [25, 35, 45]).map(w => '<div class="quick-btn" onclick="document.getElementById(\'input-weight\').value=' + w + '">' + w + '</div>').join('');
   document.getElementById('set-modal').classList.add('open');
   setTimeout(() => document.getElementById('input-reps').focus(), 100);
 }
 
-function closeSetModal(e) {
-  if (e.target === document.getElementById('set-modal')) {
-    document.getElementById('set-modal').classList.remove('open');
-  }
-}
+function closeSetModal(e) { if (e.target === document.getElementById('set-modal')) document.getElementById('set-modal').classList.remove('open'); }
 
 function saveSet() {
   const { exIdx, setIdx } = modalCtx;
-  const reps = document.getElementById('input-reps').value;
-  const weight = document.getElementById('input-weight').value;
-  state.activeWorkout.exercises[exIdx].sets[setIdx] = { reps, weight, done: true };
-  saveState();
-  document.getElementById('set-modal').classList.remove('open');
-  renderActiveWorkout();
-  // ── Start rest timer ──
+  state.activeWorkout.exercises[exIdx].sets[setIdx] = { reps: document.getElementById('input-reps').value, weight: document.getElementById('input-weight').value, done: true };
+  saveState(); document.getElementById('set-modal').classList.remove('open'); renderActiveWorkout();
   const prog = PROGRAMS[state.activeWorkout.programId];
   const phase = prog?.phases.find(p => p.num === state.activeWorkout.phaseNum);
   const secs = parseRestSeconds(phase?.rest || '');
@@ -2035,142 +1452,75 @@ function saveSet() {
 function renderProgress() {
   const el = document.getElementById('progress-content');
   let html = '';
-
-  // ── Phase calendar (if program selected) ──
   if (state.selectedProgram) {
     const prog = PROGRAMS[state.selectedProgram];
     const info = getCurrentPhaseInfo(state.selectedProgram);
     html += renderPhaseCalendar(prog, info);
     html += renderPhaseTable(prog, info);
   }
-
-  // ── Stats ──
   if (state.workoutHistory.length) {
     const totalMin = Math.round(state.workoutHistory.reduce((a, w) => a + w.duration, 0) / 60000);
     const streak = calcStreak();
-    const totalVol = state.workoutHistory.reduce((a, w) =>
-      a + w.exercises.reduce((b, ex) =>
-        b + ex.sets.filter(s => s.done && s.reps && s.weight).reduce((c, s) =>
-          c + parseInt(s.reps || 0) * parseFloat(s.weight || 0), 0), 0), 0);
-
-    html += `<div class="section-label">Overall Stats</div>
-    <div class="stats-grid">
-      <div class="stat-card"><div class="stat-val">${state.workoutHistory.length}</div><div class="stat-label">Workouts</div></div>
-      <div class="stat-card"><div class="stat-val">${streak}</div><div class="stat-label">Day Streak</div></div>
-      <div class="stat-card"><div class="stat-val">${totalMin}</div><div class="stat-label">Total Minutes</div></div>
-      <div class="stat-card"><div class="stat-val">${Math.round(totalVol/1000)}k</div><div class="stat-label">Total Volume (lbs)</div></div>
-    </div>`;
-
-    // ── History ──
-    html += `<div class="section-label">Workout History</div>`;
+    const totalVol = state.workoutHistory.reduce((a, w) => a + w.exercises.reduce((b, ex) => b + ex.sets.filter(s => s.done && s.reps && s.weight).reduce((c, s) => c + parseInt(s.reps||0)*parseFloat(s.weight||0), 0), 0), 0);
+    html += '<div class="section-label">Overall Stats</div><div class="stats-grid">' +
+      '<div class="stat-card"><div class="stat-val">' + state.workoutHistory.length + '</div><div class="stat-label">Workouts</div></div>' +
+      '<div class="stat-card"><div class="stat-val">' + streak + '</div><div class="stat-label">Day Streak</div></div>' +
+      '<div class="stat-card"><div class="stat-val">' + totalMin + '</div><div class="stat-label">Total Minutes</div></div>' +
+      '<div class="stat-card"><div class="stat-val">' + Math.round(totalVol/1000) + 'k</div><div class="stat-label">Total Volume (lbs)</div></div></div>';
+    html += '<div class="section-label">Workout History</div>';
     state.workoutHistory.slice(0, 20).forEach((w, i) => {
       const prog = PROGRAMS[w.programId] || {};
       const dur = Math.round(w.duration / 60000);
-      const durLabel = dur < 1 ? '<1m' : dur + 'm';
       const doneSets = w.exercises.reduce((a, ex) => a + ex.sets.filter(s => s.done).length, 0);
       const date = new Date(w.endTs || w.startTs);
-      html += '<div class="hist-item">'
-        + '<div class="hist-top">'
-        + '<div style="flex:1;cursor:pointer" onclick="showHistDetail(' + i + ')">'
-        + '<div class="badge badge-green" style="margin-bottom:6px;font-size:10px">' + (prog.shortName||'Workout') + ' · Ph ' + w.phaseNum + '</div>'
-        + '<div class="hist-title">' + w.label + '</div>'
-        + '</div>'
-        + '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;margin-left:12px">'
-        + '<button onclick="deleteWorkout(' + i + ')" style="background:var(--red-dim);border:1px solid rgba(232,64,64,0.3);border-radius:8px;padding:7px 9px;cursor:pointer;display:flex;align-items:center;justify-content:center">'
-        + '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#e84040" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">'
-        + '<polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M9 6V4h6v2"/>'
-        + '</svg></button>'
-        + '<div style="text-align:right">'
-        + '<div class="hist-date">' + date.toLocaleDateString('en-US',{month:'short',day:'numeric'}) + '</div>'
-        + '<div style="font-size:11px;color:var(--text3);margin-top:2px">' + date.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}) + '</div>'
-        + '</div></div></div>'
-        + '<div class="hist-stats" style="cursor:pointer" onclick="showHistDetail(' + i + ')">'
-        + '<div class="hist-stat"><span>' + durLabel + '</span> duration</div>'
-        + '<div class="hist-stat"><span>' + doneSets + '</span> sets</div>'
-        + '<div class="hist-stat"><span>' + w.exercises.length + '</span> exercises</div>'
-        + '</div></div>';
+      html += '<div class="hist-item"><div class="hist-top">' +
+        '<div style="flex:1;cursor:pointer" onclick="showHistDetail(' + i + ')">' +
+        '<div class="badge badge-green" style="margin-bottom:6px;font-size:10px">' + (prog.shortName||'Workout') + ' · Ph ' + w.phaseNum + '</div>' +
+        '<div class="hist-title">' + w.label + '</div></div>' +
+        '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;margin-left:12px">' +
+        '<button onclick="deleteWorkout(' + i + ')" style="background:var(--red-dim);border:1px solid rgba(232,64,64,0.3);border-radius:8px;padding:7px 9px;cursor:pointer;display:flex;align-items:center">' +
+        '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#e84040" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M9 6V4h6v2"/></svg></button>' +
+        '<div style="text-align:right"><div class="hist-date">' + date.toLocaleDateString('en-US',{month:'short',day:'numeric'}) + '</div>' +
+        '<div style="font-size:11px;color:var(--text3);margin-top:2px">' + date.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}) + '</div></div></div></div>' +
+        '<div class="hist-stats" style="cursor:pointer" onclick="showHistDetail(' + i + ')">' +
+        '<div class="hist-stat"><span>' + (dur < 1 ? '<1m' : dur + 'm') + '</span> duration</div>' +
+        '<div class="hist-stat"><span>' + doneSets + '</span> sets</div>' +
+        '<div class="hist-stat"><span>' + w.exercises.length + '</span> exercises</div></div></div>';
     });
   } else if (!state.selectedProgram) {
-    html += `<div class="empty">
-      <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-      <div class="empty-title">No Data Yet</div>
-      <div class="empty-sub">Select a program on the Home screen and log your first workout.</div>
-    </div>`;
+    html += '<div class="empty"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><div class="empty-title">No Data Yet</div><div class="empty-sub">Select a program on the Home screen and log your first workout.</div></div>';
   }
-
   el.innerHTML = html;
-
 }
 
 function renderPhaseCalendar(prog, info) {
   const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth();
+  const year = now.getFullYear(), month = now.getMonth(), todayNum = now.getDate();
   const monthName = now.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
   const firstDow = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const todayNum = now.getDate();
-
-  // Worked days (by calendar date) for this program
-  const workedDays = new Set((state.workoutHistory || [])
-    .filter(w => w.programId === prog.id)
-    .map(w => {
-      const d = new Date(w.endTs || w.startTs);
-      if (d.getFullYear() === year && d.getMonth() === month) return d.getDate();
-      return null;
-    }).filter(Boolean));
-
-  let html = `<div class="section-label">Workout Calendar</div><div class="card cal-wrap">
-    <div class="cal-header">
-      <div class="cal-month">${monthName}</div>
-      ${info ? `<div class="badge badge-amber">Phase ${info.currentPhase.num}: ${info.currentPhase.name}</div>` : ''}
-    </div>
-    <div class="cal-grid">
-      ${['S','M','T','W','T','F','S'].map(d => `<div class="cal-dow">${d}</div>`).join('')}
-      ${Array.from({ length: firstDow }, () => '<div class="cal-cell empty"></div>').join('')}
-      ${Array.from({ length: daysInMonth }, (_, i) => {
-        const d = i + 1;
-        const isWorked = workedDays.has(d);
-        const isToday = d === todayNum;
-        let cls = 'cal-cell';
-        if (isWorked) cls += ' worked';
-        if (isToday) cls += ' today';
-        return `<div class="${cls}">${d}</div>`;
-      }).join('')}
-    </div>
-    <div class="cal-legend">
-      <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--green-dim);border:1px solid var(--green)"></div>Workout done</div>
-      <div class="cal-legend-item"><div class="cal-legend-dot" style="border:2px solid var(--amber)"></div>Today</div>
-    </div>
-  </div>`;
-  return html;
+  const workedDays = new Set((state.workoutHistory || []).filter(w => w.programId === prog.id).map(w => { const d = new Date(w.endTs || w.startTs); if (d.getFullYear() === year && d.getMonth() === month) return d.getDate(); return null; }).filter(Boolean));
+  return '<div class="section-label">Workout Calendar</div><div class="card cal-wrap">' +
+    '<div class="cal-header"><div class="cal-month">' + monthName + '</div>' + (info ? '<div class="badge badge-amber">Phase ' + info.currentPhase.num + ': ' + info.currentPhase.name + '</div>' : '') + '</div>' +
+    '<div class="cal-grid">' + ['S','M','T','W','T','F','S'].map(d => '<div class="cal-dow">' + d + '</div>').join('') +
+    Array.from({ length: firstDow }, () => '<div class="cal-cell empty"></div>').join('') +
+    Array.from({ length: daysInMonth }, (_, i) => { const d = i+1; const cls = 'cal-cell' + (workedDays.has(d)?' worked':'') + (d===todayNum?' today':''); return '<div class="' + cls + '">' + d + '</div>'; }).join('') + '</div>' +
+    '<div class="cal-legend"><div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--green-dim);border:1px solid var(--green)"></div>Workout done</div><div class="cal-legend-item"><div class="cal-legend-dot" style="border:2px solid var(--amber)"></div>Today</div></div></div>';
 }
 
 function renderPhaseTable(prog, info) {
-  let html = `<div class="section-label">Phase Schedule</div><div class="card">
-    <table class="phase-table">
-      <thead><tr><th>Phase</th><th>Name</th><th>Workouts</th><th>Status</th></tr></thead>
-      <tbody>`;
-  let cumWorkouts = 0;
+  let html = '<div class="section-label">Phase Schedule</div><div class="card"><table class="phase-table"><thead><tr><th>Phase</th><th>Name</th><th>Workouts</th><th>Status</th></tr></thead><tbody>';
   prog.phases.forEach(ph => {
     const isCurrent = info && ph.num === info.currentPhase.num;
     const isDone = info && ph.num < info.currentPhase.num;
     const completedInPhase = isDone ? ph.workoutsRequired : (isCurrent ? info.workoutsIntoPhase : 0);
     const status = isDone ? 'Done' : isCurrent ? 'Active' : 'Upcoming';
-    const statusClass = isDone ? 'badge-green' : isCurrent ? 'badge-amber' : '';
-    cumWorkouts += ph.workoutsRequired;
-    html += `<tr class="${isCurrent ? 'phase-row current' : ''}">
-      <td><strong>${ph.num}</strong></td>
-      <td>${ph.name}<br><span style="font-size:10px;color:var(--text3)">${ph.objective}</span></td>
-      <td style="font-size:12px">
-        ${completedInPhase}/${ph.workoutsRequired}
-        ${isCurrent ? `<div class="phase-bar-wrap" style="margin-top:4px;height:4px"><div class="phase-bar" style="width:${Math.round(completedInPhase/ph.workoutsRequired*100)}%;height:4px"></div></div>` : ''}
-      </td>
-      <td><span class="badge ${statusClass}" style="font-size:10px">${status}</span></td>
-    </tr>`;
+    html += '<tr class="' + (isCurrent ? 'phase-row current' : '') + '"><td><strong>' + ph.num + '</strong></td>' +
+      '<td>' + ph.name + '<br><span style="font-size:10px;color:var(--text3)">' + ph.objective + '</span></td>' +
+      '<td style="font-size:12px">' + completedInPhase + '/' + ph.workoutsRequired + (isCurrent ? '<div class="phase-bar-wrap" style="margin-top:4px;height:4px"><div class="phase-bar" style="width:' + Math.round(completedInPhase/ph.workoutsRequired*100) + '%;height:4px"></div></div>' : '') + '</td>' +
+      '<td><span class="badge ' + (isDone ? 'badge-green' : isCurrent ? 'badge-amber' : '') + '" style="font-size:10px">' + status + '</span></td></tr>';
   });
-  html += '</tbody></table></div>';
-  return html;
+  return html + '</tbody></table></div>';
 }
 
 function showHistDetail(idx) {
@@ -2178,109 +1528,31 @@ function showHistDetail(idx) {
   const prog = PROGRAMS[w.programId] || {};
   const dur = Math.round(w.duration / 60000);
   const doneSets = w.exercises.reduce((a, ex) => a + ex.sets.filter(s => s.done).length, 0);
-  const vol = w.exercises.reduce((a, ex) =>
-    a + ex.sets.filter(s => s.done && s.reps && s.weight).reduce((b, s) =>
-      b + parseInt(s.reps || 0) * parseFloat(s.weight || 0), 0), 0);
+  const vol = w.exercises.reduce((a, ex) => a + ex.sets.filter(s => s.done && s.reps && s.weight).reduce((b, s) => b + parseInt(s.reps||0)*parseFloat(s.weight||0), 0), 0);
   const date = new Date(w.endTs || w.startTs);
-
-  let html = `
-    <button class="btn btn-sm" onclick="renderProgress()" style="margin-bottom:14px">← Back</button>
-    <div class="badge badge-green" style="margin-bottom:8px">${prog.shortName || ''} · Phase ${w.phaseNum}</div>
-    <div class="card-title" style="font-size:22px;margin-bottom:4px">${w.label}</div>
-    <div style="font-size:13px;color:var(--text2);margin-bottom:16px">${date.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})}</div>
-    <div class="stats-grid" style="margin-bottom:16px">
-      <div class="stat-card"><div class="stat-val">${dur}m</div><div class="stat-label">Duration</div></div>
-      <div class="stat-card"><div class="stat-val">${doneSets}</div><div class="stat-label">Sets Done</div></div>
-      ${vol > 0 ? `<div class="stat-card" style="grid-column:span 2"><div class="stat-val">${Math.round(vol).toLocaleString()}</div><div class="stat-label">Volume (lbs)</div></div>` : ''}
-    </div>
-    <div class="section-label">Exercise Log</div>
-    <div class="card">`;
+  let html = '<button class="btn btn-sm" onclick="renderProgress()" style="margin-bottom:14px">← Back</button>' +
+    '<div class="badge badge-green" style="margin-bottom:8px">' + (prog.shortName||'') + ' · Phase ' + w.phaseNum + '</div>' +
+    '<div class="card-title" style="font-size:22px;margin-bottom:4px">' + w.label + '</div>' +
+    '<div style="font-size:13px;color:var(--text2);margin-bottom:16px">' + date.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'}) + '</div>' +
+    '<div class="stats-grid" style="margin-bottom:16px"><div class="stat-card"><div class="stat-val">' + dur + 'm</div><div class="stat-label">Duration</div></div>' +
+    '<div class="stat-card"><div class="stat-val">' + doneSets + '</div><div class="stat-label">Sets Done</div></div>' +
+    (vol > 0 ? '<div class="stat-card" style="grid-column:span 2"><div class="stat-val">' + Math.round(vol).toLocaleString() + '</div><div class="stat-label">Volume (lbs)</div></div>' : '') + '</div>' +
+    '<div class="section-label">Exercise Log</div><div class="card">';
   w.exercises.forEach(ex => {
-    const doneSets = ex.sets.filter(s => s.done);
-    html += `<div class="blueprint-ex">
-      <div class="blueprint-ex-name">${ex.name}</div>`;
-    if (doneSets.length) {
-      html += `<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px">`;
-      doneSets.forEach((s, i) => {
-        html += `<div style="background:var(--bg3);border-radius:8px;padding:6px 10px;font-size:12px">
-          <strong>Set ${i+1}</strong>: ${s.reps || '—'} reps${s.weight ? ' @ ' + s.weight + ' lbs' : ''}
-        </div>`;
-      });
-      html += '</div>';
-    } else {
-      html += `<div style="font-size:12px;color:var(--text3);margin-top:4px">No sets logged</div>`;
-    }
+    const ds = ex.sets.filter(s => s.done);
+    html += '<div class="blueprint-ex"><div class="blueprint-ex-name">' + ex.name + '</div>';
+    if (ds.length) { html += '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px">'; ds.forEach((s,i) => { html += '<div style="background:var(--bg3);border-radius:8px;padding:6px 10px;font-size:12px"><strong>Set ' + (i+1) + '</strong>: ' + (s.reps||'—') + ' reps' + (s.weight ? ' @ ' + s.weight + ' lbs' : '') + '</div>'; }); html += '</div>'; }
+    else { html += '<div style="font-size:12px;color:var(--text3);margin-top:4px">No sets logged</div>'; }
     html += '</div>';
   });
   html += '</div>';
   document.getElementById('progress-content').innerHTML = html;
 }
 
-// ═══════════════════════════════════════════════════════
-// SWIPE TO DELETE
-// ═══════════════════════════════════════════════════════
-let swipeStartX = 0;
-let swipeStartY = 0;
-let swipeTracking = false;
-let currentSwiped = null;
-
-function initSwipe(el, idx) {
-  el.addEventListener('touchstart', e => {
-    swipeStartX = e.touches[0].clientX;
-    swipeStartY = e.touches[0].clientY;
-    swipeTracking = true;
-  }, { passive: true });
-
-  el.addEventListener('touchmove', e => {
-    if (!swipeTracking) return;
-    const dx = e.touches[0].clientX - swipeStartX;
-    const dy = Math.abs(e.touches[0].clientY - swipeStartY);
-    // If scrolling vertically, cancel swipe tracking
-    if (dy > Math.abs(dx) && dy > 8) { swipeTracking = false; return; }
-    // Prevent page scroll if swiping horizontally
-    if (Math.abs(dx) > 8) e.preventDefault();
-  }, { passive: false });
-
-  el.addEventListener('touchend', e => {
-    if (!swipeTracking) return;
-    swipeTracking = false;
-    const dx = e.changedTouches[0].clientX - swipeStartX;
-    const dy = Math.abs(e.changedTouches[0].clientY - swipeStartY);
-    if (dy > 40) return;
-    const inner = document.getElementById('hi-' + idx);
-    if (!inner) return;
-    if (dx < -50) {
-      // Close any other open item
-      if (currentSwiped !== null && currentSwiped !== idx) {
-        const prev = document.getElementById('hi-' + currentSwiped);
-        if (prev) prev.classList.remove('swiped');
-      }
-      inner.classList.add('swiped');
-      currentSwiped = idx;
-    } else if (dx > 20) {
-      inner.classList.remove('swiped');
-      if (currentSwiped === idx) currentSwiped = null;
-    } else if (Math.abs(dx) < 10) {
-      // Tap — open detail if not swiped
-      if (!inner.classList.contains('swiped')) showHistDetail(idx);
-      else { inner.classList.remove('swiped'); currentSwiped = null; }
-    }
-  }, { passive: true });
-}
-
-function handleHistClick(idx) {
-  // Handled inside initSwipe touchend
-}
-
 function deleteWorkout(idx) {
   const w = state.workoutHistory[idx];
-  const dur = Math.round((w.duration || 0) / 60000);
-  const label = w.label || 'this workout';
-  if (!confirm('Delete "' + label + '" (' + dur + 'm)? This cannot be undone.')) return;
-  state.workoutHistory.splice(idx, 1);
-  saveState();
-  showToast('Workout deleted');
-  renderProgress();
+  if (!confirm('Delete "' + (w.label||'this workout') + '"? This cannot be undone.')) return;
+  state.workoutHistory.splice(idx, 1); saveState(); showToast('Workout deleted'); renderProgress();
 }
 
 // ═══════════════════════════════════════════════════════
@@ -2288,140 +1560,36 @@ function deleteWorkout(idx) {
 // ═══════════════════════════════════════════════════════
 function calcStreak() {
   if (!state.workoutHistory.length) return 0;
-  const days = [...new Set(state.workoutHistory.map(w => {
-    const d = new Date(w.endTs || w.startTs);
-    d.setHours(0, 0, 0, 0);
-    return d.getTime();
-  }))].sort((a, b) => b - a);
-  let streak = 0;
-  let check = new Date();
-  check.setHours(0, 0, 0, 0);
+  const days = [...new Set(state.workoutHistory.map(w => { const d = new Date(w.endTs || w.startTs); d.setHours(0,0,0,0); return d.getTime(); }))].sort((a,b) => b-a);
+  let streak = 0, check = new Date(); check.setHours(0,0,0,0);
   for (const day of days) {
-    if (day === check.getTime() || day === check.getTime() - 86400000) {
-      streak++;
-      check = new Date(day);
-      check.setDate(check.getDate() - 1);
-    } else break;
+    if (day === check.getTime() || day === check.getTime() - 86400000) { streak++; check = new Date(day); check.setDate(check.getDate()-1); } else break;
   }
   return streak;
 }
 
 // ═══════════════════════════════════════════════════════
-// EXERCISE VIDEO PANEL
+// VIDEO PANEL
 // ═══════════════════════════════════════════════════════
-
-// Pre-mapped Mind Pump TV video IDs for common exercises
 const EXERCISE_VIDEOS = {
-  // Squats
-  'phase 1 squat': 'k0GCnFxhqj4',
-  'dumbbell squats': 'k0GCnFxhqj4',
-  'dumbbell goblet squats': 'MeIiIdhvXT4',
-  'dumbbell front squat': 'k0GCnFxhqj4',
-  'phase iii dumbbell squat': 'k0GCnFxhqj4',
-  'phase iv dumbbell squat': 'k0GCnFxhqj4',
-  'dunphy squat': 'k0GCnFxhqj4',
-  'box jump': 'tHfi6yTZDhY',
-  // Deadlifts
-  'phase 1 dumbbell sumo deadlift': 'mBEChFRsmFo',
-  'dumbbell romanian deadlifts': 'JCXUYuzwNrM',
-  'dumbbell single leg deadlift': 'fMVEt4fRMuI',
-  'deadlifts': 'ytGaGIn3SjE',
-  // Rows
-  'maps strength row': 'roCP8ofLcZ8',
-  'single arm bent over dumbbell row': 'roCP8ofLcZ8',
-  'renegade row to push up': 'v4JiCNlxBAs',
-  'elbows out db rows': 'roCP8ofLcZ8',
-  'supinated bent over db rows': 'roCP8ofLcZ8',
-  'band speed row': 'roCP8ofLcZ8',
-  // Press
-  'dumbbell bench press': 'VmB1G1K7v94',
-  'dumbbell incline press': 'VmB1G1K7v94',
-  'incline dumbbell press': 'VmB1G1K7v94',
-  'dumbbell press': 'VmB1G1K7v94',
-  'overhead press (push press)': 'iaBVBup-RwU',
-  'one arm dumbbell shoulder press': 'iaBVBup-RwU',
-  'seated arnold press': 'iaBVBup-RwU',
-  'dumbbell rotating shoulder press': 'iaBVBup-RwU',
-  'dumbbell push press': 'iaBVBup-RwU',
-  'plyo push-ups': 'IODxDxX7oi4',
-  'push-ups': 'IODxDxX7oi4',
-  'push up with rotation': 'IODxDxX7oi4',
-  'weighted dips': '_f8GGWnBSFI',
-  'dips (weighted)': '_f8GGWnBSFI',
-  // Pull
-  'weighted or body weight pull-ups': 'eGo4IYlbE5g',
-  'weighted pull-ups': 'eGo4IYlbE5g',
-  'supinated pull-ups': 'eGo4IYlbE5g',
-  // Lunges
-  'walking lunges': 'L8fvypPrzzs',
-  'maps matrix lunges': 'L8fvypPrzzs',
-  'maps rotational lunge': 'L8fvypPrzzs',
-  'alternating lunge jumps': 'tHfi6yTZDhY',
-  // Curls / arms
-  'dumbbell curls': 'ykJmrZ5v0Oo',
-  'alternating supinating curls': 'ykJmrZ5v0Oo',
-  'dumbbell preacher curls': 'ykJmrZ5v0Oo',
-  'dumbbell skull crushers': 'ir5zvpBXRzE',
-  'seated db oh tricep extensions': 'ir5zvpBXRzE',
-  // Swings / power
-  'dumbbell swings': 'mBEChFRsmFo',
-  'double dumbbell swings': 'mBEChFRsmFo',
-  'dumbbell high pull': 'mBEChFRsmFo',
-  'single arm dumbbell snatch': 'mBEChFRsmFo',
-  'ice skaters': 'tHfi6yTZDhY',
-  // Carries
-  'maps dumbbell suitcase carry': 'V7NKIFUaWl4',
-  'front loaded kettlebell walk': 'V7NKIFUaWl4',
-  // Core
-  'leg raises': 'JB2oyawG9KQ',
-  'decline sit-ups': 'JB2oyawG9KQ',
-  'ball crunches': 'JB2oyawG9KQ',
-  // Calf
-  'standing calf raises': 'JB2oyawG9KQ',
-  'standing single leg calf raises': 'JB2oyawG9KQ',
+  'dumbbell bench press': 'VmB1G1K7v94', 'incline dumbbell press': 'VmB1G1K7v94', 'dumbbell incline press': 'VmB1G1K7v94',
+  'deadlifts': 'ytGaGIn3SjE', 'dumbbell squats': 'k0GCnFxhqj4', 'weighted pull-ups': 'eGo4IYlbE5g',
+  'walking lunges': 'L8fvypPrzzs', 'dumbbell curls': 'ykJmrZ5v0Oo', 'dumbbell skull crushers': 'ir5zvpBXRzE',
+  'kettlebell swing': 'mBEChFRsmFo', 'kettlebell turkish get-up': 'mBEChFRsmFo',
 };
 
-const MINDPUMP_CHANNEL = 'UChVak8_IyuqcErdf_jQUOHA';
-
-function getVideoId(exerciseName) {
-  return EXERCISE_VIDEOS[exerciseName.toLowerCase()] || null;
-}
-
 function buildVideoPanel(exerciseName, panelId) {
-  const videoId = getVideoId(exerciseName);
+  const videoId = EXERCISE_VIDEOS[(exerciseName||'').toLowerCase()];
   const searchQuery = encodeURIComponent('Mind Pump ' + exerciseName);
-  const channelSearchUrl = `https://www.youtube.com/results?search_query=${searchQuery}&sp=EgIQAQ%253D%253D`;
-
   const embedHtml = videoId
-    ? `<iframe class="video-embed" src="https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>`
-    : `<div style="background:var(--bg2);border-radius:8px;padding:20px;text-align:center;font-size:13px;color:var(--text2)">
-        Tap the button below to search Mind Pump TV for this exercise.
-       </div>`;
-
-  return `
-    <div class="video-panel" id="vp-${panelId}">
-      <div class="video-panel-header" onclick="toggleVideoPanel('${panelId}')">
-        <div class="video-panel-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#ff0000">
-            <path d="M22.54 6.42A2.78 2.78 0 0020.76 4.6C19.13 4 12 4 12 4s-7.13 0-8.76.56A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.24 19.4C4.87 20 12 20 12 20s7.13 0 8.76-.56a2.78 2.78 0 001.78-1.78A29 29 0 0023 12a29 29 0 00-.46-5.58z"/>
-            <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white" stroke="none"/>
-          </svg>
-          How to do this exercise
-        </div>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2" id="vp-chevron-${panelId}">
-          <polyline points="6 9 12 15 18 9"/>
-        </svg>
-      </div>
-      <div class="video-panel-body" id="vpb-${panelId}">
-        ${embedHtml}
-        <a href="${channelSearchUrl}" target="_blank" class="video-search-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-          </svg>
-          Search Mind Pump TV on YouTube
-        </a>
-      </div>
-    </div>`;
+    ? '<iframe class="video-embed" src="https://www.youtube.com/embed/' + videoId + '?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>'
+    : '<div style="background:var(--bg2);border-radius:8px;padding:20px;text-align:center;font-size:13px;color:var(--text2)">Tap below to search Mind Pump TV for this exercise.</div>';
+  return '<div class="video-panel" id="vp-' + panelId + '"><div class="video-panel-header" onclick="toggleVideoPanel(\'' + panelId + '\')">' +
+    '<div class="video-panel-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#ff0000"><path d="M22.54 6.42A2.78 2.78 0 0020.76 4.6C19.13 4 12 4 12 4s-7.13 0-8.76.56A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.24 19.4C4.87 20 12 20 12 20s7.13 0 8.76-.56a2.78 2.78 0 001.78-1.78A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white" stroke="none"/></svg>How to do this exercise</div>' +
+    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2" id="vp-chevron-' + panelId + '"><polyline points="6 9 12 15 18 9"/></svg></div>' +
+    '<div class="video-panel-body" id="vpb-' + panelId + '">' + embedHtml +
+    '<a href="https://www.youtube.com/results?search_query=' + searchQuery + '" target="_blank" class="video-search-btn">' +
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Search Mind Pump TV on YouTube</a></div></div>';
 }
 
 function toggleVideoPanel(panelId) {
@@ -2433,286 +1601,70 @@ function toggleVideoPanel(panelId) {
 }
 
 // ═══════════════════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════════════════
-loadState();
-renderHome();
-
-// Re-render timer for active workout
-setInterval(() => {
-  if (state.activeWorkout && state.currentScreen === 'log') {
-    const elapsed = Math.floor((Date.now() - state.activeWorkout.startTs) / 60000);
-    const doneCount = state.activeWorkout.exercises.reduce((a, ex) => a + ex.sets.filter(s => s.done).length, 0);
-    const totalSets = state.activeWorkout.exercises.reduce((a, ex) => a + ex.sets.length, 0);
-    document.getElementById('log-subtitle').textContent = `${elapsed}m elapsed · ${doneCount}/${totalSets} sets`;
-  }
-
-// ═══════════════════════════════════════════════════════
 // REST TIMER
 // ═══════════════════════════════════════════════════════
-let _restInterval = null;
-let _restTotal = 0;
+let _restInterval = null, _restTotal = 0;
 
 function parseRestSeconds(restStr) {
   if (!restStr || /no rest|composure/i.test(restStr)) return 0;
   const minM = restStr.match(/([0-9.]+)\s*-?\s*([0-9.]+)?\s*min/i);
   if (minM) return Math.round(parseFloat(minM[1]) * 60);
   const secM = restStr.match(/([0-9]+)\s*-?\s*([0-9]+)?\s*sec/i);
-  if (secM) {
-    const lo = parseInt(secM[1]), hi = secM[2] ? parseInt(secM[2]) : lo;
-    return Math.round((lo + hi) / 2);
-  }
+  if (secM) { const lo = parseInt(secM[1]), hi = secM[2] ? parseInt(secM[2]) : lo; return Math.round((lo + hi) / 2); }
   return 0;
 }
 
 function _beep(freq, dur, delay, ctx) {
-  const osc = ctx.createOscillator();
-  const gain = ctx.createGain();
+  const osc = ctx.createOscillator(), gain = ctx.createGain();
   osc.connect(gain); gain.connect(ctx.destination);
   osc.type = 'sine'; osc.frequency.value = freq;
   gain.gain.setValueAtTime(0.45, ctx.currentTime + delay);
   gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + dur);
-  osc.start(ctx.currentTime + delay);
-  osc.stop(ctx.currentTime + delay + dur + 0.05);
+  osc.start(ctx.currentTime + delay); osc.stop(ctx.currentTime + delay + dur + 0.05);
 }
 
-function playRestDone() {
-  try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    _beep(523, 0.12, 0, ctx);
-    _beep(659, 0.12, 0.18, ctx);
-    _beep(880, 0.28, 0.36, ctx);
-  } catch(e) {}
-}
-
-function playTick() {
-  try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    _beep(440, 0.06, 0, ctx);
-  } catch(e) {}
-}
+function playRestDone() { try { const ctx = new (window.AudioContext || window.webkitAudioContext)(); _beep(523,0.12,0,ctx); _beep(659,0.12,0.18,ctx); _beep(880,0.28,0.36,ctx); } catch(e) {} }
+function playTick() { try { const ctx = new (window.AudioContext || window.webkitAudioContext)(); _beep(440,0.06,0,ctx); } catch(e) {} }
 
 function startRestTimer(seconds) {
-  clearInterval(_restInterval);
-  _restTotal = seconds;
+  clearInterval(_restInterval); _restTotal = seconds;
   const bar = document.getElementById('rest-timer-bar');
   const digits = document.getElementById('rest-timer-digits');
   const fill = document.getElementById('rest-timer-fill');
   if (!bar) return;
-
   let remaining = seconds;
-
-  function fmt(s) {
-    const m = Math.floor(s / 60), sec = s % 60;
-    return m > 0 ? m + ':' + String(sec).padStart(2,'0') : sec + 's';
-  }
-
-  function update() {
-    digits.textContent = fmt(remaining);
-    const pct = (remaining / _restTotal) * 100;
-    fill.style.width = pct + '%';
-    const urgent = remaining <= 5;
-    digits.classList.toggle('urgent', urgent);
-    fill.classList.toggle('urgent', urgent);
-  }
-
-  update();
-  bar.classList.add('visible');
-
+  function fmt(s) { const m = Math.floor(s/60), sec = s%60; return m > 0 ? m + ':' + String(sec).padStart(2,'0') : sec + 's'; }
+  function update() { digits.textContent = fmt(remaining); fill.style.width = (remaining/_restTotal*100) + '%'; const urgent = remaining <= 5; digits.classList.toggle('urgent', urgent); fill.classList.toggle('urgent', urgent); }
+  update(); bar.classList.add('visible');
   _restInterval = setInterval(() => {
     remaining--;
     if (remaining <= 3 && remaining > 0) playTick();
     if (remaining <= 0) {
-      clearInterval(_restInterval);
-      playRestDone();
-      setTimeout(() => {
-        bar.classList.remove('visible');
-        digits.textContent = '—';
-        fill.style.width = '100%';
-        digits.classList.remove('urgent');
-        fill.classList.remove('urgent');
-      }, 1200);
+      clearInterval(_restInterval); playRestDone();
+      setTimeout(() => { bar.classList.remove('visible'); digits.textContent = '—'; fill.style.width = '100%'; digits.classList.remove('urgent'); fill.classList.remove('urgent'); }, 1200);
       return;
     }
     update();
   }, 1000);
 }
 
-function skipRestTimer() {
-  clearInterval(_restInterval);
-  const bar = document.getElementById('rest-timer-bar');
-  if (bar) bar.classList.remove('visible');
-}
+function skipRestTimer() { clearInterval(_restInterval); const bar = document.getElementById('rest-timer-bar'); if (bar) bar.classList.remove('visible'); }
 
 // ═══════════════════════════════════════════════════════
-// EXERCISE IMAGES  (free-exercise-db via GitHub CDN)
+// INIT
 // ═══════════════════════════════════════════════════════
-const EXERCISE_IMAGES = {
-  'barbell back squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-squat-resized-FIXED-2.png&w=600',
-  'barbell front squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-squat-resized-FIXED-2.png&w=600',
-  'front squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-squat-resized-FIXED-2.png&w=600',
-  'hack squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-squat-resized-FIXED-2.png&w=600',
-  'goblet squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
-  'kettlebell goblet squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
-  'kettlebell front squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
-  'double kettlebell front squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
-  'dumbbell squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
-  'squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
-  'air squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
-  'pistol squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
-  'pistol squat assist': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
-  'single leg squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
-  'suspension squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
-  'suspension pistol squat assist': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
-  'suspension single leg squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
-  'dumbbell squat jump': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
-  'kettlebell jump squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
-  'suspension jump squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/12/dumbbell-squat-resized-FIXED.png&w=600',
-  'barbell deadlift': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Barbell-Deadlift-1.png&w=600',
-  'deadlift': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Barbell-Deadlift-1.png&w=600',
-  'trap bar deadlift': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Barbell-Deadlift-1.png&w=600',
-  'dumbbell deadlift': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Barbell-Deadlift-1.png&w=600',
-  'romanian deadlift': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png&w=600',
-  'dumbbell romanian deadlift': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png&w=600',
-  'kettlebell deadlift': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2022/01/Kettlebell-deadlift-1.png&w=600',
-  'double kettlebell deadlift': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2022/01/Kettlebell-deadlift-1.png&w=600',
-  'glute-ham raise': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png&w=600',
-  'nordic hamstring curl': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png&w=600',
-  'suspension nordic hamstring curl': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png&w=600',
-  'lying leg curl': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png&w=600',
-  'suspension hamstring curl': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Barbell-Romanian-Deadlift.png&w=600',
-  'barbell bench press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Bench-Press-resized.png&w=600',
-  'dumbbell bench press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Bench-Press-resized.png&w=600',
-  'barbell incline bench press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/incline-barbell-bench-press-resized.png&w=600',
-  'barbell incline press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/incline-barbell-bench-press-resized.png&w=600',
-  'incline barbell bench press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/incline-barbell-bench-press-resized.png&w=600',
-  'incline dumbbell press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/incline-barbell-bench-press-resized.png&w=600',
-  'dumbbell incline press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/incline-barbell-bench-press-resized.png&w=600',
-  'suspension chest press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Bench-Press-resized.png&w=600',
-  'suspension chest fly': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Bench-Press-resized.png&w=600',
-  'push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
-  'push up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
-  'weighted push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
-  'wide push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
-  'archer push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
-  'pseudo planche push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
-  'suspension push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
-  'suspension plyometric push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
-  'ring push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
-  'diamond push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/07/diamond-push-up-resized.png&w=600',
-  'pike push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/07/Pike-push-up.png&w=600',
-  'handstand push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/07/Pike-push-up.png&w=600',
-  'handstand hold': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/07/Pike-push-up.png&w=600',
-  'freestanding handstand': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/07/Pike-push-up.png&w=600',
-  'planche lean': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
-  'dip': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2020/05/Dipping-exercises.png&w=600',
-  'ring dip': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2020/05/Dipping-exercises.png&w=600',
-  'overhead press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-military-press-resized.png&w=600',
-  'barbell overhead press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-military-press-resized.png&w=600',
-  'push press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-military-press-resized.png&w=600',
-  'dumbbell push press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-military-press-resized.png&w=600',
-  'dumbbell overhead press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
-  'kettlebell press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
-  'double kettlebell press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
-  'kettlebell halo': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
-  'kettlebell windmill': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
-  'barbell row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Bent-over-barbell-row.png&w=600',
-  'dumbbell row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
-  'kettlebell row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
-  'double kettlebell row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Bent-over-barbell-row.png&w=600',
-  'bodyweight row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
-  'ring row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
-  'suspension row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
-  'suspension inverted row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
-  'suspension power pull': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
-  'suspension power row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
-  'suspension archer row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
-  'suspension face pull': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
-  'suspension reverse fly': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
-  'suspension y-fly': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
-  'suspension t-fly': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
-  'kettlebell renegade row': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
-  'pull-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
-  'chin-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/09/Chin-up.png&w=600',
-  'weighted pull-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/03/Weighted-pull-up-back.png&w=600',
-  'l-sit pull-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
-  'typewriter pull-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
-  'dead hang': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
-  'scapular pull-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
-  'one arm pull-up assist': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
-  'ring muscle-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
-  'suspension muscle up assist': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
-  'front lever hold': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
-  'front lever pull': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
-  'front lever tuck hold': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
-  'back lever hold': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/pull-up-2-resized.png&w=600',
-  'barbell curl': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/barbell-curl-resized.png&w=600',
-  'dumbbell curl': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Alternate-Biceps-Curl-resized.png&w=600',
-  'suspension bicep curl': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Alternate-Biceps-Curl-resized.png&w=600',
-  'skull crusher': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2018/11/Barbell-skull-crusher-resized.png&w=600',
-  'tricep overhead extension': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2018/11/Barbell-skull-crusher-resized.png&w=600',
-  'hip thrust': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/06/Hip-thrust.png&w=600',
-  'barbell hip thrust': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/04/barbell-hip-thrust-resized.png&w=600',
-  'glute bridge': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/06/Hip-thrust.png&w=600',
-  'suspension hip press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/06/Hip-thrust.png&w=600',
-  'suspension hip press single leg': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/06/Hip-thrust.png&w=600',
-  'dumbbell lunge': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Dumbbell-Lunge-resized-fixed.png&w=600',
-  'lunge': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Dumbbell-Lunge-resized-fixed.png&w=600',
-  'walking lunges': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Dumbbell-Lunge-resized-fixed.png&w=600',
-  'suspension lunge': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Dumbbell-Lunge-resized-fixed.png&w=600',
-  'suspension power lunge': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/Dumbbell-Lunge-resized-fixed.png&w=600',
-  'bulgarian split squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/Dumbbell-Bulgarian-Split-Squat-resized-FIXED.png&w=600',
-  'suspension bulgarian split squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/Dumbbell-Bulgarian-Split-Squat-resized-FIXED.png&w=600',
-  'shrimp squat': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/Dumbbell-Bulgarian-Split-Squat-resized-FIXED.png&w=600',
-  'step-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/11/dumbbell-step-up-resized.png&w=600',
-  'plank': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
-  'hollow body hold': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
-  'suspension fallout': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
-  'suspension rollout': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
-  'suspension pike': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2021/07/Pike-push-up.png&w=600',
-  'suspension body saw': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
-  'suspension mountain climber': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
-  'suspension atomic push-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
-  'hanging knee raise': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2019/05/Hanging-leg-raise-resized.png&w=600',
-  'l-sit hold': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2019/05/Hanging-leg-raise-resized.png&w=600',
-  'dragon flag': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2019/05/Hanging-leg-raise-resized.png&w=600',
-  'human flag prep': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2019/05/Hanging-leg-raise-resized.png&w=600',
-  'kettlebell swing': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
-  'kettlebell single arm swing': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
-  'kettlebell double swing': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
-  'kettlebell high pull': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
-  'kettlebell clean': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
-  'kettlebell clean to press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
-  'kettlebell clean and jerk': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
-  'kettlebell snatch': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
-  'kettlebell turkish get-up': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2022/01/Kettlebell-deadlift-1.png&w=600',
-  'kettlebell farmers walk': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/bent-over-one-arm-dumbbell-row-resized.png&w=600',
-  'kettlebell complex': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
-  'kettlebell long cycle': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
-  'kettlebell around the world': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
-  'kettlebell figure 8': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
-  'kettlebell jump clean': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
-  'power clean': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2017/03/Kettlebell-Swing-resized.png&w=600',
-  'calf raise': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-squat-resized-FIXED-2.png&w=600',
-  'leg press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/barbell-squat-resized-FIXED-2.png&w=600',
-  'suspension planche lean': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-resized.png&w=600',
-  'suspension curl to press': 'https://wsrv.nl/?url=weighttraining.guide/wp-content/uploads/2016/05/Dumbbell-Shoulder-Press-resized.png&w=600',
-};
+loadState();
+renderHome();
 
-
-
-
+setInterval(() => {
+  if (state.activeWorkout && state.currentScreen === 'log') {
+    const elapsed = Math.floor((Date.now() - state.activeWorkout.startTs) / 60000);
+    const doneCount = state.activeWorkout.exercises.reduce((a, ex) => a + ex.sets.filter(s => s.done).length, 0);
+    const totalSets = state.activeWorkout.exercises.reduce((a, ex) => a + ex.sets.length, 0);
+    const el = document.getElementById('log-subtitle');
+    if (el) el.textContent = elapsed + 'm elapsed · ' + doneCount + '/' + totalSets + ' sets';
+  }
 }, 15000);
 </script>
-
-<!-- REST TIMER BAR -->
-<div id="rest-timer-bar">
-  <div id="rest-timer-inner">
-    <div id="rest-timer-label">Rest</div>
-    <div id="rest-timer-digits">—</div>
-    <div id="rest-timer-track"><div id="rest-timer-fill"></div></div>
-    <button id="rest-timer-skip" onclick="skipRestTimer()">Skip</button>
-  </div>
-</div>
 </body>
 </html>
