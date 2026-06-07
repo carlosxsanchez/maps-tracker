@@ -975,6 +975,586 @@ const PROGRAMS = {
   }
 };
 
+  ,
+  macrocycle: {
+    id: 'macrocycle', name: 'Macro Cycle', shortName: 'Macro', color: '#4a9eff', totalWeeks: 12,
+    phases: [
+      { num: 1, name: 'Accumulation', weeks: 4, workoutsRequired: 12, startWeek: 1,
+        objective: 'Build volume and work capacity', intensity: '65-75%', tempo: '2:1:2', rest: '60-90 sec', sets: '3-4 sets', reps: '10-15 reps',
+        days: {
+          dumbbell: [
+            { day: 1, label: 'Day 1 — Lower Volume', exercises: [
+              { name: 'Goblet Squat', sets: 4, reps: '12', note: 'Full depth, stay upright' },
+              { name: 'Romanian Deadlift', sets: 4, reps: '12', note: 'Hinge at hips, soft knees' },
+              { name: 'Dumbbell Lunge', sets: 3, reps: '12/side' },
+              { name: 'Hip Thrust', sets: 3, reps: '15', note: 'Full hip extension at top' },
+              { name: 'Calf Raise', sets: 3, reps: '20' },
+            ]},
+            { day: 2, label: 'Day 2 — Upper Volume', exercises: [
+              { name: 'Dumbbell Bench Press', sets: 4, reps: '12' },
+              { name: 'Dumbbell Row', sets: 4, reps: '12/side' },
+              { name: 'Dumbbell Overhead Press', sets: 3, reps: '12' },
+              { name: 'Dumbbell Curl', sets: 3, reps: '15' },
+              { name: 'Tricep Overhead Extension', sets: 3, reps: '15' },
+            ]},
+            { day: 3, label: 'Day 3 — Full Body', exercises: [
+              { name: 'Dumbbell Squat', sets: 3, reps: '15' },
+              { name: 'Push-Up', sets: 3, reps: '15-20', note: 'Controlled descent' },
+              { name: 'Dumbbell Row', sets: 3, reps: '12/side' },
+              { name: 'Dumbbell Romanian Deadlift', sets: 3, reps: '12' },
+              { name: 'Plank', sets: 3, reps: '45 sec' },
+            ]},
+          ],
+          gym: [
+            { day: 1, label: 'Day 1 — Lower Volume', exercises: [
+              { name: 'Barbell Back Squat', sets: 4, reps: '12', note: 'Full depth' },
+              { name: 'Romanian Deadlift', sets: 4, reps: '12' },
+              { name: 'Leg Press', sets: 3, reps: '15' },
+              { name: 'Lying Leg Curl', sets: 3, reps: '15' },
+              { name: 'Calf Raise', sets: 4, reps: '20' },
+            ]},
+            { day: 2, label: 'Day 2 — Upper Volume', exercises: [
+              { name: 'Barbell Bench Press', sets: 4, reps: '12' },
+              { name: 'Barbell Row', sets: 4, reps: '12', note: 'Overhand grip' },
+              { name: 'Overhead Press', sets: 3, reps: '12' },
+              { name: 'Barbell Curl', sets: 3, reps: '15' },
+              { name: 'Skull Crusher', sets: 3, reps: '15' },
+            ]},
+            { day: 3, label: 'Day 3 — Full Body', exercises: [
+              { name: 'Trap Bar Deadlift', sets: 3, reps: '12' },
+              { name: 'Pull-Up', sets: 3, reps: '8-12', note: 'Use band if needed' },
+              { name: 'Dumbbell Bench Press', sets: 3, reps: '12' },
+              { name: 'Leg Press', sets: 3, reps: '15' },
+              { name: 'Plank', sets: 3, reps: '45 sec' },
+            ]},
+          ]
+        }
+      },
+      { num: 2, name: 'Intensification', weeks: 4, workoutsRequired: 12, startWeek: 5,
+        objective: 'Build strength and intensity', intensity: '80-90%', tempo: '3:1:1', rest: '2-3 min', sets: '4-5 sets', reps: '4-8 reps',
+        days: {
+          dumbbell: [
+            { day: 1, label: 'Day 1 — Lower Strength', exercises: [
+              { name: 'Goblet Squat', sets: 5, reps: '5', note: 'Heavy, controlled eccentric' },
+              { name: 'Romanian Deadlift', sets: 4, reps: '6' },
+              { name: 'Bulgarian Split Squat', sets: 4, reps: '8/side' },
+              { name: 'Hip Thrust', sets: 4, reps: '8' },
+            ]},
+            { day: 2, label: 'Day 2 — Upper Strength', exercises: [
+              { name: 'Dumbbell Bench Press', sets: 5, reps: '5', note: 'Heavy, spot if needed' },
+              { name: 'Dumbbell Row', sets: 5, reps: '6/side' },
+              { name: 'Dumbbell Overhead Press', sets: 4, reps: '6' },
+              { name: 'Weighted Push-Up', sets: 3, reps: '8' },
+            ]},
+            { day: 3, label: 'Day 3 — Power Day', exercises: [
+              { name: 'Dumbbell Squat Jump', sets: 4, reps: '6', note: 'Explosive concentric' },
+              { name: 'Dumbbell Deadlift', sets: 4, reps: '5' },
+              { name: 'Push-Up', sets: 4, reps: '8', note: 'Explosive' },
+              { name: 'Dumbbell Row', sets: 3, reps: '8/side' },
+            ]},
+          ],
+          gym: [
+            { day: 1, label: 'Day 1 — Lower Strength', exercises: [
+              { name: 'Barbell Back Squat', sets: 5, reps: '5', note: '80-85% 1RM' },
+              { name: 'Romanian Deadlift', sets: 4, reps: '6' },
+              { name: 'Hack Squat', sets: 3, reps: '8' },
+              { name: 'Glute-Ham Raise', sets: 3, reps: '8' },
+            ]},
+            { day: 2, label: 'Day 2 — Upper Strength', exercises: [
+              { name: 'Barbell Bench Press', sets: 5, reps: '5' },
+              { name: 'Weighted Pull-Up', sets: 4, reps: '6', note: 'Add weight progressively' },
+              { name: 'Overhead Press', sets: 4, reps: '6' },
+              { name: 'Barbell Row', sets: 4, reps: '6' },
+            ]},
+            { day: 3, label: 'Day 3 — Power Day', exercises: [
+              { name: 'Power Clean', sets: 4, reps: '4', note: 'Focus on technique' },
+              { name: 'Barbell Back Squat', sets: 3, reps: '3', note: '85% 1RM' },
+              { name: 'Push Press', sets: 4, reps: '5' },
+              { name: 'Barbell Row', sets: 3, reps: '6' },
+            ]},
+          ]
+        }
+      },
+      { num: 3, name: 'Peaking', weeks: 4, workoutsRequired: 12, startWeek: 9,
+        objective: 'Peak strength expression', intensity: '90-95%', tempo: '5:1:1', rest: '3-5 min', sets: '2-5 sets', reps: '1-5 reps',
+        days: {
+          dumbbell: [
+            { day: 1, label: 'Day 1 — Lower Peak', exercises: [
+              { name: 'Goblet Squat', sets: 5, reps: '3', note: 'Near maximal effort' },
+              { name: 'Romanian Deadlift', sets: 4, reps: '3' },
+              { name: 'Dumbbell Lunge', sets: 3, reps: '5/side' },
+            ]},
+            { day: 2, label: 'Day 2 — Upper Peak', exercises: [
+              { name: 'Dumbbell Bench Press', sets: 5, reps: '3', note: 'Max strength effort' },
+              { name: 'Dumbbell Row', sets: 4, reps: '5/side' },
+              { name: 'Dumbbell Overhead Press', sets: 3, reps: '5' },
+            ]},
+          ],
+          gym: [
+            { day: 1, label: 'Day 1 — Lower Peak', exercises: [
+              { name: 'Barbell Back Squat', sets: 5, reps: '2', note: '90-95% 1RM' },
+              { name: 'Deadlift', sets: 4, reps: '2', note: 'Near maximal' },
+              { name: 'Front Squat', sets: 3, reps: '3' },
+            ]},
+            { day: 2, label: 'Day 2 — Upper Peak', exercises: [
+              { name: 'Barbell Bench Press', sets: 5, reps: '2', note: '90-95% 1RM' },
+              { name: 'Weighted Pull-Up', sets: 4, reps: '4' },
+              { name: 'Overhead Press', sets: 3, reps: '3' },
+            ]},
+          ]
+        }
+      }
+    ]
+  },
+  suspension: {
+    id: 'suspension', name: 'MAPS Suspension', shortName: 'Suspension', color: '#9b59b6', totalWeeks: 18,
+    phases: [
+      { num: 1, name: 'Foundation', weeks: 6, workoutsRequired: 18, startWeek: 1,
+        objective: 'Build baseline suspension strength and stability', intensity: '60-70%', tempo: '2:1:2', rest: '60 sec', sets: '2-3 sets', reps: '10-15 reps',
+        days: {
+          dumbbell: [
+            { day: 1, label: 'Day 1 — Upper Push & Core', exercises: [
+              { name: 'Suspension Push-Up', sets: 3, reps: '12', note: 'Body at 45° for beginner' },
+              { name: 'Suspension Chest Fly', sets: 3, reps: '12', note: 'Control the return' },
+              { name: 'Suspension Fallout', sets: 3, reps: '10', note: 'Maintain plank position' },
+              { name: 'Suspension Pike', sets: 3, reps: '10', note: 'Drive hips up, arms straight' },
+              { name: 'Suspension Mountain Climber', sets: 3, reps: '20' },
+            ]},
+            { day: 2, label: 'Day 2 — Lower Body', exercises: [
+              { name: 'Suspension Squat', sets: 3, reps: '15', note: 'Hold handles for stability' },
+              { name: 'Suspension Lunge', sets: 3, reps: '12/side', note: 'Back foot in handles' },
+              { name: 'Suspension Hip Press', sets: 3, reps: '15', note: 'Heels in handles' },
+              { name: 'Suspension Hamstring Curl', sets: 3, reps: '10', note: 'Bridge and curl feet to glutes' },
+              { name: 'Single Leg Squat', sets: 3, reps: '8/side', note: 'Use handles for balance' },
+            ]},
+            { day: 3, label: 'Day 3 — Upper Pull & Shoulders', exercises: [
+              { name: 'Suspension Row', sets: 3, reps: '15', note: 'Pull chest to handles' },
+              { name: 'Suspension Face Pull', sets: 3, reps: '15', note: 'Pull to forehead, elbows wide' },
+              { name: 'Suspension Bicep Curl', sets: 3, reps: '12', note: 'Lean back, palms up' },
+              { name: 'Suspension Y-Fly', sets: 3, reps: '12', note: 'Arms form a Y overhead' },
+              { name: 'Suspension T-Fly', sets: 3, reps: '12', note: 'Arms form a T at shoulder height' },
+            ]},
+          ],
+          gym: [
+            { day: 1, label: 'Day 1 — Upper Push & Core', exercises: [
+              { name: 'Suspension Push-Up', sets: 3, reps: '12' },
+              { name: 'Suspension Chest Fly', sets: 3, reps: '12' },
+              { name: 'Suspension Fallout', sets: 3, reps: '10' },
+              { name: 'Suspension Pike', sets: 3, reps: '10' },
+              { name: 'Suspension Mountain Climber', sets: 3, reps: '20' },
+            ]},
+            { day: 2, label: 'Day 2 — Lower Body', exercises: [
+              { name: 'Suspension Squat', sets: 3, reps: '15' },
+              { name: 'Suspension Lunge', sets: 3, reps: '12/side' },
+              { name: 'Suspension Hip Press', sets: 3, reps: '15' },
+              { name: 'Suspension Hamstring Curl', sets: 3, reps: '10' },
+              { name: 'Single Leg Squat', sets: 3, reps: '8/side' },
+            ]},
+            { day: 3, label: 'Day 3 — Upper Pull & Shoulders', exercises: [
+              { name: 'Suspension Row', sets: 3, reps: '15' },
+              { name: 'Suspension Face Pull', sets: 3, reps: '15' },
+              { name: 'Suspension Bicep Curl', sets: 3, reps: '12' },
+              { name: 'Suspension Y-Fly', sets: 3, reps: '12' },
+              { name: 'Suspension T-Fly', sets: 3, reps: '12' },
+            ]},
+          ]
+        }
+      },
+      { num: 2, name: 'Strength', weeks: 6, workoutsRequired: 18, startWeek: 7,
+        objective: 'Build functional strength through suspension training', intensity: '75-85%', tempo: '3:1:2', rest: '90 sec', sets: '3-4 sets', reps: '6-10 reps',
+        days: {
+          dumbbell: [
+            { day: 1, label: 'Day 1 — Horizontal Push & Core', exercises: [
+              { name: 'Suspension Push-Up', sets: 4, reps: '10', note: 'More horizontal = harder' },
+              { name: 'Suspension Chest Press', sets: 4, reps: '8', note: 'Body parallel to ground' },
+              { name: 'Suspension Rollout', sets: 3, reps: '8' },
+              { name: 'Suspension Atomic Push-Up', sets: 3, reps: '8', superset: true },
+              { name: 'Suspension Mountain Climber', sets: 3, reps: '15', superset: true },
+            ]},
+            { day: 2, label: 'Day 2 — Lower Strength', exercises: [
+              { name: 'Suspension Pistol Squat Assist', sets: 4, reps: '8/side', note: 'Decrease assistance weekly' },
+              { name: 'Suspension Bulgarian Split Squat', sets: 4, reps: '8/side' },
+              { name: 'Suspension Hip Press Single Leg', sets: 3, reps: '10/side' },
+              { name: 'Suspension Hamstring Curl', sets: 4, reps: '8', note: 'Single leg variation' },
+            ]},
+            { day: 3, label: 'Day 3 — Vertical Pull', exercises: [
+              { name: 'Suspension Inverted Row', sets: 4, reps: '10', note: 'Body horizontal to ground' },
+              { name: 'Suspension Power Pull', sets: 3, reps: '8/side', note: 'Single-arm rotation' },
+              { name: 'Suspension Curl to Press', sets: 3, reps: '8' },
+              { name: 'Suspension Reverse Fly', sets: 3, reps: '12' },
+            ]},
+          ],
+          gym: [
+            { day: 1, label: 'Day 1 — Horizontal Push & Core', exercises: [
+              { name: 'Suspension Push-Up', sets: 4, reps: '10' },
+              { name: 'Suspension Chest Press', sets: 4, reps: '8' },
+              { name: 'Suspension Rollout', sets: 3, reps: '8' },
+              { name: 'Suspension Atomic Push-Up', sets: 3, reps: '8', superset: true },
+              { name: 'Suspension Mountain Climber', sets: 3, reps: '15', superset: true },
+            ]},
+            { day: 2, label: 'Day 2 — Lower Strength', exercises: [
+              { name: 'Suspension Pistol Squat Assist', sets: 4, reps: '8/side' },
+              { name: 'Suspension Bulgarian Split Squat', sets: 4, reps: '8/side' },
+              { name: 'Suspension Hip Press Single Leg', sets: 3, reps: '10/side' },
+              { name: 'Suspension Hamstring Curl', sets: 4, reps: '8' },
+            ]},
+            { day: 3, label: 'Day 3 — Vertical Pull', exercises: [
+              { name: 'Suspension Inverted Row', sets: 4, reps: '10' },
+              { name: 'Suspension Power Pull', sets: 3, reps: '8/side' },
+              { name: 'Suspension Curl to Press', sets: 3, reps: '8' },
+              { name: 'Suspension Reverse Fly', sets: 3, reps: '12' },
+            ]},
+          ]
+        }
+      },
+      { num: 3, name: 'Power', weeks: 6, workoutsRequired: 18, startWeek: 13,
+        objective: 'Develop explosive power and advanced suspension skills', intensity: '80-90%', tempo: '1:0:X', rest: '2 min', sets: '4-5 sets', reps: '4-8 reps',
+        days: {
+          dumbbell: [
+            { day: 1, label: 'Day 1 — Explosive Push', exercises: [
+              { name: 'Suspension Plyometric Push-Up', sets: 4, reps: '6', note: 'Explosive, hands off handles' },
+              { name: 'Suspension Chest Press', sets: 4, reps: '6', note: 'Accelerate through press' },
+              { name: 'Suspension Planche Lean', sets: 3, reps: '30 sec' },
+              { name: 'Suspension Body Saw', sets: 3, reps: '8' },
+            ]},
+            { day: 2, label: 'Day 2 — Lower Power', exercises: [
+              { name: 'Suspension Jump Squat', sets: 4, reps: '8', note: 'Explosive drive, soft landing' },
+              { name: 'Suspension Single Leg Squat', sets: 4, reps: '6/side' },
+              { name: 'Suspension Power Lunge', sets: 3, reps: '8/side', note: 'Jump and switch legs' },
+              { name: 'Suspension Nordic Hamstring Curl', sets: 3, reps: '5', note: 'Slow eccentric' },
+            ]},
+            { day: 3, label: 'Day 3 — Explosive Pull', exercises: [
+              { name: 'Suspension Muscle Up Assist', sets: 4, reps: '5', note: 'Row + transition + press' },
+              { name: 'Suspension Power Row', sets: 4, reps: '8', note: 'Explosive pull' },
+              { name: 'Suspension Archer Row', sets: 3, reps: '8/side' },
+              { name: 'Suspension Atomic Push-Up', sets: 3, reps: '10' },
+            ]},
+          ],
+          gym: [
+            { day: 1, label: 'Day 1 — Explosive Push', exercises: [
+              { name: 'Suspension Plyometric Push-Up', sets: 4, reps: '6' },
+              { name: 'Suspension Chest Press', sets: 4, reps: '6' },
+              { name: 'Suspension Planche Lean', sets: 3, reps: '30 sec' },
+              { name: 'Suspension Body Saw', sets: 3, reps: '8' },
+            ]},
+            { day: 2, label: 'Day 2 — Lower Power', exercises: [
+              { name: 'Suspension Jump Squat', sets: 4, reps: '8' },
+              { name: 'Suspension Single Leg Squat', sets: 4, reps: '6/side' },
+              { name: 'Suspension Power Lunge', sets: 3, reps: '8/side' },
+              { name: 'Suspension Nordic Hamstring Curl', sets: 3, reps: '5' },
+            ]},
+            { day: 3, label: 'Day 3 — Explosive Pull', exercises: [
+              { name: 'Suspension Muscle Up Assist', sets: 4, reps: '5' },
+              { name: 'Suspension Power Row', sets: 4, reps: '8' },
+              { name: 'Suspension Archer Row', sets: 3, reps: '8/side' },
+              { name: 'Suspension Atomic Push-Up', sets: 3, reps: '10' },
+            ]},
+          ]
+        }
+      }
+    ]
+  },
+  calisthenics: {
+    id: 'calisthenics', name: 'Calisthenics', shortName: 'Calisthenics', color: '#e74c3c', totalWeeks: 12,
+    phases: [
+      { num: 1, name: 'Fundamentals', weeks: 4, workoutsRequired: 12, startWeek: 1,
+        objective: 'Master foundational movement patterns', intensity: '60-70%', tempo: '2:1:2', rest: '90 sec', sets: '3 sets', reps: '8-15 reps',
+        days: {
+          dumbbell: [
+            { day: 1, label: 'Day 1 — Push', exercises: [
+              { name: 'Push-Up', sets: 3, reps: '12-20', note: 'Full range of motion' },
+              { name: 'Diamond Push-Up', sets: 3, reps: '10', note: 'Elbows in, triceps focus' },
+              { name: 'Pike Push-Up', sets: 3, reps: '10', note: 'Hips high, shoulder focus' },
+              { name: 'Dip', sets: 3, reps: '8-12', note: 'Parallel bars or chair' },
+              { name: 'Wide Push-Up', sets: 3, reps: '12' },
+            ]},
+            { day: 2, label: 'Day 2 — Pull', exercises: [
+              { name: 'Pull-Up', sets: 3, reps: '5-8', note: 'Full dead hang to chin over bar' },
+              { name: 'Chin-Up', sets: 3, reps: '6-10', note: 'Supinated grip' },
+              { name: 'Bodyweight Row', sets: 3, reps: '12-15', note: 'Under table or low bar' },
+              { name: 'Dead Hang', sets: 3, reps: '30 sec' },
+              { name: 'Scapular Pull-Up', sets: 3, reps: '10', note: 'Retract and depress scapulae' },
+            ]},
+            { day: 3, label: 'Day 3 — Legs & Core', exercises: [
+              { name: 'Squat', sets: 4, reps: '20', note: 'Full depth bodyweight' },
+              { name: 'Lunge', sets: 3, reps: '12/side' },
+              { name: 'Glute Bridge', sets: 3, reps: '20' },
+              { name: 'Plank', sets: 3, reps: '30-60 sec' },
+              { name: 'Hollow Body Hold', sets: 3, reps: '20-30 sec', note: 'Lower back pressed to floor' },
+              { name: 'Hanging Knee Raise', sets: 3, reps: '10-15' },
+            ]},
+          ],
+          gym: [
+            { day: 1, label: 'Day 1 — Push', exercises: [
+              { name: 'Push-Up', sets: 3, reps: '15-20' },
+              { name: 'Ring Dip', sets: 3, reps: '8-12' },
+              { name: 'Pike Push-Up', sets: 3, reps: '10' },
+              { name: 'Diamond Push-Up', sets: 3, reps: '10' },
+              { name: 'Dip', sets: 3, reps: '12' },
+            ]},
+            { day: 2, label: 'Day 2 — Pull', exercises: [
+              { name: 'Pull-Up', sets: 4, reps: '6-10' },
+              { name: 'Chin-Up', sets: 3, reps: '8-12' },
+              { name: 'Ring Row', sets: 3, reps: '12-15' },
+              { name: 'Dead Hang', sets: 3, reps: '30 sec' },
+              { name: 'Scapular Pull-Up', sets: 3, reps: '10' },
+            ]},
+            { day: 3, label: 'Day 3 — Legs & Core', exercises: [
+              { name: 'Squat', sets: 4, reps: '20' },
+              { name: 'Step-Up', sets: 3, reps: '15/side' },
+              { name: 'Nordic Hamstring Curl', sets: 3, reps: '5', note: 'Slow eccentric' },
+              { name: 'L-Sit Hold', sets: 3, reps: '10-20 sec' },
+              { name: 'Hanging Knee Raise', sets: 3, reps: '15' },
+            ]},
+          ]
+        }
+      },
+      { num: 2, name: 'Strength', weeks: 4, workoutsRequired: 12, startWeek: 5,
+        objective: 'Build calisthenics strength toward advanced skills', intensity: '75-85%', tempo: '3:2:1', rest: '2 min', sets: '4 sets', reps: '4-8 reps',
+        days: {
+          dumbbell: [
+            { day: 1, label: 'Day 1 — Advanced Push', exercises: [
+              { name: 'Archer Push-Up', sets: 4, reps: '8/side', note: 'Load one arm progressively' },
+              { name: 'Pseudo Planche Push-Up', sets: 4, reps: '8', note: 'Lean forward, straight body' },
+              { name: 'Handstand Hold', sets: 4, reps: '20-30 sec', note: 'Against wall, work balance' },
+              { name: 'Pike Push-Up', sets: 3, reps: '8', note: 'Head to floor depth' },
+              { name: 'Dip', sets: 3, reps: '10', note: 'Deep dip' },
+            ]},
+            { day: 2, label: 'Day 2 — Advanced Pull', exercises: [
+              { name: 'Weighted Pull-Up', sets: 4, reps: '5', note: 'Add 10-20% bodyweight' },
+              { name: 'L-Sit Pull-Up', sets: 3, reps: '5', note: 'Legs parallel throughout' },
+              { name: 'Typewriter Pull-Up', sets: 3, reps: '5/side', note: 'Shift to each side at top' },
+              { name: 'Front Lever Tuck Hold', sets: 3, reps: '10-15 sec', note: 'Knees to chest, horizontal' },
+              { name: 'Bodyweight Row', sets: 3, reps: '15', note: 'Feet elevated' },
+            ]},
+            { day: 3, label: 'Day 3 — Legs & Planche Prep', exercises: [
+              { name: 'Pistol Squat Assist', sets: 4, reps: '8/side', note: 'Work toward unassisted' },
+              { name: 'Bulgarian Split Squat', sets: 3, reps: '10/side' },
+              { name: 'Shrimp Squat', sets: 3, reps: '6/side', note: 'Reach back, grab ankle' },
+              { name: 'Planche Lean', sets: 4, reps: '10-20 sec', note: 'On parallettes, lean forward' },
+              { name: 'L-Sit Hold', sets: 4, reps: '15-20 sec' },
+            ]},
+          ],
+          gym: [
+            { day: 1, label: 'Day 1 — Advanced Push', exercises: [
+              { name: 'Archer Push-Up', sets: 4, reps: '8/side' },
+              { name: 'Ring Push-Up', sets: 4, reps: '10' },
+              { name: 'Handstand Hold', sets: 4, reps: '20-30 sec' },
+              { name: 'Ring Dip', sets: 4, reps: '8' },
+              { name: 'Pseudo Planche Push-Up', sets: 3, reps: '8' },
+            ]},
+            { day: 2, label: 'Day 2 — Advanced Pull', exercises: [
+              { name: 'Weighted Pull-Up', sets: 5, reps: '5' },
+              { name: 'L-Sit Pull-Up', sets: 3, reps: '5' },
+              { name: 'Ring Row', sets: 3, reps: '12', note: 'Body horizontal' },
+              { name: 'Front Lever Tuck Hold', sets: 4, reps: '10-15 sec' },
+              { name: 'Typewriter Pull-Up', sets: 3, reps: '5/side' },
+            ]},
+            { day: 3, label: 'Day 3 — Legs & Skills', exercises: [
+              { name: 'Pistol Squat', sets: 4, reps: '6/side' },
+              { name: 'Shrimp Squat', sets: 3, reps: '6/side' },
+              { name: 'Planche Lean', sets: 4, reps: '20 sec' },
+              { name: 'L-Sit Hold', sets: 4, reps: '20 sec' },
+              { name: 'Nordic Hamstring Curl', sets: 3, reps: '6' },
+            ]},
+          ]
+        }
+      },
+      { num: 3, name: 'Skills', weeks: 4, workoutsRequired: 12, startWeek: 9,
+        objective: 'Master advanced calisthenics skills', intensity: '85-95%', tempo: 'Skill-based', rest: '3 min', sets: '5 sets', reps: '3-5 / holds',
+        days: {
+          dumbbell: [
+            { day: 1, label: 'Day 1 — Handstand & Push Skills', exercises: [
+              { name: 'Freestanding Handstand', sets: 5, reps: '5-10 sec', note: 'Balance kicks to hold' },
+              { name: 'Handstand Push-Up', sets: 4, reps: '3-5', note: 'Against wall, full ROM' },
+              { name: 'Planche Lean', sets: 4, reps: '30 sec' },
+              { name: 'Ring Muscle-Up', sets: 3, reps: '3-5', note: 'False grip, pull to push transition' },
+            ]},
+            { day: 2, label: 'Day 2 — Front Lever & Pull Skills', exercises: [
+              { name: 'Front Lever Hold', sets: 5, reps: '5-10 sec', note: 'Advanced tuck progression' },
+              { name: 'Front Lever Pull', sets: 4, reps: '3-5' },
+              { name: 'One Arm Pull-Up Assist', sets: 3, reps: '5/side', note: 'Towel or band assist' },
+              { name: 'Back Lever Hold', sets: 3, reps: '5-10 sec', note: 'Tuck to straddle progression' },
+            ]},
+            { day: 3, label: 'Day 3 — Pistol & Dragon Flag', exercises: [
+              { name: 'Pistol Squat', sets: 5, reps: '5/side', note: 'Deep, controlled' },
+              { name: 'Shrimp Squat', sets: 4, reps: '5/side', note: 'Full depth' },
+              { name: 'Dragon Flag', sets: 4, reps: '5', note: 'Slow eccentric descent' },
+              { name: 'Human Flag Prep', sets: 3, reps: '5-10 sec', note: 'Push/pull on vertical pole' },
+            ]},
+          ],
+          gym: [
+            { day: 1, label: 'Day 1 — Handstand & Push Skills', exercises: [
+              { name: 'Freestanding Handstand', sets: 5, reps: '5-10 sec' },
+              { name: 'Handstand Push-Up', sets: 4, reps: '3-5' },
+              { name: 'Ring Muscle-Up', sets: 4, reps: '3-5' },
+              { name: 'Planche Lean', sets: 4, reps: '30 sec' },
+            ]},
+            { day: 2, label: 'Day 2 — Lever & Pull Skills', exercises: [
+              { name: 'Front Lever Hold', sets: 5, reps: '5-10 sec' },
+              { name: 'Front Lever Pull', sets: 4, reps: '3-5' },
+              { name: 'Back Lever Hold', sets: 3, reps: '5-10 sec' },
+              { name: 'One Arm Pull-Up Assist', sets: 3, reps: '5/side' },
+            ]},
+            { day: 3, label: 'Day 3 — Legs & Dragon Flag', exercises: [
+              { name: 'Pistol Squat', sets: 5, reps: '5/side' },
+              { name: 'Shrimp Squat', sets: 4, reps: '5/side' },
+              { name: 'Dragon Flag', sets: 4, reps: '5' },
+              { name: 'Human Flag Prep', sets: 3, reps: '10 sec' },
+            ]},
+          ]
+        }
+      }
+    ]
+  },
+  kb4a: {
+    id: 'kb4a', name: 'KB4A', shortName: 'KB4A', color: '#e67e22', totalWeeks: 12,
+    phases: [
+      { num: 1, name: 'Foundation', weeks: 4, workoutsRequired: 12, startWeek: 1,
+        objective: 'Master kettlebell fundamentals', intensity: '60-70%', tempo: '2:0:2', rest: '60-90 sec', sets: '3 sets', reps: '10-15 reps',
+        days: {
+          dumbbell: [
+            { day: 1, label: 'Day 1 — Swing & Press', exercises: [
+              { name: 'Kettlebell Swing', sets: 4, reps: '20', note: 'Hip hinge, explosive hip drive' },
+              { name: 'Kettlebell Press', sets: 3, reps: '10/side', note: 'Rack position, press overhead' },
+              { name: 'Kettlebell Goblet Squat', sets: 3, reps: '15', note: 'Elbows inside knees at bottom' },
+              { name: 'Kettlebell Windmill', sets: 3, reps: '8/side', note: 'Arm locked, eyes on bell' },
+              { name: 'Kettlebell Halo', sets: 3, reps: '10/direction', note: 'Circle around head, core tight' },
+            ]},
+            { day: 2, label: 'Day 2 — Clean & Squat', exercises: [
+              { name: 'Kettlebell Clean', sets: 4, reps: '8/side', note: 'Pull from hip, catch in rack' },
+              { name: 'Kettlebell Front Squat', sets: 4, reps: '10', note: 'Double KB rack position' },
+              { name: 'Kettlebell Deadlift', sets: 3, reps: '12', note: 'Hinge pattern' },
+              { name: 'Kettlebell Row', sets: 3, reps: '12/side', note: 'Hip hinge, pull to hip' },
+              { name: 'Kettlebell Around the World', sets: 3, reps: '10/direction' },
+            ]},
+            { day: 3, label: 'Day 3 — Full Body Flow', exercises: [
+              { name: 'Kettlebell Turkish Get-Up', sets: 3, reps: '3/side', note: 'Slow and deliberate, arm locked' },
+              { name: 'Kettlebell Swing', sets: 3, reps: '15' },
+              { name: 'Kettlebell Clean to Press', sets: 3, reps: '8/side', note: 'Combine clean and press' },
+              { name: 'Kettlebell Goblet Squat', sets: 3, reps: '12' },
+              { name: 'Kettlebell Figure 8', sets: 3, reps: '10/direction', note: 'Pass between legs in hip hinge' },
+            ]},
+          ],
+          gym: [
+            { day: 1, label: 'Day 1 — Swing & Press', exercises: [
+              { name: 'Kettlebell Swing', sets: 4, reps: '20' },
+              { name: 'Kettlebell Press', sets: 3, reps: '10/side' },
+              { name: 'Kettlebell Goblet Squat', sets: 3, reps: '15' },
+              { name: 'Kettlebell Windmill', sets: 3, reps: '8/side' },
+              { name: 'Kettlebell Halo', sets: 3, reps: '10/direction' },
+            ]},
+            { day: 2, label: 'Day 2 — Clean & Squat', exercises: [
+              { name: 'Kettlebell Clean', sets: 4, reps: '8/side' },
+              { name: 'Kettlebell Front Squat', sets: 4, reps: '10' },
+              { name: 'Kettlebell Deadlift', sets: 3, reps: '12' },
+              { name: 'Kettlebell Row', sets: 3, reps: '12/side' },
+              { name: 'Kettlebell Swing', sets: 3, reps: '15' },
+            ]},
+            { day: 3, label: 'Day 3 — Full Body Flow', exercises: [
+              { name: 'Kettlebell Turkish Get-Up', sets: 4, reps: '3/side' },
+              { name: 'Kettlebell Swing', sets: 3, reps: '20' },
+              { name: 'Kettlebell Clean to Press', sets: 3, reps: '8/side' },
+              { name: 'Kettlebell Goblet Squat', sets: 3, reps: '12' },
+              { name: 'Kettlebell Row', sets: 3, reps: '10/side' },
+            ]},
+          ]
+        }
+      },
+      { num: 2, name: 'Strength-Endurance', weeks: 4, workoutsRequired: 12, startWeek: 5,
+        objective: 'Build strength and conditioning through complexes', intensity: '70-80%', tempo: 'Smooth', rest: '30-60 sec', sets: '4 sets', reps: '8-12 reps',
+        days: {
+          dumbbell: [
+            { day: 1, label: 'Day 1 — Ballistic Power', exercises: [
+              { name: 'Kettlebell Snatch', sets: 4, reps: '8/side', note: 'Swing to overhead in one motion' },
+              { name: 'Kettlebell Single Arm Swing', sets: 4, reps: '20', note: 'Alternate at top' },
+              { name: 'Kettlebell Jump Squat', sets: 3, reps: '10', note: 'Light bell, explosive' },
+              { name: 'Kettlebell High Pull', sets: 3, reps: '12/side', note: 'Drive elbow high' },
+            ]},
+            { day: 2, label: 'Day 2 — Grind Strength', exercises: [
+              { name: 'Double Kettlebell Press', sets: 4, reps: '8', note: 'Both bells simultaneously' },
+              { name: 'Double Kettlebell Front Squat', sets: 4, reps: '8', note: 'Rack position, full depth' },
+              { name: 'Double Kettlebell Row', sets: 4, reps: '10' },
+              { name: 'Kettlebell Turkish Get-Up', sets: 3, reps: '3/side', note: 'Heavier than phase 1' },
+            ]},
+            { day: 3, label: 'Day 3 — Complex', exercises: [
+              { name: 'Kettlebell Complex', sets: 4, reps: '5/side', note: 'Swing → Clean → Press → Squat → Row' },
+              { name: 'Kettlebell Renegade Row', sets: 3, reps: '8/side', note: 'Plank, row then push-up' },
+              { name: 'Kettlebell Farmers Walk', sets: 3, reps: '40m', note: 'Heavy bells, chest tall' },
+              { name: 'Kettlebell Swing', sets: 3, reps: '30', note: 'Conditioning finisher' },
+            ]},
+          ],
+          gym: [
+            { day: 1, label: 'Day 1 — Ballistic Power', exercises: [
+              { name: 'Kettlebell Snatch', sets: 4, reps: '8/side' },
+              { name: 'Kettlebell Single Arm Swing', sets: 4, reps: '20' },
+              { name: 'Kettlebell Jump Squat', sets: 3, reps: '10' },
+              { name: 'Kettlebell High Pull', sets: 3, reps: '12/side' },
+            ]},
+            { day: 2, label: 'Day 2 — Grind Strength', exercises: [
+              { name: 'Double Kettlebell Press', sets: 4, reps: '8' },
+              { name: 'Double Kettlebell Front Squat', sets: 4, reps: '8' },
+              { name: 'Double Kettlebell Row', sets: 4, reps: '10' },
+              { name: 'Kettlebell Turkish Get-Up', sets: 3, reps: '3/side' },
+            ]},
+            { day: 3, label: 'Day 3 — Complex', exercises: [
+              { name: 'Kettlebell Complex', sets: 4, reps: '5/side' },
+              { name: 'Kettlebell Renegade Row', sets: 3, reps: '8/side' },
+              { name: 'Kettlebell Farmers Walk', sets: 3, reps: '40m' },
+              { name: 'Kettlebell Snatch', sets: 3, reps: '10/side' },
+            ]},
+          ]
+        }
+      },
+      { num: 3, name: 'Power', weeks: 4, workoutsRequired: 12, startWeek: 9,
+        objective: 'Peak athletic power output', intensity: '80-90%', tempo: 'Explosive', rest: '2 min', sets: '5 sets', reps: '4-6 reps',
+        days: {
+          dumbbell: [
+            { day: 1, label: 'Day 1 — Max Power', exercises: [
+              { name: 'Kettlebell Snatch', sets: 5, reps: '5/side', note: 'Maximum speed and power' },
+              { name: 'Kettlebell Double Swing', sets: 4, reps: '15', note: 'Two bells, maximal hip power' },
+              { name: 'Kettlebell Clean and Jerk', sets: 4, reps: '5/side', note: 'Full power chain' },
+              { name: 'Kettlebell Jump Clean', sets: 3, reps: '5/side', note: 'Explosive lower body drive' },
+            ]},
+            { day: 2, label: 'Day 2 — Max Strength', exercises: [
+              { name: 'Double Kettlebell Press', sets: 5, reps: '5', note: 'Heaviest weight' },
+              { name: 'Double Kettlebell Front Squat', sets: 5, reps: '5', note: 'Max load, deep squat' },
+              { name: 'Kettlebell Turkish Get-Up', sets: 4, reps: '3/side', note: 'Heaviest bell' },
+              { name: 'Double Kettlebell Deadlift', sets: 4, reps: '5' },
+            ]},
+            { day: 3, label: 'Day 3 — Athletic Complex', exercises: [
+              { name: 'Kettlebell Long Cycle', sets: 5, reps: '5 min', note: 'Clean & jerk for time' },
+              { name: 'Kettlebell Renegade Row', sets: 4, reps: '6/side' },
+              { name: 'Kettlebell Swing', sets: 4, reps: '25', note: 'Max speed finisher' },
+              { name: 'Kettlebell Windmill', sets: 3, reps: '5/side', note: 'Heavy windmill' },
+            ]},
+          ],
+          gym: [
+            { day: 1, label: 'Day 1 — Max Power', exercises: [
+              { name: 'Kettlebell Snatch', sets: 5, reps: '5/side' },
+              { name: 'Kettlebell Double Swing', sets: 4, reps: '15' },
+              { name: 'Kettlebell Clean and Jerk', sets: 4, reps: '5/side' },
+              { name: 'Kettlebell Jump Clean', sets: 3, reps: '5/side' },
+            ]},
+            { day: 2, label: 'Day 2 — Max Strength', exercises: [
+              { name: 'Double Kettlebell Press', sets: 5, reps: '5' },
+              { name: 'Double Kettlebell Front Squat', sets: 5, reps: '5' },
+              { name: 'Kettlebell Turkish Get-Up', sets: 4, reps: '3/side' },
+              { name: 'Double Kettlebell Deadlift', sets: 4, reps: '5' },
+            ]},
+            { day: 3, label: 'Day 3 — Athletic Complex', exercises: [
+              { name: 'Kettlebell Long Cycle', sets: 5, reps: '5 min' },
+              { name: 'Kettlebell Renegade Row', sets: 4, reps: '6/side' },
+              { name: 'Kettlebell Swing', sets: 4, reps: '25' },
+              { name: 'Kettlebell Windmill', sets: 3, reps: '5/side' },
+            ]},
+          ]
+        }
+      }
+    ]
+  }
+};
+
 // ═══════════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════════
